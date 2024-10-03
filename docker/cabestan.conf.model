@@ -1,0 +1,45 @@
+server {
+    listen       80;
+    server_name cabestan.localhost;
+    root         /home/cabestan/; 
+    
+    access_log /home/cabestan/log/cabestan_access.log;
+    error_log /home/cabestan/log/cabestan_error.log debug;
+
+    # Static, media et la favicon sont servies directement par nginx
+    location /static/ {
+    }
+
+    location /media/ {
+    }
+
+    location /favicon.ico {
+    }
+
+    # Tout le reste géré par Django
+    location / {
+        proxy_read_timeout 600;
+        proxy_redirect off; 
+
+        proxy_pass http://127.0.0.1:8000;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header Host $http_host;
+        add_header Cache-Control private;
+     }
+
+    error_page 404 /404.html;
+        location = /static/404.html {
+    }
+
+    error_page 503 /503.html;
+      location = /static/503.html {
+    }
+
+    error_page 502 /502.html;
+      location = /static/502.html {
+    }
+
+    error_page 500 502 504 /50x.html;
+        location = /50x.html {
+    }
+}

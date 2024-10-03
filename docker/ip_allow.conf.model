@@ -1,0 +1,13 @@
+allow 127.0.0.1/32; # Localhost
+allow 172.16.0.0/12; # IP possibles docker
+allow 95.172.90.170; # ExLibris
+allow 216.147.218.129; # ExLibris ?
+allow 192.168.252.0/24; # Reseau pro local
+allow 192.168.201.0/24; # VPN UDP
+allow 192.168.202.0/24; # VPN TCP
+allow 193.48.70.0/24; # Control Acces
+allow 81.57.63.146; # Delphine
+allow 37.164.98.51; # Test Free 4G
+allow 78.193.157.37; # Laurent
+allow 194.199.130.0/24; # BSB
+deny all; 

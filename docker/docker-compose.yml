@@ -1,0 +1,97 @@
+services:
+  cabestan:
+    image: cabestan
+    restart: always
+    build:
+      context: .
+      dockerfile: cabestan_dockerfile
+      args:
+        - CABESTAN_ENV=${CABESTAN_ENV}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+    environment:
+      - CABESTAN_ENV=${CABESTAN_ENV}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WORK_DIR=/home/cabestan/
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - SECRET_KEY=${SECRET_KEY}
+    tmpfs:
+     - /run/nginx:uid=${USER_ID},gid=${GROUP_ID}
+    volumes:
+      - ${WORK_DIR}/app:/home/cabestan
+      - ${WORK_DIR}/docker/ip_allow.conf:/etc/nginx/ip_allow.conf
+      - ${WORK_DIR}/docker/htpasswd:/etc/nginx/htpasswd
+      - ${WORK_DIR}/docker/nginx.conf:/etc/nginx/nginx.conf
+      - ${WORK_DIR}/docker/cabestan.conf:/etc/nginx/sites-enabled/default
+      - ${CERTIFICATES_PATH}/certificate.crt:/etc/nginx/ssl/certificate.pem
+      - ${CERTIFICATES_PATH}/certificate.key:/etc/nginx/ssl/certificate.key
+    labels:
+      # Enable this container to be mapped by traefik
+      # For more information, see: https://docs.traefik.io/providers/docker/#exposedbydefault
+      - "traefik.enable=true"
+      # Define the network that should be used
+      - "traefik.docker.network=proxy-network"
+      # URL to reach this container
+      # - "traefik.http.routers.viverrin.rule=${TRAEFIK_HOST}"
+      - "traefik.http.routers.cabestan.rule=${TRAEFIK_HOST}"
+      # Activation of TLS
+      - "traefik.http.routers.cabestan.tls=true"
+      # If port is different than 80, use the following service:
+      - "traefik.port=80"
+      - "traefik.http.services.cabestan.loadbalancer.server.port=80"
+      # Doesn't work for now since whole app is under auth
+      # - "traefik.http.routers.cabestan.middlewares=cabestan-auth"
+      # - "traefik.http.middlewares.cabestan-auth.basicauth.usersfile=/etc/traefik/htpasswd/cabestan"
+    ports:
+      - ${HTTP_PORT}:8080
+      - ${HTTPS_PORT}:8443
+    depends_on:
+      db_pg:
+        condition: service_healthy
+    container_name: ${COMPOSE_PROJECT_NAME}_web
+    networks:
+      - psql-cabestan
+      - redis-cabestan
+      - proxy-network
+
+  redis:
+    image: redis
+    restart: always
+    container_name: ${COMPOSE_PROJECT_NAME}_redis
+    networks:
+      - redis-cabestan
+
+  db_pg:
+    build:
+      context: .
+      dockerfile: pg_dockerfile
+    restart: always
+    container_name: ${COMPOSE_PROJECT_NAME}_db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    shm_size: 1g 
+    volumes:
+      - ${VOLUME_PGDATA}:/var/lib/postgresql/data/ # persist data even if container shuts down
+    ports:
+      - ${DB_PORT}:5432
+    healthcheck:
+      test: pg_isready -U ${DB_USER} -d ${DB_NAME}
+      interval: 10s
+      timeout: 3s
+      start_period: 3s
+      retries: 3
+    networks:
+      - psql-cabestan
+
+networks:
+  redis-cabestan:
+    driver: bridge
+  psql-cabestan:
+    driver: bridge
+    name: psql-cabestan
+  proxy-network:
+    external: true
+    name: proxy-network

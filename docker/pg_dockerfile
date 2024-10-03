@@ -1,0 +1,16 @@
+FROM postgres:16-bookworm
+
+ARG USER_ID
+ARG GROUP_ID
+
+RUN apt-get update -yq && apt-get upgrade -yq
+RUN apt-get install -y locales
+
+RUN sed -i 's/^# *\(fr_FR.UTF-8\)/\1/' /etc/locale.gen
+RUN locale-gen --purge LC_ALL="fr_FR.UTF-8" LANG="fr_FR.UTF-8" LANGUAGE="fr_FR.UTF-8"
+ENV LC_ALL=fr_FR.UTF-8
+ENV LANG=fr_FR.UTF-8
+ENV LANGUAGE=fr_FR.UTF-8
+RUN dpkg-reconfigure --frontend noninteractive locales
+
+COPY init.sql /docker-entrypoint-initdb.d/
