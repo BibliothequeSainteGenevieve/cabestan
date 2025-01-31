@@ -73,7 +73,7 @@ services:
       context: ../client
       dockerfile: ../docker/client_dockerfile
     ports:
-      - "8080:8080"
+      - "5173:5173"
     restart: no
     volumes:
       - ../client:/app

@@ -3,6 +3,7 @@ app/.cache
 app/.bash_history
 app/.python_history
 __pycache__/
+client/node_modules
 docker/.env
 docker/nginx.conf
 docker/cabestan.conf
