@@ -4,7 +4,7 @@ services:
     restart: always
     build:
       context: ../app
-      dockerfile: ../docker/cabestan_dockerfile
+      dockerfile: ../docker/cabestan/cabestan_dockerfile
       args:
         - CABESTAN_ENV=${CABESTAN_ENV}
         - USER_ID=${USER_ID}
@@ -36,7 +36,7 @@ services:
   db_pg:
     build:
       context: .
-      dockerfile: pg_dockerfile
+      dockerfile: postgres/pg_dockerfile
     restart: always
     container_name: ${COMPOSE_PROJECT_NAME}_db
     environment:
@@ -57,7 +57,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: nginx_dockerfile
+      dockerfile: nginx/nginx_dockerfile
     ports:
       - "80:80"
     depends_on:
@@ -71,10 +71,35 @@ services:
   client:
     build:
       context: ../client
-      dockerfile: ../docker/client_dockerfile
+      dockerfile: ../docker/client/client_dockerfile
     ports:
       - "5173:5173"
     restart: no
     volumes:
       - ../client:/app
       - /app/node_modules/
+
+  #cabestan-scraper:
+  #  restart: always
+  #  build:
+  #    context: ../app
+  #    dockerfile: ../docker/cron/cabestan_scraper_dockerfile
+  #    args:
+  #      - CABESTAN_ENV=${CABESTAN_ENV}
+  #      - USER_ID=${USER_ID}
+  #      - GROUP_ID=${GROUP_ID}
+  #      - HTTP_PORT=${HTTP_PORT}
+  #  environment:
+  #    - CABESTAN_ENV=${CABESTAN_ENV}
+  #    - DB_NAME=${DB_NAME}
+  #    - DB_USER=${DB_USER}
+  #    - DB_PASSWORD=${DB_PASSWORD}
+  #    - WORK_DIR=/home/cabestan/
+  #    - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+  #    - SECRET_KEY=${SECRET_KEY}
+  #  volumes:
+  #    - ../app:/home/cabestan/app/
+  #  depends_on:
+  #    db_pg:
+  #      condition: service_healthy
+  #  container_name: ${COMPOSE_PROJECT_NAME}_scraper_web

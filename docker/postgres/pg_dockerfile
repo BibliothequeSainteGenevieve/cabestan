@@ -13,4 +13,4 @@ ENV LANG=fr_FR.UTF-8
 ENV LANGUAGE=fr_FR.UTF-8
 RUN dpkg-reconfigure --frontend noninteractive locales
 
-COPY init.sql /docker-entrypoint-initdb.d/
+COPY postgres/init.sql /docker-entrypoint-initdb.d/
