@@ -79,27 +79,27 @@ services:
       - ../client:/app
       - /app/node_modules/
 
-  #cabestan-scraper:
-  #  restart: always
-  #  build:
-  #    context: ../app
-  #    dockerfile: ../docker/cron/cabestan_scraper_dockerfile
-  #    args:
-  #      - CABESTAN_ENV=${CABESTAN_ENV}
-  #      - USER_ID=${USER_ID}
-  #      - GROUP_ID=${GROUP_ID}
-  #      - HTTP_PORT=${HTTP_PORT}
-  #  environment:
-  #    - CABESTAN_ENV=${CABESTAN_ENV}
-  #    - DB_NAME=${DB_NAME}
-  #    - DB_USER=${DB_USER}
-  #    - DB_PASSWORD=${DB_PASSWORD}
-  #    - WORK_DIR=/home/cabestan/
-  #    - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-  #    - SECRET_KEY=${SECRET_KEY}
-  #  volumes:
-  #    - ../app:/home/cabestan/app/
-  #  depends_on:
-  #    db_pg:
-  #      condition: service_healthy
-  #  container_name: ${COMPOSE_PROJECT_NAME}_scraper_web
+  cabestan-scraper:
+    restart: always
+    build:
+      context: ../app
+      dockerfile: ../docker/cron/cabestan_scraper_dockerfile
+      args:
+        - CABESTAN_ENV=${CABESTAN_ENV}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+        - HTTP_PORT=${HTTP_PORT}
+    environment:
+      - CABESTAN_ENV=${CABESTAN_ENV}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WORK_DIR=/home/cabestan/
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - ../app:/home/cabestan/app/
+    depends_on:
+      db_pg:
+        condition: service_healthy
+    container_name: ${COMPOSE_PROJECT_NAME}_scraper_web
