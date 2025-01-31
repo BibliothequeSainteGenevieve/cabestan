@@ -8,5 +8,5 @@ RUN useradd -r -u ${USER_ID} -g ${GROUP_ID} -m cabestan
 COPY requirements.txt /requirements.txt
 RUN python -m pip install -r /requirements.txt
 USER cabestan
-WORKDIR /home/cabestan
+WORKDIR /home/cabestan/app
 CMD python manage.py runserver 0.0.0.0:8080

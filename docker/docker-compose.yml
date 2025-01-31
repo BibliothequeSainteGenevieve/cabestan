@@ -3,8 +3,8 @@ services:
     image: cabestan
     restart: always
     build:
-      context: .
-      dockerfile: cabestan_dockerfile
+      context: ../app
+      dockerfile: ../docker/cabestan_dockerfile
       args:
         - CABESTAN_ENV=${CABESTAN_ENV}
         - USER_ID=${USER_ID}
@@ -18,10 +18,8 @@ services:
       - WORK_DIR=/home/cabestan/
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - SECRET_KEY=${SECRET_KEY}
-    tmpfs:
-      - /run/nginx:uid=${USER_ID},gid=${GROUP_ID}
     volumes:
-      - ${WORK_DIR}/app:/home/cabestan
+      - ../app:/home/cabestan/app/
     ports:
       - ${HTTP_PORT}:8080
       - ${HTTPS_PORT}:8443
@@ -69,3 +67,14 @@ services:
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - HTTP_PORT=${HTTP_PORT}
       - HOST=${HOST}
+
+  client:
+    build:
+      context: ../client
+      dockerfile: ../docker/client_dockerfile
+    ports:
+      - "8080:8080"
+    restart: no
+    volumes:
+      - ../client:/app
+      - /app/node_modules/
