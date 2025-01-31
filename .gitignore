@@ -8,3 +8,6 @@ docker/nginx.conf
 docker/cabestan.conf
 docker/ip_allow.conf
 app/media/*
+
+# For developers who like to have a tmp folder inside project
+tmp

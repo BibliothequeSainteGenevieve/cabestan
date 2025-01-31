@@ -36,8 +36,8 @@ class SudocQuery(models.Model):
     @staticmethod
     def get_values(attr, value):
         field = SudocQuery._meta.get_field(attr)
-        logger.debug(field)
-        logger.debug(value)
+        logger.debug(f"get values field : {field}")
+        logger.debug(f"get values value {value}")
         if field.get_internal_type() == 'ForeignKey':
             # If field is a foreign key
             # If value has not been filled, take all possible values
@@ -48,7 +48,7 @@ class SudocQuery(models.Model):
                 stripped_options = [i.strip() for i in value.split(',')]
                 result = field.related_model.objects.filter(**{f"{field.remote_field.field_name}__in": stripped_options})
                 if not result.exists():
-                    logger.warning(field.related_model.__name__)
+                    logger.warning(f"field.related_model.__name__ : {field.related_model.__name__}")
                     raise field.related_model.DoesNotExist
                 return list(result)
         elif value is not None:
@@ -56,7 +56,7 @@ class SudocQuery(models.Model):
 
     @staticmethod
     def get_from_sudoc(url, criterias, result):
-        logger.debug(url)
+        logger.debug(f"get from sudoc : {url}")
         req = rq.get(url)
         root_sudoc = et.fromstring(req.content)
         child = root_sudoc.find("{http://www.loc.gov/zing/srw/}numberOfRecords")

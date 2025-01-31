@@ -1,10 +1,7 @@
 server {
     listen       80;
-    server_name cabestan.localhost;
+    server_name  '${HOST}';
     root         /home/cabestan/; 
-    
-    access_log /home/cabestan/log/cabestan_access.log;
-    error_log /home/cabestan/log/cabestan_error.log debug;
 
     # Static, media et la favicon sont servies directement par nginx
     location /static/ {
@@ -21,10 +18,10 @@ server {
         proxy_read_timeout 600;
         proxy_redirect off; 
 
-        proxy_pass http://127.0.0.1:8000;
-        proxy_set_header X-Forwarded-For $remote_addr;
-        proxy_set_header Host $http_host;
-        add_header Cache-Control private;
+        proxy_pass http://cabestan:${HTTP_PORT};
+        #proxy_set_header X-Forwarded-For $remote_addr;
+        #proxy_set_header Host $http_host;
+        #add_header Cache-Control private;
      }
 
     error_page 404 /404.html;
