@@ -37,9 +37,9 @@ jobs:
         continue-on-error: true
         working-directory: ./docker
       - name: stop docker
-        run: docker compose down
+        run: docker compose -f docker-compose.staging.yml down
         continue-on-error: true
         working-directory: ./docker
       - name: relauch docker
-        run: docker compose up --build --force-recreate -d
+        run: docker compose -f docker-compose.staging.yml --build --force-recreate -d
         working-directory: ./docker
