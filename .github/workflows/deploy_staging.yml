@@ -43,3 +43,11 @@ jobs:
       - name: relauch docker
         run: docker compose -f docker-compose.staging.yml --build --force-recreate -d
         working-directory: ./docker
+      - name: install dependancies client
+        run: npm install
+        working-directory: ./client
+      - name: build client
+        run: npm run build
+        working-directory: ./client
+      - name: copy clien build
+        run: cp -R dist/* ../cabestan/static/
