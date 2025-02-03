@@ -51,3 +51,4 @@ jobs:
         working-directory: ./client
       - name: copy clien build
         run: cp -R dist/* ../cabestan/static/
+        working-directory: ./client
