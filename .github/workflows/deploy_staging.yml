@@ -27,6 +27,7 @@ env:
   SECRET_KEY: ${{vars.SECRET_KEY}}
 jobs:
   deploy_staging:
+    environment: staging
     runs-on: [self-hosted, staging, cabestan]
     steps:
       - name: Check out repository code
