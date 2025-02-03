@@ -1,17 +1,7 @@
 server {
     listen       80;
     server_name  '${HOST}';
-    root         /home/cabestan/; 
-
-    # Static, media et la favicon sont servies directement par nginx
-    location /static/ {
-    }
-
-    location /media/ {
-    }
-
-    location /favicon.ico {
-    }
+    root         /home/cabestan/;     
 
     # Tout le reste géré par Django
     location / {
