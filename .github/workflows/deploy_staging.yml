@@ -50,5 +50,5 @@ jobs:
         run: npm run build
         working-directory: ./client
       - name: copy clien build
-        run: cp -R dist/* ../cabestan/static/
+        run: cp -R dist/* ../app/static/
         working-directory: ./client
