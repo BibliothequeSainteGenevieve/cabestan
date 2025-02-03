@@ -41,5 +41,5 @@ jobs:
         continue-on-error: true
         working-directory: ./docker
       - name: relauch docker
-        run: docker compose up --build -d
+        run: docker compose up --build --force-recreate -d
         working-directory: ./docker
