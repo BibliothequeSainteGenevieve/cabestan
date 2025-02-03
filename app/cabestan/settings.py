@@ -35,7 +35,7 @@ CSRF_TRUSTED_ORIGINS = [f"https://{i}" for i in ALLOWED_HOSTS] + [
     f"http://{i}" for i in ALLOWED_HOSTS
 ]
 
-CABESTAN_ENV_LIST = ["PROD", "DEV"]
+CABESTAN_ENV_LIST = ["PROD", "STAGING","DEV"]
 CABESTAN_ENV = "PROD"
 
 if "CABESTAN_ENV" in os.environ:
