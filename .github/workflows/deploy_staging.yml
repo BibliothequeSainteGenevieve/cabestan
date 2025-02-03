@@ -5,29 +5,29 @@ on:
     branches:
       - develop
       - "ops/initiate-ci"
+env:
+  COMPOSE_PROJECT_NAME: ${{vars.COMPOSE_PROJECT_NAME}}
+  DJANGO_SUPERUSER_USERNAME: ${{vars.DJANGO_SUPERUSER_USERNAME}}
+  DJANGO_SUPERUSER_EMAIL: ${{vars.DJANGO_SUPERUSER_EMAIL}}
+  DJANGO_SUPERUSER_PASSWORD: ${{vars.DJANGO_SUPERUSER_PASSWORD}}
+  VOLUME_PGDATA: ${{vars.VOLUME_PGDATA}}
+  DB_NAME: ${{vars.DB_NAME}}
+  DB_USER: ${{vars.DB_USER}}
+  DB_PASSWORD: ${{vars.DB_PASSWORD}}
+  DB_PORT: ${{vars.DB_PORT}}
+  USER_ID: ${{vars.USER_ID}}
+  GROUP_ID: ${{vars.GROUP_ID}}
+  CABESTAN_ENV: ${{vars.CABESTAN_ENV}}
+  WORK_DIR: ${{vars.WORK_DIR}}
+  ALLOWED_HOSTS: ${{vars.ALLOWED_HOSTS}}
+  HOST: ${{vars.HOST}}
+  CERTIFICATES_PATH: ${{vars.CERTIFICATES_PATH}}
+  HTTP_PORT: ${{vars.HTTP_PORT}}
+  HTTPS_PORT: ${{vars.HTTPS_PORT}}
+  SECRET_KEY: ${{vars.SECRET_KEY}}
 jobs:
   deploy_staging:
-    runs-on: ubuntu-latest
-    env:
-      COMPOSE_PROJECT_NAME: ${{vars.COMPOSE_PROJECT_NAME}}
-      DJANGO_SUPERUSER_USERNAME: ${{vars.DJANGO_SUPERUSER_USERNAME}}
-      DJANGO_SUPERUSER_EMAIL: ${{vars.DJANGO_SUPERUSER_EMAIL}}
-      DJANGO_SUPERUSER_PASSWORD: ${{vars.DJANGO_SUPERUSER_PASSWORD}}
-      VOLUME_PGDATA: ${{vars.VOLUME_PGDATA}}
-      DB_NAME: ${{vars.DB_NAME}}
-      DB_USER: ${{vars.DB_USER}}
-      DB_PASSWORD: ${{vars.DB_PASSWORD}}
-      DB_PORT: ${{vars.DB_PORT}}
-      USER_ID: ${{vars.USER_ID}}
-      GROUP_ID: ${{vars.GROUP_ID}}
-      CABESTAN_ENV: ${{vars.CABESTAN_ENV}}
-      WORK_DIR: ${{vars.WORK_DIR}}
-      ALLOWED_HOSTS: ${{vars.ALLOWED_HOSTS}}
-      HOST: ${{vars.HOST}}
-      CERTIFICATES_PATH: ${{vars.CERTIFICATES_PATH}}
-      HTTP_PORT: ${{vars.HTTP_PORT}}
-      HTTPS_PORT: ${{vars.HTTPS_PORT}}
-      SECRET_KEY: ${{vars.SECRET_KEY}}
+    runs-on: [self-hosted, staging, cabestan]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
