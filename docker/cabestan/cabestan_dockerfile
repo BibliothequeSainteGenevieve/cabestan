@@ -13,4 +13,6 @@ RUN python -m pip install -r /requirements.txt
 USER cabestan
 WORKDIR /home/cabestan/app
 
+RUN chown -R cabestan:cabestan *
+
 CMD ["/bin/bash","/entrypoint.sh"]
