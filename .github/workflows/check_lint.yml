@@ -1,0 +1,31 @@
+name: Check lint
+run-name: Check lint
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+jobs:
+  check_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install client
+        working-directory: ./client
+        run: npm install
+      - name: Lint react
+        working-directory: ./client
+        run: npm run lint
+      - name: Set up Python environment
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: flake8 Lint
+        uses: py-actions/flake8@v2
+        with:
+          ignore: E302,E203
+          max-line-length: 150
+          exclude: client/*
