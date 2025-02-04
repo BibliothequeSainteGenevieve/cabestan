@@ -22,8 +22,8 @@ env:
   ALLOWED_HOSTS: ${{vars.ALLOWED_HOSTS}}
   HOST: ${{vars.HOST}}
   CERTIFICATES_PATH: ${{vars.CERTIFICATES_PATH}}
-  HTTP_PORT: ${{vars.HTTP_PORT}}
-  HTTPS_PORT: ${{vars.HTTPS_PORT}}
+  DJANGO_HTTP_PORT: ${{vars.DJANGO_HTTP_PORT}}
+  DJANGO_HTTPS_PORT: ${{vars.DJANGO_HTTPS_PORT}}
   SECRET_KEY: ${{vars.SECRET_KEY}}
 jobs:
   deploy_staging:
