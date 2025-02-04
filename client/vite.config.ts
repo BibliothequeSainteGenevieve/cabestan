@@ -8,6 +8,9 @@ export default defineConfig({
   server: {		
 		allowedHosts: ['servogne.com']
   },
+  build: {
+    outDir: './pouet'
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

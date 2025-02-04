@@ -49,6 +49,9 @@ jobs:
       - name: build client
         run: npm run build
         working-directory: ./client
+      - name: create dist folder
+        run: mkdir -p ../docker/nginx/client-dist
+        working-directory: ./client
       - name: copy clien build
-        run: cp -R dist/* /var/www/html/
+        run: cp -R dist/* ../docker/nginx/client-dist/
         working-directory: ./client
