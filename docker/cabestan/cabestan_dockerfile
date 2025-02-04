@@ -2,7 +2,7 @@ FROM python:3.11-bookworm
 ARG CABESTAN_ENV
 ARG USER_ID
 ARG GROUP_ID
-ARG HTTP_PORT
+ARG DJANGO_HTTP_PORT
 COPY requirements.txt /requirements.txt
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

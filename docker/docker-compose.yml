@@ -9,7 +9,7 @@ services:
         - CABESTAN_ENV=${CABESTAN_ENV}
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
-        - HTTP_PORT=${HTTP_PORT}
+        - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
     environment:
       - CABESTAN_ENV=${CABESTAN_ENV}
       - DB_NAME=${DB_NAME}
@@ -24,8 +24,8 @@ services:
     volumes:
       - ../app:/home/cabestan/app/
     ports:
-      - ${HTTP_PORT}:8080
-      - ${HTTPS_PORT}:8443
+      - ${DJANGO_HTTP_PORT}:8080
+      - ${DJANGO_HTTPS_PORT}:8443
     depends_on:
       db_pg:
         condition: service_healthy
@@ -68,7 +68,7 @@ services:
     restart: always
     environment:
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - HTTP_PORT=${HTTP_PORT}
+      - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
       - HOST=${HOST}
 
   client:
@@ -76,7 +76,7 @@ services:
       context: ../client
       dockerfile: ../docker/client/client_dockerfile
     ports:
-      - "5173:5173"
+      - "${DJANGO_HTTP_PORT}:${DJANGO_HTTP_PORT}"
     restart: no
     volumes:
       - ../client:/app
@@ -91,7 +91,7 @@ services:
         - CABESTAN_ENV=${CABESTAN_ENV}
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
-        - HTTP_PORT=${HTTP_PORT}
+        - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
     environment:
       - CABESTAN_ENV=${CABESTAN_ENV}
       - DB_NAME=${DB_NAME}
@@ -114,6 +114,12 @@ services:
       - ./wiremock/__files:/home/wiremock/__files
       - ./wiremock/mappings:/home/wiremock/mappings
     command: ["--port=8082"]
-    entrypoint: ["/docker-entrypoint.sh", "--global-response-templating", "--disable-gzip", "--verbose"]
+    entrypoint:
+      [
+        "/docker-entrypoint.sh",
+        "--global-response-templating",
+        "--disable-gzip",
+        "--verbose",
+      ]
     ports:
       - "8082:8082"
