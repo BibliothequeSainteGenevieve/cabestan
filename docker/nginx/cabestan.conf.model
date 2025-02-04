@@ -1,18 +1,25 @@
 server {
     listen       80;
-    server_name  'backend.${HOST}';
-    root         /home/cabestan/;     
+    server_name  '${HOST}';
+    root         /var/www/html/;    
 
     # Tout le reste géré par Django
-    location / {
+    location /api {
         proxy_read_timeout 600;
         proxy_redirect off; 
+        proxy_pass http://cabestan:${DJANGO_HTTP_PORT};        
+    }
 
+     # Tout le reste géré par Django
+    location /admin {
+        proxy_read_timeout 600;
+        proxy_redirect off;
         proxy_pass http://cabestan:${DJANGO_HTTP_PORT};
-        #proxy_set_header X-Forwarded-For $remote_addr;
-        #proxy_set_header Host $http_host;
-        #add_header Cache-Control private;
-     }
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
 
     error_page 404 /404.html;
         location = /static/404.html {
