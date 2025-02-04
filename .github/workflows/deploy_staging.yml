@@ -55,3 +55,6 @@ jobs:
       - name: copy clien build
         run: cp -R dist/* ../docker/nginx/client-dist/
         working-directory: ./client
+      - name: relauch docker
+        run: docker compose -f docker-compose.staging.yml up --build --force-recreate -d
+        working-directory: ./docker

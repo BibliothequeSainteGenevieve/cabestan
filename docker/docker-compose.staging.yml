@@ -71,7 +71,7 @@ services:
       - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
       - HOST=${HOST}
     volumes:
-      - ./client-dist:/var/www/html
+      - ./nginx/client-dist:/var/www/html
 
   cabestan-scraper:
     restart: always

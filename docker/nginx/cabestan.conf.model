@@ -1,7 +1,8 @@
 server {
     listen       80;
     server_name  '${HOST}';
-    root         /var/www/html/;    
+    root         /var/www/html/;
+    index        index.html;
 
     # Tout le reste géré par Django
     location /api {
