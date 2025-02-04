@@ -1,3 +1,6 @@
 {
-  "title": "Vite + React"
+  "header": {
+    "title": "Cabestan",
+    "subtitle": "L'outil de recherche"
+  }
 }
