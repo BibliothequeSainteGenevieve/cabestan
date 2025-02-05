@@ -73,7 +73,7 @@ services:
       - HOST=${HOST}
     volumes:
       - ./nginx/certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
+      - ./nginx/certbot/conf/:/etc/nginx/ssl/:ro
       - ./nginx/cabestan.conf.staging.model:/cabestan.conf.template
 
   certbot:
