@@ -1,2 +1,2 @@
 FROM nginx:1.27.3-alpine
-CMD ["/bin/sh" , "-c" , "envsubst '$DJANGO_HTTP_PORT' < /cabestan.conf.template > /etc/nginx/conf.d/cabestan.conf && exec nginx -g 'daemon off;'"]
+CMD ["/bin/sh" , "-c" , "envsubst '$DJANGO_HTTP_PORT, $HOST' < /cabestan.conf.template > /etc/nginx/conf.d/cabestan.conf &&  exec nginx -g 'daemon off;'"]
