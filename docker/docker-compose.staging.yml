@@ -83,7 +83,7 @@ services:
     volumes:
       - ./nginx/certbot/www/:/var/www/certbot/:rw
       - ./nginx/certbot/conf/:/etc/letsencrypt/:rw
-    entrypoint: "/bin/sh -c 'if [ ! -d /etc/letsencrypt/live ]; then certbot certonly --email colin.boulanger@thetribe.io --agree-tos --no-eff-email --webroot --webroot-path /var/www/certbot/ -d $HOST; fi'"
+    entrypoint: "/bin/sh -c 'if [ ! -d /etc/letsencrypt/live ]; then certbot certonly -v --email colin.boulanger@thetribe.io --agree-tos --no-eff-email --webroot --webroot-path /var/www/certbot/ -d $HOST; fi'"
 
   cabestan-scraper:
     restart: always
