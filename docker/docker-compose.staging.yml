@@ -77,6 +77,8 @@ services:
       - ./nginx/cabestan.conf.staging.model:/cabestan.conf.template
 
   certbot:
+    depends_on:
+      - cabestan
     environment:
       - HOST=${HOST}
     image: certbot/certbot:latest
