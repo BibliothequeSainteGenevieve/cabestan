@@ -1,0 +1,57 @@
+name: Deploy Cabestan staging
+run-name: Deploy Cabestan staging
+on:
+  push:
+    branches:
+      - develop
+      - "ops/initiate-ci"
+env:
+  COMPOSE_PROJECT_NAME: ${{vars.COMPOSE_PROJECT_NAME}}
+  DJANGO_SUPERUSER_USERNAME: ${{vars.DJANGO_SUPERUSER_USERNAME}}
+  DJANGO_SUPERUSER_EMAIL: ${{vars.DJANGO_SUPERUSER_EMAIL}}
+  DJANGO_SUPERUSER_PASSWORD: ${{vars.DJANGO_SUPERUSER_PASSWORD}}
+  VOLUME_PGDATA: ${{vars.VOLUME_PGDATA}}
+  DB_NAME: ${{vars.DB_NAME}}
+  DB_USER: ${{vars.DB_USER}}
+  DB_PASSWORD: ${{vars.DB_PASSWORD}}
+  DB_PORT: ${{vars.DB_PORT}}
+  USER_ID: ${{vars.USER_ID}}
+  GROUP_ID: ${{vars.GROUP_ID}}
+  CABESTAN_ENV: ${{vars.CABESTAN_ENV}}
+  WORK_DIR: ${{vars.WORK_DIR}}
+  ALLOWED_HOSTS: ${{vars.ALLOWED_HOSTS}}
+  HOST: ${{vars.HOST}}
+  CERTIFICATES_PATH: ${{vars.CERTIFICATES_PATH}}
+  DJANGO_HTTP_PORT: ${{vars.DJANGO_HTTP_PORT}}
+  DJANGO_HTTPS_PORT: ${{vars.DJANGO_HTTPS_PORT}}
+  SECRET_KEY: ${{vars.SECRET_KEY}}
+jobs:
+  deploy_staging:
+    environment: staging
+    runs-on: [self-hosted, staging, cabestan]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: list env
+        run: env
+        continue-on-error: true
+        working-directory: ./docker
+      - name: stop docker
+        run: docker compose -f docker-compose.staging.yml down
+        continue-on-error: true
+        working-directory: ./docker
+      - name: install dependancies client
+        run: npm install
+        working-directory: ./client
+      - name: build client
+        run: npm run build
+        working-directory: ./client
+      - name: create dist folder
+        run: mkdir -p ../docker/nginx/client-dist
+        working-directory: ./client
+      - name: copy clien build
+        run: cp -R dist/* ../docker/nginx/client-dist/
+        working-directory: ./client
+      - name: relauch docker
+        run: docker compose -f docker-compose.staging.yml up --build --force-recreate -d
+        working-directory: ./docker
