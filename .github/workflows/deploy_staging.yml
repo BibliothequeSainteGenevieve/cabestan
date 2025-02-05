@@ -40,9 +40,6 @@ jobs:
         run: docker compose -f docker-compose.staging.yml down
         continue-on-error: true
         working-directory: ./docker
-      - name: relauch docker
-        run: docker compose -f docker-compose.staging.yml --build --force-recreate -d
-        working-directory: ./docker
       - name: install dependancies client
         run: npm install
         working-directory: ./client
