@@ -72,20 +72,8 @@ services:
       - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
       - HOST=${HOST}
     volumes:
-      - ./nginx/certbot/www:/var/www/certbot/:ro
-      - ./nginx/certbot/conf/:/etc/nginx/ssl/:ro
+      - ${CERTIFICATES_PATH}:/etc/nginx/ssl/:ro
       - ./nginx/cabestan.conf.staging.model:/cabestan.conf.template
-
-  certbot:
-    depends_on:
-      - cabestan
-    environment:
-      - HOST=${HOST}
-    image: certbot/certbot:latest
-    volumes:
-      - ./nginx/certbot/www/:/var/www/certbot/:rw
-      - ./nginx/certbot/conf/:/etc/letsencrypt/:rw
-    entrypoint: "/bin/sh -c 'if [ ! -d /etc/letsencrypt/live ]; then certbot certonly -v --email colin.boulanger@thetribe.io --agree-tos --no-eff-email --webroot --webroot-path /var/www/certbot/ -d $HOST; fi'"
 
   cabestan-scraper:
     restart: always
