@@ -149,6 +149,7 @@ services:
         "--global-response-templating",
         "--disable-gzip",
         "--verbose",
+        "--enable-stub-cors",
       ]
     ports:
       - "8082:8082"

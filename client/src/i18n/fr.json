@@ -1,6 +1,59 @@
 {
-  "header": {
-    "title": "Cabestan",
-    "subtitle": "L'outil de recherche"
-  }
+	"header": {
+		"title": "Cabestan",
+		"subtitle": "L'outil de recherche"
+	},
+	"search": {
+		"combobox": {
+			"empty": "Pas de résultat",
+			"reset": "Supprimer"
+		},
+		"establishementsTypes": {
+			"placeholder": "Type d'établissement"
+		},
+		"booksTypes": {
+			"placeholder": "Type de livre"
+		},
+		"languages": {
+			"placeholder": "Langue"
+		},
+		"title": "Rechercher",
+		"placeholder": "Tapez votre recherche ici..."
+	},
+	"filters": {
+		"languages": {
+			"placeholder": "Langue",
+			"options": {
+				"fr": "Français",
+				"en": "Anglais",
+				"es": "Espagnol",
+				"de": "Allemand",
+				"it": "Italien",
+				"pt": "Portugais",
+				"nl": "Néerlandais",
+				"ar": "Arabe",
+				"zh": "Chinois",
+				"ja": "Japonais",
+				"ko": "Coréen",
+				"ru": "Russe",
+				"tr": "Turc",
+				"hi": "Hindi"
+			}
+		},
+		"establishementsTypes": {
+			"placeholder": "Type d'établissement",
+			"options": {
+				"public": "Accès public",
+				"private": "Accès privé"
+			}
+		},
+		"booksTypes": {
+			"placeholder": "Type de livre",
+			"options": {
+				"book": "Livre",
+				"magazine": "Magazine",
+				"newspaper": "Journal"
+			}
+		}
+	}
 }
