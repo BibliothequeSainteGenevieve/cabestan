@@ -1,0 +1,82 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/client-config",
+    "headers": {}
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "jsonBody": {
+      "pagination": {
+        "totalResults": 150,
+        "currentPage": 1,
+        "itemsPerPage": 20
+      },
+      "items": [
+        {
+          "rcr": "751052103",
+          "name": "Bibliothèque Nationale de France",
+          "numberOfDocuments": 1500000,
+          "position": 1
+        },
+        {
+          "rcr": "690125201",
+          "name": "Bibliothèque Municipale de Lyon Part-Dieu",
+          "numberOfDocuments": 750000,
+          "position": 2
+        },
+        {
+          "rcr": "670832301",
+          "name": "Bibliothèque Nationale Universitaire de Strasbourg",
+          "numberOfDocuments": 420000,
+          "position": 3
+        },
+        {
+          "rcr": "350822102",
+          "name": "Bibliothèque Rennes Métropole",
+          "numberOfDocuments": 320000,
+          "position": 4
+        },
+        {
+          "rcr": "590825501",
+          "name": "Bibliothèque Municipale de Lille",
+          "numberOfDocuments": 290000,
+          "position": 5
+        },
+        {
+          "rcr": "310555201",
+          "name": "Médiathèque José Cabanis",
+          "numberOfDocuments": 280000,
+          "position": 6
+        },
+        {
+          "rcr": "130555201",
+          "name": "Bibliothèque Universitaire de Marseille",
+          "numberOfDocuments": 250000,
+          "position": 7
+        },
+        {
+          "rcr": "440132201",
+          "name": "Médiathèque Jacques Demy",
+          "numberOfDocuments": 195000,
+          "position": 8
+        },
+        {
+          "rcr": "330632101",
+          "name": "Bibliothèque Universitaire de Bordeaux",
+          "numberOfDocuments": 180000,
+          "position": 9
+        },
+        {
+          "rcr": "060882101",
+          "name": "Bibliothèque Louis Nucéra",
+          "numberOfDocuments": 168000,
+          "position": 10
+        }
+      ]
+    }
+  }
+}

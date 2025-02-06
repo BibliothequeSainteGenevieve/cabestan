@@ -1,0 +1,255 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/client-config",
+    "headers": {}
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "jsonBody": {
+      "pagination": {
+        "totalResults": 150,
+        "currentPage": 1,
+        "itemsPerPage": 20
+      },
+      "items": [
+        {
+          "title": {
+            "translated": "Le Petit Prince",
+            "original": "The Little Prince",
+            "isTranslation": true
+          },
+          "author": "Antoine de Saint-Exupéry",
+          "translator": "Katherine Woods",
+          "publisher": "Gallimard",
+          "publicationInfo": {
+            "place": "Paris",
+            "date": "1946"
+          },
+          "language": {
+            "original": "fr",
+            "current": "en"
+          },
+          "collection": {
+            "name": "Collection Folio",
+            "events": [
+              "Exposition Saint-Exupéry 2024",
+              "Lecture publique mars 2024"
+            ]
+          },
+          "tags": ["littérature française", "conte philosophique", "classique"]
+        },
+        {
+          "title": {
+            "translated": "1984",
+            "original": "Nineteen Eighty-Four",
+            "isTranslation": true
+          },
+          "author": "George Orwell",
+          "translator": "Amélie Audiberti",
+          "publisher": "Gallimard",
+          "publicationInfo": {
+            "place": "Paris",
+            "date": "1950"
+          },
+          "language": {
+            "original": "en",
+            "current": "fr"
+          },
+          "collection": {
+            "name": "Collection Du Monde Entier",
+            "events": ["Rétrospective Orwell 2024"]
+          },
+          "tags": ["science-fiction", "dystopie", "politique"]
+        },
+        {
+          "title": {
+            "translated": "L'Étranger",
+            "original": "The Stranger",
+            "isTranslation": true
+          },
+          "author": "Albert Camus",
+          "translator": "Stuart Gilbert",
+          "publisher": "Hamish Hamilton",
+          "publicationInfo": {
+            "place": "London",
+            "date": "1946"
+          },
+          "language": {
+            "original": "fr",
+            "current": "en"
+          },
+          "collection": {
+            "name": "Modern Classics",
+            "events": ["Centenaire Camus", "Exposition Absurde"]
+          },
+          "tags": ["existentialisme", "littérature française", "philosophie"]
+        },
+        {
+          "title": {
+            "translated": "Madame Bovary",
+            "original": "Madame Bovary",
+            "isTranslation": false
+          },
+          "author": "Gustave Flaubert",
+          "translator": null,
+          "publisher": "Michel Lévy Frères",
+          "publicationInfo": {
+            "place": "Paris",
+            "date": "1857"
+          },
+          "language": {
+            "original": "fr",
+            "current": "fr"
+          },
+          "collection": {
+            "name": "Bibliothèque des chefs-d'œuvre",
+            "events": ["Exposition Flaubert 2024"]
+          },
+          "tags": ["roman réaliste", "littérature française", "classique"]
+        },
+        {
+          "title": {
+            "translated": "Le Procès",
+            "original": "Der Process",
+            "isTranslation": true
+          },
+          "author": "Franz Kafka",
+          "translator": "Alexandre Vialatte",
+          "publisher": "Gallimard",
+          "publicationInfo": {
+            "place": "Paris",
+            "date": "1933"
+          },
+          "language": {
+            "original": "de",
+            "current": "fr"
+          },
+          "collection": {
+            "name": "Collection Du Monde Entier",
+            "events": ["Kafka et la justice"]
+          },
+          "tags": ["littérature allemande", "absurde", "justice"]
+        },
+        {
+          "title": {
+            "translated": "Don Quichotte",
+            "original": "Don Quijote de la Mancha",
+            "isTranslation": true
+          },
+          "author": "Miguel de Cervantes",
+          "translator": "Louis Viardot",
+          "publisher": "Hachette",
+          "publicationInfo": {
+            "place": "Paris",
+            "date": "1863"
+          },
+          "language": {
+            "original": "es",
+            "current": "fr"
+          },
+          "collection": {
+            "name": "Les Grands Classiques",
+            "events": ["Festival Cervantes 2024"]
+          },
+          "tags": ["littérature espagnole", "roman picaresque", "classique"]
+        },
+        {
+          "title": {
+            "translated": "La Divine Comédie",
+            "original": "Divina Commedia",
+            "isTranslation": true
+          },
+          "author": "Dante Alighieri",
+          "translator": "Jacqueline Risset",
+          "publisher": "Flammarion",
+          "publicationInfo": {
+            "place": "Paris",
+            "date": "1992"
+          },
+          "language": {
+            "original": "it",
+            "current": "fr"
+          },
+          "collection": {
+            "name": "GF Bilingue",
+            "events": ["Semaine de la poésie italienne"]
+          },
+          "tags": ["poésie", "littérature italienne", "classique"]
+        },
+        {
+          "title": {
+            "translated": "Crime et Châtiment",
+            "original": "Преступление и наказание",
+            "isTranslation": true
+          },
+          "author": "Fiodor Dostoïevski",
+          "translator": "André Markowicz",
+          "publisher": "Actes Sud",
+          "publicationInfo": {
+            "place": "Arles",
+            "date": "1996"
+          },
+          "language": {
+            "original": "ru",
+            "current": "fr"
+          },
+          "collection": {
+            "name": "Babel",
+            "events": ["Cycle littérature russe"]
+          },
+          "tags": ["littérature russe", "roman psychologique", "classique"]
+        },
+        {
+          "title": {
+            "translated": "Les Métamorphoses",
+            "original": "Metamorphoseon libri",
+            "isTranslation": true
+          },
+          "author": "Ovide",
+          "translator": "Georges Lafaye",
+          "publisher": "Les Belles Lettres",
+          "publicationInfo": {
+            "place": "Paris",
+            "date": "1925"
+          },
+          "language": {
+            "original": "la",
+            "current": "fr"
+          },
+          "collection": {
+            "name": "Collection des Universités de France",
+            "events": ["Exposition Mythologie 2024"]
+          },
+          "tags": ["littérature latine", "mythologie", "poésie"]
+        },
+        {
+          "title": {
+            "translated": "Faust",
+            "original": "Faust",
+            "isTranslation": true
+          },
+          "author": "Johann Wolfgang von Goethe",
+          "translator": "Gérard de Nerval",
+          "publisher": "Garnier-Flammarion",
+          "publicationInfo": {
+            "place": "Paris",
+            "date": "1969"
+          },
+          "language": {
+            "original": "de",
+            "current": "fr"
+          },
+          "collection": {
+            "name": "GF",
+            "events": ["Bicentenaire Faust", "Exposition Goethe"]
+          },
+          "tags": ["littérature allemande", "théâtre", "classique"]
+        }
+      ]
+    }
+  }
+}
