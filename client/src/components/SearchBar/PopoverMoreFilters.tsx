@@ -16,6 +16,10 @@ interface PopoverMoreFiltersProps {
 	isPublisherFilterOpen: boolean;
 	setIsPublisherFilterOpen: (isOpen: boolean) => void;
 	setSelectedPublishers: (publishers: string[]) => void;
+	isPublicationDateFilterOpen: boolean;
+	setIsPublicationDateFilterOpen: (isOpen: boolean) => void;
+	setSelectedStartPublicationDate: (date: Date | undefined) => void;
+	setSelectedEndPublicationDate: (date: Date | undefined) => void;
 }
 
 export default function PopoverMoreFilters({
@@ -31,6 +35,10 @@ export default function PopoverMoreFilters({
 	isPublisherFilterOpen,
 	setIsPublisherFilterOpen,
 	setSelectedPublishers,
+	isPublicationDateFilterOpen,
+	setIsPublicationDateFilterOpen,
+	setSelectedStartPublicationDate,
+	setSelectedEndPublicationDate,
 }: PopoverMoreFiltersProps) {
 	const { t } = useTranslation();
 	return (
@@ -79,7 +87,16 @@ export default function PopoverMoreFilters({
 						Editeur
 						{isPublisherFilterOpen && <Check className="w-4 h-4" />}
 					</Button>
-					<Button variant="ghost">Date de publication</Button>
+					<Button
+						variant="ghost"
+						onClick={() => {
+							setIsPublicationDateFilterOpen(!isPublicationDateFilterOpen);
+							setSelectedStartPublicationDate(undefined);
+							setSelectedEndPublicationDate(undefined);
+						}}>
+						Date de publication
+						{isPublicationDateFilterOpen && <Check className="w-4 h-4" />}
+					</Button>
 					<Button variant="ghost">Date de traduction</Button>
 					<Button variant="ghost">Date de réédition</Button>
 				</div>

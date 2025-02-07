@@ -2,9 +2,10 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
-import { CommandSearch } from "./SearchBar/CommandSearch/CommandSearch";
-import ComboboxFilter from "./SearchBar/ComboboxFilter";
-import PopoverMoreFilters from "./SearchBar/PopoverMoreFilters";
+import { CommandSearch } from "./CommandSearch/CommandSearch";
+import ComboboxFilter from "./ComboboxFilter";
+import PopoverMoreFilters from "./PopoverMoreFilters";
+import DateRangePicker from "./DateRangePicker/DateRangePicker";
 
 const getClientConfig = async () => {
 	const response = await fetch("http://localhost:8082/api/client-config");
@@ -30,18 +31,23 @@ export default function SearchBar() {
 	const [isDepartmentFilterOpen, setIsDepartmentFilterOpen] = useState(searchParams.get("departments") ? true : false);
 	const [isCityFilterOpen, setIsCityFilterOpen] = useState(searchParams.get("cities") ? true : false);
 	const [isPublisherFilterOpen, setIsPublisherFilterOpen] = useState(searchParams.get("publishers") ? true : false);
-	/* 	const [isPublicationDateFilterOpen, setIsPublicationDateFilterOpen] = useState(false);
-	const [isTranslationDateFilterOpen, setIsTranslationDateFilterOpen] = useState(false);
+	const [isPublicationDateFilterOpen, setIsPublicationDateFilterOpen] = useState(
+		searchParams.get("startPublicationDate") ? true : false
+	);
+	/* const [isTranslationDateFilterOpen, setIsTranslationDateFilterOpen] = useState(false);
 	const [isReeditionDateFilterOpen, setIsReeditionDateFilterOpen] = useState(false); */
 
 	const [selectedRegions, setSelectedRegions] = useState<string[]>(searchParams.get("regions")?.split(",") || []);
 	const [selectedDepartments, setSelectedDepartments] = useState<string[]>(searchParams.get("departments")?.split(",") || []);
 	const [selectedCities, setSelectedCities] = useState<string[]>(searchParams.get("cities")?.split(",") || []);
 	const [selectedPublishers, setSelectedPublishers] = useState<string[]>(searchParams.get("publishers")?.split(",") || []);
-	/* 	const [selectedPublicationDate, setSelectedPublicationDate] = useState<string | undefined>(
-		searchParams.get("publicationDate") || undefined
+	const [selectedStartPublicationDate, setSelectedStartPublicationDate] = useState<Date | undefined>(
+		searchParams.get("startPublicationDate") ? new Date(searchParams.get("startPublicationDate")!) : undefined
 	);
-	const [selectedTranslationDate, setSelectedTranslationDate] = useState<string | undefined>(
+	const [selectedEndPublicationDate, setSelectedEndPublicationDate] = useState<Date | undefined>(
+		searchParams.get("endPublicationDate") ? new Date(searchParams.get("endPublicationDate")!) : undefined
+	);
+	/* const [selectedTranslationDate, setSelectedTranslationDate] = useState<string | undefined>(
 		searchParams.get("translationDate") || undefined
 	);
 	const [selectedReeditionDate, setSelectedReeditionDate] = useState<string | undefined>(
@@ -64,10 +70,12 @@ export default function SearchBar() {
 			{ label: "cities", value: selectedCities },
 			{ label: "publishers", value: selectedPublishers },
 			{ label: "booksTypes", value: selectedBooksTypes },
+			{ label: "startPublicationDate", value: [selectedStartPublicationDate] },
+			{ label: "endPublicationDate", value: [selectedEndPublicationDate] },
 		];
 
 		filters.forEach((filter) => {
-			if (filter.value.length > 0) {
+			if (filter.value.length > 0 && filter.value[0] !== undefined) {
 				searchParams.set(filter.label, filter.value.join(","));
 			} else {
 				searchParams.delete(filter.label);
@@ -89,6 +97,8 @@ export default function SearchBar() {
 		selectedDepartments,
 		selectedCities,
 		selectedPublishers,
+		selectedStartPublicationDate,
+		selectedEndPublicationDate,
 	]);
 
 	if (isLoading || !data) return <div>{t("SearchBar.loading")}</div>;
@@ -144,6 +154,14 @@ export default function SearchBar() {
 							setValue={setSelectedPublishers}
 						/>
 					)}
+					{isPublicationDateFilterOpen && (
+						<DateRangePicker
+							selectedStartPublicationDate={selectedStartPublicationDate}
+							selectedEndPublicationDate={selectedEndPublicationDate}
+							setSelectedStartPublicationDate={setSelectedStartPublicationDate}
+							setSelectedEndPublicationDate={setSelectedEndPublicationDate}
+						/>
+					)}
 				</div>
 				<PopoverMoreFilters
 					isRegionFilterOpen={isRegionFilterOpen}
@@ -158,6 +176,10 @@ export default function SearchBar() {
 					isPublisherFilterOpen={isPublisherFilterOpen}
 					setIsPublisherFilterOpen={setIsPublisherFilterOpen}
 					setSelectedPublishers={setSelectedPublishers}
+					isPublicationDateFilterOpen={isPublicationDateFilterOpen}
+					setIsPublicationDateFilterOpen={setIsPublicationDateFilterOpen}
+					setSelectedStartPublicationDate={setSelectedStartPublicationDate}
+					setSelectedEndPublicationDate={setSelectedEndPublicationDate}
 				/>
 			</div>
 		</div>

@@ -22,6 +22,10 @@
 			"authors": "Auteurs"
 		}
 	},
+	"DateRangePicker": {
+		"startDate": "A partir du...",
+		"endDate": "Jusqu'au..."
+	},
 	"PopoverMoreFilters": {
 		"title": "Filtres avancés"
 	},

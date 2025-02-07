@@ -25,7 +25,10 @@ export default function ComboboxFilter({ options, type, value, setValue }: Combo
 				<Button
 					role="combobox"
 					aria-expanded={open}
-					className={cn("bg-white hover:bg-white w-auto p-4 justify-between", value.length > 0 ? "bg-lightRed" : "")}>
+					className={cn(
+						"bg-white hover:bg-white w-auto p-4 justify-between",
+						value.length > 0 ? "bg-lightRed text-primary" : ""
+					)}>
 					{value.length > 0
 						? value.map((item) => t(`filters.${type}.options.${item}`)).join(", ")
 						: t(`filters.${type}.placeholder`)}
