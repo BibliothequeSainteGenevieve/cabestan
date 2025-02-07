@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./i18n/config";
 import HomePage from "./pages/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router";
+import LayoutBase from "./layouts/LayoutBase";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -16,7 +17,9 @@ function App() {
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<HomePage />} />
+					<Route element={<LayoutBase />}>
+						<Route path="/search?" element={<HomePage />} />
+					</Route>
 				</Routes>
 			</BrowserRouter>
 		</QueryClientProvider>

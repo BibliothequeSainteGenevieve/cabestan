@@ -1,24 +1,30 @@
 {
-	"header": {
+	"HomePage": {
+		"title": "Rechercher"
+	},
+	"Header": {
 		"title": "Cabestan",
 		"subtitle": "L'outil de recherche"
 	},
-	"search": {
-		"combobox": {
-			"empty": "Pas de résultat",
-			"reset": "Supprimer"
-		},
-		"establishementsTypes": {
-			"placeholder": "Type d'établissement"
-		},
-		"booksTypes": {
-			"placeholder": "Type de livre"
-		},
-		"languages": {
-			"placeholder": "Langue"
-		},
-		"title": "Rechercher",
-		"placeholder": "Tapez votre recherche ici..."
+	"ComboboxFilter": {
+		"empty": "Pas de résultat",
+		"reset": "Supprimer",
+		"searchPlaceholder": "Rechercher..."
+	},
+	"CommandSearch": {
+		"placeholder": "Rechercher un titre, un auteur ou une bibliothèque",
+		"suggestions": {
+			"empty": "Aucun résultat",
+			"loading": "Chargement des suggestions...",
+			"error": "Erreur lors du chargement des suggestions: {error.message}",
+			"libraries": "Bibliothèques",
+			"documents": "Documents",
+			"authors": "Auteurs"
+		}
+	},
+	"SearchBar": {
+		"loading": "Chargement des filtres...",
+		"error": "Erreur lors du chargement des filtres: {error.message}"
 	},
 	"filters": {
 		"languages": {

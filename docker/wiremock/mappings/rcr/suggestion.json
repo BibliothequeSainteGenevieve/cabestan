@@ -1,14 +1,42 @@
 {
-  "request": {
-    "method": "GET",
-    "urlPattern": "/api/rcrs/suggestions",
-    "headers": {}
-  },
-  "response": {
-    "status": 200,
-    "headers": {
-      "Content-Type": "application/json;charset=UTF-8"
-    },
-    "jsonBody": {}
-  }
+	"request": {
+		"method": "GET",
+		"urlPattern": "/api/rcr/suggestion\\?str=.*",
+		"headers": {}
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "application/json;charset=UTF-8"
+		},
+		"jsonBody": {
+			"rcr": [
+				{
+					"rcr": "18468494",
+					"name": "Bibliothèque municipale de Paris"
+				},
+				{
+					"rcr": "216546846",
+					"name": "Bibliothèque municipale de Lyon"
+				}
+			],
+			"documents": [
+				{
+					"title": "The small horse",
+					"originalTitle": "Le petit cheval"
+				},
+				{
+					"title": "Sonnette"
+				}
+			],
+			"authors": [
+				{
+					"name": "Jean-Jacques Rousseau"
+				},
+				{
+					"name": "Baptiste Colin"
+				}
+			]
+		}
+	}
 }
