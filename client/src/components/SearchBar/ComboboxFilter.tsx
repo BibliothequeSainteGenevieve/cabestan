@@ -9,14 +9,15 @@ import { useTranslation } from "react-i18next";
 interface ComboboxFilterProps {
 	options: string[];
 	type: string;
-	placeholder: string;
 	value: string[];
 	setValue: (value: string[]) => void;
 }
 
-export default function ComboboxFilter({ options, placeholder, type, value, setValue }: ComboboxFilterProps) {
+export default function ComboboxFilter({ options, type, value, setValue }: ComboboxFilterProps) {
 	const [open, setOpen] = useState(false);
 	const { t } = useTranslation();
+
+	if (!options) return null;
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -25,7 +26,9 @@ export default function ComboboxFilter({ options, placeholder, type, value, setV
 					role="combobox"
 					aria-expanded={open}
 					className={cn("bg-white hover:bg-white w-auto p-4 justify-between", value.length > 0 ? "bg-lightRed" : "")}>
-					{value.length > 0 ? value.map((item) => t(`filters.${type}.options.${item}`)).join(", ") : placeholder}
+					{value.length > 0
+						? value.map((item) => t(`filters.${type}.options.${item}`)).join(", ")
+						: t(`filters.${type}.placeholder`)}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>

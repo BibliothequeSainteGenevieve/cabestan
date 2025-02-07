@@ -24,7 +24,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setSearchSt
 	if (error) return <span>{t("CommandSearch.suggestions.error", { error: error.message })}</span>;
 
 	return (
-		<CommandList className="absolute bg-white top-11 w-full">
+		<CommandList className="absolute bg-white top-11 w-full z-50">
 			<CommandEmpty>{t("CommandSearch.suggestions.empty")}</CommandEmpty>
 			<CommandGroup
 				heading={

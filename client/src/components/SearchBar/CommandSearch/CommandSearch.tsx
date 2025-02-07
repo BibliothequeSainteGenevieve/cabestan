@@ -36,8 +36,6 @@ export function CommandSearch({ setSearchString }: CommandSearchProps) {
 	const handleChange = (value: string) => {
 		setInputValue(value);
 
-		console.log("inputValue", value);
-
 		if (value.length > 2) {
 			setIsOpen(true);
 			setSearchSuggestionsValueDebounced(inputValue);
@@ -48,7 +46,7 @@ export function CommandSearch({ setSearchString }: CommandSearchProps) {
 	};
 
 	return (
-		<Command className="bg-white rounded-lg md:w-[450px] relative overflow-visible">
+		<Command className="bg-white rounded-lg lg:w-[450px] relative overflow-visible">
 			<div className="flex items-center gap-1 py-1 px-2">
 				<Search className="w-5 h-5" />
 				<Input
