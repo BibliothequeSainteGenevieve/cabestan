@@ -1,0 +1,93 @@
+[
+  {
+    "model": "rest.region",
+    "pk": 1,
+    "fields": {
+      "label": "Auvergne-Rhône-Alpes"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 2,
+    "fields": {
+      "label": "Bourgogne-Franche-Comté"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 3,
+    "fields": {
+      "label": "Bretagne"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 4,
+    "fields": {
+      "label": "Centre-Val de Loire"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 5,
+    "fields": {
+      "label": "Corse"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 6,
+    "fields": {
+      "label": "Grand Est"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 7,
+    "fields": {
+      "label": "Hauts-de-France"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 8,
+    "fields": {
+      "label": "Île-de-France"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 9,
+    "fields": {
+      "label": "Normandie"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 10,
+    "fields": {
+      "label": "Nouvelle-Aquitaine"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 11,
+    "fields": {
+      "label": "Occitanie"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 12,
+    "fields": {
+      "label": "Pays de la Loire"
+    }
+  },
+  {
+    "model": "rest.region",
+    "pk": 13,
+    "fields": {
+      "label": "Provence-Alpes-Côte d'Azur"
+    }
+  }
+]

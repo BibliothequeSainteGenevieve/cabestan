@@ -50,7 +50,7 @@ DEBUG = CABESTAN_ENV == "DEV" or CABESTAN_ENV == "STAGING"
 
 # Application definition
 
-CABESTAN_APPS = ["scraper", "process", "display"]
+CABESTAN_APPS = ["scraper", "process", "display", "rest"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",

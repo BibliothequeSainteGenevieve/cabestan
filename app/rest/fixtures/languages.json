@@ -1,0 +1,4042 @@
+[
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Afar",
+      "iso_code": "aar"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Abkhazian",
+      "iso_code": "abk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Achinese",
+      "iso_code": "ace"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Acoli",
+      "iso_code": "ach"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Adangme",
+      "iso_code": "ada"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Adygei",
+      "iso_code": "ady"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Afro-Asiatic Languages",
+      "iso_code": "afa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Afrihili",
+      "iso_code": "afh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Afrikaans",
+      "iso_code": "afr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ainu",
+      "iso_code": "ain"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Akan",
+      "iso_code": "aka"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Akkadian",
+      "iso_code": "akk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Albanian",
+      "iso_code": "alb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Albanian",
+      "iso_code": "sqi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Aleut",
+      "iso_code": "ale"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Algonquian Languages",
+      "iso_code": "alg"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Southern Altai",
+      "iso_code": "alt"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Amharic",
+      "iso_code": "amh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "English Old (ca.450-1100)",
+      "iso_code": "ang"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Angika",
+      "iso_code": "anp"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Apache Languages",
+      "iso_code": "apa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Arabic",
+      "iso_code": "ara"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Imperial Aramaic (700-300 BCE)",
+      "iso_code": "arc"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Aragonese",
+      "iso_code": "arg"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Armenian",
+      "iso_code": "arm"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Armenian",
+      "iso_code": "hye"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mapuche",
+      "iso_code": "arn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Arapaho",
+      "iso_code": "arp"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Artificial Languages",
+      "iso_code": "art"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Arawak",
+      "iso_code": "arw"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Assamese",
+      "iso_code": "asm"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Asturian",
+      "iso_code": "ast"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Athapascan Languages",
+      "iso_code": "ath"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Australian Languages",
+      "iso_code": "aus"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Avaric",
+      "iso_code": "ava"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Avestan",
+      "iso_code": "ave"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Awadhi",
+      "iso_code": "awa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Aymara",
+      "iso_code": "aym"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Azerbaijani",
+      "iso_code": "aze"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Banda Languages",
+      "iso_code": "bad"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bamileke Languages",
+      "iso_code": "bai"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bashkir",
+      "iso_code": "bak"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Baluchi",
+      "iso_code": "bal"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bambara",
+      "iso_code": "bam"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Balinese",
+      "iso_code": "ban"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Basque",
+      "iso_code": "baq"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Basque",
+      "iso_code": "eus"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Basa",
+      "iso_code": "bas"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Baltic Languages",
+      "iso_code": "bat"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bedawiyet",
+      "iso_code": "bej"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Belarusian",
+      "iso_code": "bel"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bemba",
+      "iso_code": "bem"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bengali",
+      "iso_code": "ben"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Berber Languages",
+      "iso_code": "ber"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bhojpuri",
+      "iso_code": "bho"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bihari Languages",
+      "iso_code": "bih"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bikol",
+      "iso_code": "bik"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bini",
+      "iso_code": "bin"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bislama",
+      "iso_code": "bis"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Siksika",
+      "iso_code": "bla"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bantu (Other)",
+      "iso_code": "bnt"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bosnian",
+      "iso_code": "bos"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Braj",
+      "iso_code": "bra"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Breton",
+      "iso_code": "bre"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Batak Languages",
+      "iso_code": "btk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Buriat",
+      "iso_code": "bua"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Buginese",
+      "iso_code": "bug"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bulgarian",
+      "iso_code": "bul"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Burmese",
+      "iso_code": "bur"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Burmese",
+      "iso_code": "mya"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bilin",
+      "iso_code": "byn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Caddo",
+      "iso_code": "cad"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Central American Indian Languages",
+      "iso_code": "cai"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Galibi Carib",
+      "iso_code": "car"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Catalan",
+      "iso_code": "cat"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Caucasian Languages",
+      "iso_code": "cau"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Cebuano",
+      "iso_code": "ceb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Celtic Languages",
+      "iso_code": "cel"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chamorro",
+      "iso_code": "cha"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chibcha",
+      "iso_code": "chb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chechen",
+      "iso_code": "che"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chagatai",
+      "iso_code": "chg"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chinese",
+      "iso_code": "chi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chinese",
+      "iso_code": "zho"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chuukese",
+      "iso_code": "chk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mari",
+      "iso_code": "chm"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chinook Jargon",
+      "iso_code": "chn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Choctaw",
+      "iso_code": "cho"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chipewyan",
+      "iso_code": "chp"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Cherokee",
+      "iso_code": "chr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Church Slavic",
+      "iso_code": "chu"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chuvash",
+      "iso_code": "chv"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Cheyenne",
+      "iso_code": "chy"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chamic Languages",
+      "iso_code": "cmc"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Coptic",
+      "iso_code": "cop"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Cornish",
+      "iso_code": "cor"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Corsican",
+      "iso_code": "cos"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Creoles And Pidgins",
+      "iso_code": "cpe"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Creoles And Pidgins",
+      "iso_code": "cpf"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Creoles And Pidgins",
+      "iso_code": "cpp"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Cree",
+      "iso_code": "cre"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Crimean Tatar",
+      "iso_code": "crh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Creoles And Pidgins",
+      "iso_code": "crp"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kashubian",
+      "iso_code": "csb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Cushitic Languages",
+      "iso_code": "cus"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Czech",
+      "iso_code": "cze"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Czech",
+      "iso_code": "ces"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dakota",
+      "iso_code": "dak"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Danish",
+      "iso_code": "dan"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dargwa",
+      "iso_code": "dar"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Land Dayak Languages",
+      "iso_code": "day"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Delaware",
+      "iso_code": "del"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Slave (Athapascan)",
+      "iso_code": "den"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dogrib",
+      "iso_code": "dgr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dinka",
+      "iso_code": "din"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dhivehi",
+      "iso_code": "div"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dogri",
+      "iso_code": "doi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dravidian Languages",
+      "iso_code": "dra"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lower Sorbian",
+      "iso_code": "dsb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Duala",
+      "iso_code": "dua"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dutch Middle (ca.1050-1350)",
+      "iso_code": "dum"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dutch",
+      "iso_code": "dut"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dutch",
+      "iso_code": "nld"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dyula",
+      "iso_code": "dyu"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dzongkha",
+      "iso_code": "dzo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Efik",
+      "iso_code": "efi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Egyptian (Ancient)",
+      "iso_code": "egy"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ekajuk",
+      "iso_code": "eka"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Elamite",
+      "iso_code": "elx"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "English",
+      "iso_code": "eng"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "English Middle (1100-1500)",
+      "iso_code": "enm"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Esperanto",
+      "iso_code": "epo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Estonian",
+      "iso_code": "est"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ewe",
+      "iso_code": "ewe"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ewondo",
+      "iso_code": "ewo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Fang",
+      "iso_code": "fan"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Faroese",
+      "iso_code": "fao"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Fanti",
+      "iso_code": "fat"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Fijian",
+      "iso_code": "fij"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Filipino",
+      "iso_code": "fil"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Finnish",
+      "iso_code": "fin"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Finno-Ugrian Languages",
+      "iso_code": "fiu"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Fon",
+      "iso_code": "fon"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "French",
+      "iso_code": "fre"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "French",
+      "iso_code": "fra"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "French Middle (ca.1400-1600)",
+      "iso_code": "frm"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "French Old (842-ca.1400)",
+      "iso_code": "fro"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Northern Frisian",
+      "iso_code": "frr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Eastern Frisian",
+      "iso_code": "frs"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Western Frisian",
+      "iso_code": "fry"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Fulah",
+      "iso_code": "ful"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Friulian",
+      "iso_code": "fur"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ga",
+      "iso_code": "gaa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gayo",
+      "iso_code": "gay"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gbaya",
+      "iso_code": "gba"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Germanic Languages",
+      "iso_code": "gem"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Georgian",
+      "iso_code": "geo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Georgian",
+      "iso_code": "kat"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "German",
+      "iso_code": "ger"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "German",
+      "iso_code": "deu"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Geez",
+      "iso_code": "gez"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gilbertese",
+      "iso_code": "gil"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gaelic",
+      "iso_code": "gla"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Irish",
+      "iso_code": "gle"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Galician",
+      "iso_code": "glg"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Manx",
+      "iso_code": "glv"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "German Middle High (ca.1050-1500)",
+      "iso_code": "gmh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "German Old High (ca.750-1050)",
+      "iso_code": "goh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gondi",
+      "iso_code": "gon"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gorontalo",
+      "iso_code": "gor"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gothic",
+      "iso_code": "got"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Grebo",
+      "iso_code": "grb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Greek Ancient (to 1453)",
+      "iso_code": "grc"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Greek Modern (1453-)",
+      "iso_code": "gre"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Greek Modern (1453-)",
+      "iso_code": "ell"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Guarani",
+      "iso_code": "grn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Alemannic",
+      "iso_code": "gsw"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gujarati",
+      "iso_code": "guj"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gwich'in",
+      "iso_code": "gwi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Haida",
+      "iso_code": "hai"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Haitian",
+      "iso_code": "hat"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hausa",
+      "iso_code": "hau"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hawaiian",
+      "iso_code": "haw"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hebrew",
+      "iso_code": "heb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Herero",
+      "iso_code": "her"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hiligaynon",
+      "iso_code": "hil"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Himachali Languages",
+      "iso_code": "him"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hindi",
+      "iso_code": "hin"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hittite",
+      "iso_code": "hit"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hmong",
+      "iso_code": "hmn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hiri Motu",
+      "iso_code": "hmo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Croatian",
+      "iso_code": "hrv"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Upper Sorbian",
+      "iso_code": "hsb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hungarian",
+      "iso_code": "hun"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Hupa",
+      "iso_code": "hup"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Iban",
+      "iso_code": "iba"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Igbo",
+      "iso_code": "ibo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Icelandic",
+      "iso_code": "ice"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Icelandic",
+      "iso_code": "isl"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ido",
+      "iso_code": "ido"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nuosu",
+      "iso_code": "iii"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ijo Languages",
+      "iso_code": "ijo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Inuktitut",
+      "iso_code": "iku"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Interlingue",
+      "iso_code": "ile"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Iloko",
+      "iso_code": "ilo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Interlingua (International Auxiliary Language Association)",
+      "iso_code": "ina"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Indic Languages",
+      "iso_code": "inc"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Indonesian",
+      "iso_code": "ind"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Indo-European Languages",
+      "iso_code": "ine"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ingush",
+      "iso_code": "inh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Inupiaq",
+      "iso_code": "ipk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Iranian Languages",
+      "iso_code": "ira"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Iroquoian Languages",
+      "iso_code": "iro"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Italian",
+      "iso_code": "ita"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Javanese",
+      "iso_code": "jav"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lojban",
+      "iso_code": "jbo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Japanese",
+      "iso_code": "jpn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Judeo-Persian",
+      "iso_code": "jpr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Judeo-Arabic",
+      "iso_code": "jrb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kara-Kalpak",
+      "iso_code": "kaa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kabyle",
+      "iso_code": "kab"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Jingpho",
+      "iso_code": "kac"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Greenlandic",
+      "iso_code": "kal"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kamba",
+      "iso_code": "kam"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kannada",
+      "iso_code": "kan"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Karen Languages",
+      "iso_code": "kar"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kashmiri",
+      "iso_code": "kas"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kanuri",
+      "iso_code": "kau"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kawi",
+      "iso_code": "kaw"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kazakh",
+      "iso_code": "kaz"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kabardian",
+      "iso_code": "kbd"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Khasi",
+      "iso_code": "kha"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Khoisan Languages",
+      "iso_code": "khi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Central Khmer",
+      "iso_code": "khm"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Khotanese",
+      "iso_code": "kho"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Gikuyu",
+      "iso_code": "kik"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kinyarwanda",
+      "iso_code": "kin"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kirghiz",
+      "iso_code": "kir"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kimbundu",
+      "iso_code": "kmb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Konkani",
+      "iso_code": "kok"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Komi",
+      "iso_code": "kom"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kongo",
+      "iso_code": "kon"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Korean",
+      "iso_code": "kor"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kosraean",
+      "iso_code": "kos"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kpelle",
+      "iso_code": "kpe"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Karachay-Balkar",
+      "iso_code": "krc"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Karelian",
+      "iso_code": "krl"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kru Languages",
+      "iso_code": "kro"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kurukh",
+      "iso_code": "kru"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kuanyama",
+      "iso_code": "kua"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kumyk",
+      "iso_code": "kum"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kurdish",
+      "iso_code": "kur"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kutenai",
+      "iso_code": "kut"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ladino",
+      "iso_code": "lad"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lahnda",
+      "iso_code": "lah"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lamba",
+      "iso_code": "lam"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lao",
+      "iso_code": "lao"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Latin",
+      "iso_code": "lat"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Latvian",
+      "iso_code": "lav"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lezghian",
+      "iso_code": "lez"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Limburgan",
+      "iso_code": "lim"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lingala",
+      "iso_code": "lin"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lithuanian",
+      "iso_code": "lit"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mongo",
+      "iso_code": "lol"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lozi",
+      "iso_code": "loz"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Letzeburgesch",
+      "iso_code": "ltz"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Luba-Lulua",
+      "iso_code": "lua"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Luba-Katanga",
+      "iso_code": "lub"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ganda",
+      "iso_code": "lug"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Luiseno",
+      "iso_code": "lui"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lunda",
+      "iso_code": "lun"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Luo (Kenya And Tanzania)",
+      "iso_code": "luo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lushai",
+      "iso_code": "lus"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Macedonian",
+      "iso_code": "mac"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Macedonian",
+      "iso_code": "mkd"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Madurese",
+      "iso_code": "mad"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Magahi",
+      "iso_code": "mag"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Marshallese",
+      "iso_code": "mah"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Maithili",
+      "iso_code": "mai"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Makasar",
+      "iso_code": "mak"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Malayalam",
+      "iso_code": "mal"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mandingo",
+      "iso_code": "man"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Maori",
+      "iso_code": "mao"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Maori",
+      "iso_code": "mri"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Austronesian Languages",
+      "iso_code": "map"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Marathi",
+      "iso_code": "mar"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Masai",
+      "iso_code": "mas"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Malay",
+      "iso_code": "may"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Malay",
+      "iso_code": "msa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Moksha",
+      "iso_code": "mdf"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mandar",
+      "iso_code": "mdr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mende",
+      "iso_code": "men"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Irish Middle (900-1200)",
+      "iso_code": "mga"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mi'kmaq",
+      "iso_code": "mic"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Minangkabau",
+      "iso_code": "min"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Uncoded Languages",
+      "iso_code": "mis"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mon-Khmer Languages",
+      "iso_code": "mkh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Malagasy",
+      "iso_code": "mlg"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Maltese",
+      "iso_code": "mlt"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Manchu",
+      "iso_code": "mnc"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Manipuri",
+      "iso_code": "mni"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Manobo Languages",
+      "iso_code": "mno"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mohawk",
+      "iso_code": "moh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mongolian",
+      "iso_code": "mon"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mossi",
+      "iso_code": "mos"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Multiple Languages",
+      "iso_code": "mul"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Munda Languages",
+      "iso_code": "mun"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Creek",
+      "iso_code": "mus"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mirandese",
+      "iso_code": "mwl"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Marwari",
+      "iso_code": "mwr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Mayan Languages",
+      "iso_code": "myn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Erzya",
+      "iso_code": "myv"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nahuatl Languages",
+      "iso_code": "nah"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "North American Indian Languages",
+      "iso_code": "nai"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Neapolitan",
+      "iso_code": "nap"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nauru",
+      "iso_code": "nau"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Navaho",
+      "iso_code": "nav"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ndebele",
+      "iso_code": "nbl"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ndebele",
+      "iso_code": "nde"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ndonga",
+      "iso_code": "ndo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Low",
+      "iso_code": "nds"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nepali",
+      "iso_code": "nep"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nepal Bhasa",
+      "iso_code": "new"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nias",
+      "iso_code": "nia"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Niger-Kordofanian Languages",
+      "iso_code": "nic"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Niuean",
+      "iso_code": "niu"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Norwegian",
+      "iso_code": "nno"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bokmål",
+      "iso_code": "nob"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nogai",
+      "iso_code": "nog"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Norse",
+      "iso_code": "non"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Norwegian",
+      "iso_code": "nor"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "N'Ko",
+      "iso_code": "nqo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Northern Sotho",
+      "iso_code": "nso"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nubian Languages",
+      "iso_code": "nub"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Classical Nepal Bhasa",
+      "iso_code": "nwc"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chewa",
+      "iso_code": "nya"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nyamwezi",
+      "iso_code": "nym"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nyankole",
+      "iso_code": "nyn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nyoro",
+      "iso_code": "nyo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nzima",
+      "iso_code": "nzi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Occitan (post 1500)",
+      "iso_code": "oci"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ojibwa",
+      "iso_code": "oji"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Oriya",
+      "iso_code": "ori"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Oromo",
+      "iso_code": "orm"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Osage",
+      "iso_code": "osa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ossetian",
+      "iso_code": "oss"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Turkish Ottoman (1500-1928)",
+      "iso_code": "ota"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Otomian Languages",
+      "iso_code": "oto"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Papuan Languages",
+      "iso_code": "paa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Pangasinan",
+      "iso_code": "pag"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Pahlavi",
+      "iso_code": "pal"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kapampangan",
+      "iso_code": "pam"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Panjabi",
+      "iso_code": "pan"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Papiamento",
+      "iso_code": "pap"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Palauan",
+      "iso_code": "pau"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Persian Old (ca.600-400 B.C.)",
+      "iso_code": "peo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Persian",
+      "iso_code": "per"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Persian",
+      "iso_code": "fas"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Philippine Languages",
+      "iso_code": "phi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Phoenician",
+      "iso_code": "phn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Pali",
+      "iso_code": "pli"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Polish",
+      "iso_code": "pol"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Pohnpeian",
+      "iso_code": "pon"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Portuguese",
+      "iso_code": "por"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Prakrit Languages",
+      "iso_code": "pra"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Provençal Old (to 1500)",
+      "iso_code": "pro"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Pashto",
+      "iso_code": "pus"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Quechua",
+      "iso_code": "que"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Rajasthani",
+      "iso_code": "raj"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Rapanui",
+      "iso_code": "rap"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Cook Islands Maori",
+      "iso_code": "rar"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Romance Languages",
+      "iso_code": "roa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Romansh",
+      "iso_code": "roh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Romany",
+      "iso_code": "rom"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Moldavian",
+      "iso_code": "rum"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Moldavian",
+      "iso_code": "ron"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Rundi",
+      "iso_code": "run"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Aromanian",
+      "iso_code": "rup"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Russian",
+      "iso_code": "rus"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sandawe",
+      "iso_code": "sad"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sango",
+      "iso_code": "sag"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Yakut",
+      "iso_code": "sah"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "South American Indian (Other)",
+      "iso_code": "sai"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Salishan Languages",
+      "iso_code": "sal"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Samaritan Aramaic",
+      "iso_code": "sam"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sanskrit",
+      "iso_code": "san"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sasak",
+      "iso_code": "sas"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Santali",
+      "iso_code": "sat"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sicilian",
+      "iso_code": "scn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Scots",
+      "iso_code": "sco"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Selkup",
+      "iso_code": "sel"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Semitic Languages",
+      "iso_code": "sem"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Irish Old (to 900)",
+      "iso_code": "sga"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sign Languages",
+      "iso_code": "sgn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Shan",
+      "iso_code": "shn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sidamo",
+      "iso_code": "sid"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sinhala",
+      "iso_code": "sin"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Siouan Languages",
+      "iso_code": "sio"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sino-Tibetan Languages",
+      "iso_code": "sit"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Slavic Languages",
+      "iso_code": "sla"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Slovak",
+      "iso_code": "slo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Slovak",
+      "iso_code": "slk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Slovenian",
+      "iso_code": "slv"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Southern Sami",
+      "iso_code": "sma"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Northern Sami",
+      "iso_code": "sme"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sami Languages",
+      "iso_code": "smi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Lule Sami",
+      "iso_code": "smj"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Inari Sami",
+      "iso_code": "smn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Samoan",
+      "iso_code": "smo"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Skolt Sami",
+      "iso_code": "sms"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Shona",
+      "iso_code": "sna"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sindhi",
+      "iso_code": "snd"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Soninke",
+      "iso_code": "snk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sogdian",
+      "iso_code": "sog"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Somali",
+      "iso_code": "som"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Songhai Languages",
+      "iso_code": "son"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sotho",
+      "iso_code": "sot"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Castilian",
+      "iso_code": "spa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sardinian",
+      "iso_code": "srd"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sranan Tongo",
+      "iso_code": "srn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Serbian",
+      "iso_code": "srp"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Serer",
+      "iso_code": "srr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Nilo-Saharan Languages",
+      "iso_code": "ssa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Swati",
+      "iso_code": "ssw"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sukuma",
+      "iso_code": "suk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sundanese",
+      "iso_code": "sun"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Susu",
+      "iso_code": "sus"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sumerian",
+      "iso_code": "sux"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Swahili",
+      "iso_code": "swa"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Swedish",
+      "iso_code": "swe"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Classical Syriac",
+      "iso_code": "syc"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Syriac",
+      "iso_code": "syr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tahitian",
+      "iso_code": "tah"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tai Languages",
+      "iso_code": "tai"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tamil",
+      "iso_code": "tam"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tatar",
+      "iso_code": "tat"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Telugu",
+      "iso_code": "tel"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Timne",
+      "iso_code": "tem"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tereno",
+      "iso_code": "ter"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tetum",
+      "iso_code": "tet"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tajik",
+      "iso_code": "tgk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tagalog",
+      "iso_code": "tgl"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Thai",
+      "iso_code": "tha"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tibetan",
+      "iso_code": "tib"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tibetan",
+      "iso_code": "bod"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tigre",
+      "iso_code": "tig"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tigrinya",
+      "iso_code": "tir"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tiv",
+      "iso_code": "tiv"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tokelau",
+      "iso_code": "tkl"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Klingon",
+      "iso_code": "tlh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tlingit",
+      "iso_code": "tli"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tamashek",
+      "iso_code": "tmh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tonga (Nyasa)",
+      "iso_code": "tog"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tonga (Tonga Islands)",
+      "iso_code": "ton"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tok Pisin",
+      "iso_code": "tpi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tsimshian",
+      "iso_code": "tsi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tswana",
+      "iso_code": "tsn"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tsonga",
+      "iso_code": "tso"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Turkmen",
+      "iso_code": "tuk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tumbuka",
+      "iso_code": "tum"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tupi Languages",
+      "iso_code": "tup"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Turkish",
+      "iso_code": "tur"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Altaic Languages",
+      "iso_code": "tut"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tuvalu",
+      "iso_code": "tvl"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Twi",
+      "iso_code": "twi"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Tuvinian",
+      "iso_code": "tyv"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Udmurt",
+      "iso_code": "udm"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ugaritic",
+      "iso_code": "uga"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Uighur",
+      "iso_code": "uig"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Ukrainian",
+      "iso_code": "ukr"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Umbundu",
+      "iso_code": "umb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Undetermined",
+      "iso_code": "und"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Urdu",
+      "iso_code": "urd"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Uzbek",
+      "iso_code": "uzb"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Vai",
+      "iso_code": "vai"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Venda",
+      "iso_code": "ven"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Vietnamese",
+      "iso_code": "vie"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Volapük",
+      "iso_code": "vol"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Votic",
+      "iso_code": "vot"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Wakashan Languages",
+      "iso_code": "wak"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Walamo",
+      "iso_code": "wal"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Waray",
+      "iso_code": "war"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Washo",
+      "iso_code": "was"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Welsh",
+      "iso_code": "wel"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Welsh",
+      "iso_code": "cym"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Sorbian Languages",
+      "iso_code": "wen"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Walloon",
+      "iso_code": "wln"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Wolof",
+      "iso_code": "wol"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Kalmyk",
+      "iso_code": "xal"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Xhosa",
+      "iso_code": "xho"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Yao",
+      "iso_code": "yao"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Yapese",
+      "iso_code": "yap"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Yiddish",
+      "iso_code": "yid"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Yoruba",
+      "iso_code": "yor"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Yupik Languages",
+      "iso_code": "ypk"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Zapotec",
+      "iso_code": "zap"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Bliss",
+      "iso_code": "zbl"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Zenaga",
+      "iso_code": "zen"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Standard Moroccan Tamazight",
+      "iso_code": "zgh"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Chuang",
+      "iso_code": "zha"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Zande Languages",
+      "iso_code": "znd"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Zulu",
+      "iso_code": "zul"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Zuni",
+      "iso_code": "zun"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "No Linguistic Content",
+      "iso_code": "zxx"
+    }
+  },
+  {
+    "model": "rest.lang",
+    "pk": 1,
+    "fields": {
+      "label": "Dimili",
+      "iso_code": "zza"
+    }
+  }
+]
