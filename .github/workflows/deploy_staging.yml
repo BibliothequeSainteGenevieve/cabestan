@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-      - "ops/initiate-ci"
+      - "ops/add-lets-encrypt"
 env:
   COMPOSE_PROJECT_NAME: ${{vars.COMPOSE_PROJECT_NAME}}
   DJANGO_SUPERUSER_USERNAME: ${{vars.DJANGO_SUPERUSER_USERNAME}}

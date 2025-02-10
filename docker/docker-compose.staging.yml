@@ -63,6 +63,7 @@ services:
       dockerfile: nginx/nginx_dockerfile
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - cabestan
     restart: always
@@ -71,6 +72,8 @@ services:
       - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
       - HOST=${HOST}
     volumes:
+      - ${CERTIFICATES_PATH}:/etc/nginx/ssl/:ro
+      - ./nginx/cabestan.conf.staging.model:/cabestan.conf.template
       - ./nginx/client-dist:/var/www/html
 
   cabestan-scraper:

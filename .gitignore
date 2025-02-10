@@ -13,3 +13,4 @@ app/media/*
 # For developers who like to have a tmp folder inside project
 tmp
 .env.act
+docker/certbot
