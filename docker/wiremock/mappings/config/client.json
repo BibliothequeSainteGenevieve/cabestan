@@ -186,7 +186,7 @@
         { "slug": "toulouse" },
         { "slug": "bordeaux" }
       ],
-      "editor": [
+      "publisher": [
         { "slug": "gallimard" },
         { "slug": "hachette" },
         { "slug": "flammarion" },
