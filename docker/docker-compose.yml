@@ -70,6 +70,8 @@ services:
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
       - HOST=${HOST}
+    volumes:
+      - ./nginx/cabestan.conf.model:/cabestan.conf.template
 
   client:
     build:
