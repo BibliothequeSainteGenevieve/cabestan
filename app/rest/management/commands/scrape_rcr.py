@@ -1,9 +1,6 @@
 from django.core.management.base import BaseCommand
 from rest.models import (
-    Lang,
     RcrType,
-    BookType,
-    Editor,
     Rcr,
     City,
     Department,
@@ -29,7 +26,7 @@ class Command(BaseCommand):
             delimiter="\t",
             lineterminator="\r\n",
         )
-        for row in reader:                        
+        for row in reader:
             city = None
             if row["PAYS"] == "FR":
                 city = self.find_or_create_city_by_name(row["VILLE"], row["CDPOSTAL"])
