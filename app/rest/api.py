@@ -21,6 +21,7 @@ class RcrSearchFilters(Schema):
     rcr_type: Optional[str] = None
     book_type: Optional[str] = None
     publisher: Optional[str] = None
+    map_format: Optional[bool] = False
     page: int = 1
     per_page: int = 20
 
@@ -61,46 +62,66 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     total = queryset.count()
     start = (filters.page - 1) * filters.per_page
     end = start + filters.per_page
-    queryset = queryset[start:end]
-
-    return {
-        "pagination": {
-            "totalResults": total,
-            "currentPage": filters.page,
-            "itemsPerPage": filters.per_page,
-            "remainingItems": max(0, total - (filters.page * filters.per_page)),
-        },
-        "items": [
-            {
-                "rcr": rcr.rcr_number,
-                "name": rcr.title,
-                "translatedName": None,
-                "numberOfDocuments": rcr.rcrbook_set.count(),
-                "contact": {
-                    "website": rcr.website,
-                    "phone": rcr.phone,
-                    "email": rcr.email,
-                    "address": {
-                        "street": rcr.address,
-                        "postalCode": rcr.city.zipcode if rcr.city else None,
-                        "city": rcr.city.label if rcr.city else None,
-                        "country": "France",
+    if not filters.map_format:
+        queryset = queryset[start:end]
+        return {
+            "pagination": {
+                "totalResults": total,
+                "currentPage": filters.page,
+                "itemsPerPage": filters.per_page,
+                "remainingItems": max(0, total - (filters.page * filters.per_page)),
+            },
+            "items": [
+                {
+                    "rcr": rcr.rcr_number,
+                    "name": rcr.title,
+                    "translatedName": None,
+                    "numberOfDocuments": rcr.rcrbook_set.count(),
+                    "contact": {
+                        "website": rcr.website,
+                        "phone": rcr.phone,
+                        "email": rcr.email,
+                        "address": {
+                            "street": rcr.address,
+                            "postalCode": rcr.city.zipcode if rcr.city else None,
+                            "city": rcr.city.label if rcr.city else None,
+                            "country": "France",
+                        },
                     },
-                },
-                "location": {"longitude": rcr.longitude, "latitude": rcr.latitude},
-                "languages": {
-                    "count": None,  # TODO,
-                    "supported": None,  # TODO,
-                },
-                "metadata": {
-                    "author": None,  # TODO
-                    "publicationPlace": None,  # TODO
-                    "publisher": None,  # TODO
-                    "publicationDate": None,  # TODO
-                    "documentLanguage": None,  # TODO
-                    "tags": None,  # TODO,
-                },
-            }
-            for rcr in queryset
-        ],
-    }
+                    "location": {"longitude": rcr.longitude, "latitude": rcr.latitude},
+                    "languages": {
+                        "count": None,  # TODO,
+                        "supported": None,  # TODO,
+                    },
+                    "metadata": {
+                        "author": None,  # TODO
+                        "publicationPlace": None,  # TODO
+                        "publisher": None,  # TODO
+                        "publicationDate": None,  # TODO
+                        "documentLanguage": None,  # TODO
+                        "tags": None,  # TODO,
+                    },
+                }
+                for rcr in queryset
+            ],
+        }
+    else:
+        return {
+            "items": [
+                {
+                    "rcr": rcr.rcr_number,
+                    "name": rcr.title,
+                    "numberOfDocuments": rcr.rcrbook_set.count(),
+                    "contact": {
+                        "address": {
+                            "street": rcr.address,
+                            "postalCode": rcr.city.zipcode if rcr.city else None,
+                            "city": rcr.city.label if rcr.city else None,
+                            "country": "France",
+                        }
+                    },
+                    "location": {"longitude": rcr.longitude, "latitude": rcr.latitude},
+                }
+                for rcr in queryset
+            ],
+        }
