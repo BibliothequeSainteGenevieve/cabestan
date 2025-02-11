@@ -11,7 +11,7 @@ class Region(models.Model):
 
 class Department(models.Model):
     label = models.CharField(max_length=100)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.label
@@ -19,6 +19,7 @@ class Department(models.Model):
 
 class City(models.Model):
     label = models.CharField(max_length=100)
+    zipcode = models.CharField(max_length=10, null=True, blank=True, unique=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -35,6 +36,7 @@ class CountryType(models.Model):
 # RCR related models
 class RcrType(models.Model):
     label = models.CharField(max_length=100)  # library, reserve, etc.
+    abes_code = models.CharField(max_length=10, null=True, blank=True)
 
     def __str__(self):
         return self.label
@@ -44,7 +46,7 @@ class Rcr(models.Model):
     title = models.CharField(max_length=200)
     rcr_number = models.CharField(max_length=50)
     type = models.ForeignKey(RcrType, on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     address = models.CharField(max_length=255)
     longitude = models.FloatField(null=True, blank=True)
     latitude = models.FloatField(null=True, blank=True)

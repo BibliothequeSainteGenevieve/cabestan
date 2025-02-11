@@ -1,6 +1,6 @@
 #!/bin/bash
 while [ 1 ]
 do
-    python /home/cabestan/app/manage.py scrape
-    sleep 30
+    python /home/cabestan/app/manage.py scrape_rcr
+    sleep 3600
 done
