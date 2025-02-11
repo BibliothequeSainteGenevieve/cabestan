@@ -1,0 +1,68 @@
+from rest_framework import serializers
+from .models import Lang, RcrType, BookType, Department, City, Editor
+
+
+class ConfigLangSerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Lang
+        fields = ["slug", "label"]
+
+    def get_slug(self, obj):
+        return obj.iso_code
+
+
+class ConfigRcrTypeSerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField()
+
+    class Meta:
+        model = RcrType
+        fields = ["slug"]
+
+    def get_slug(self, obj):
+        return obj.label
+
+
+class ConfigBookTypeSerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BookType
+        fields = ["slug"]
+
+    def get_slug(self, obj):
+        return obj.label
+
+
+class ConfigDepartmentSerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Department
+        fields = ["slug", "label"]
+
+    def get_slug(self, obj):
+        return str(obj.id).zfill(2)  # Pour avoir "01" au lieu de "1"
+
+
+class ConfigCitySerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField()
+
+    class Meta:
+        model = City
+        fields = ["slug"]
+
+    def get_slug(self, obj):
+        return obj.label.lower()
+
+
+class ConfigEditorSerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Editor
+        fields = ["slug"]
+
+    def get_slug(self, obj):
+        return obj.title.lower()

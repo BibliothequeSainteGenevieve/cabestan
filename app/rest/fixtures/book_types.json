@@ -1,0 +1,93 @@
+[
+  {
+    "model": "rest.booktype",
+    "pk": 1,
+    "fields": {
+      "label": "article"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 2,
+    "fields": {
+      "label": "printed-monograph"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 3,
+    "fields": {
+      "label": "manuscript"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 4,
+    "fields": {
+      "label": "musical-recording"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 5,
+    "fields": {
+      "label": "still-image"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 6,
+    "fields": {
+      "label": "map"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 7,
+    "fields": {
+      "label": "musical-score"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 8,
+    "fields": {
+      "label": "non-musical-recording"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 9,
+    "fields": {
+      "label": "electronic-monograph"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 10,
+    "fields": {
+      "label": "periodical"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 11,
+    "fields": {
+      "label": "audiovisual"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 12,
+    "fields": {
+      "label": "multimedia"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 13,
+    "fields": {
+      "label": "thesis"
+    }
+  }
+]

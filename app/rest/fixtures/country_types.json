@@ -1,0 +1,30 @@
+[
+  {
+    "model": "rest.countrytype",
+    "pk": 1,
+    "fields": {
+      "label": "Métropolitain"
+    }
+  },
+  {
+    "model": "rest.countrytype",
+    "pk": 2,
+    "fields": {
+      "label": "DROM"
+    }
+  },
+  {
+    "model": "rest.countrytype",
+    "pk": 3,
+    "fields": {
+      "label": "COM"
+    }
+  },
+  {
+    "model": "rest.countrytype",
+    "pk": 4,
+    "fields": {
+      "label": "Étranger"
+    }
+  }
+]
