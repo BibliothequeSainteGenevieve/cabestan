@@ -6,11 +6,7 @@ import { CommandSearch } from "./CommandSearch/CommandSearch";
 import ComboboxFilter from "./ComboboxFilter";
 import PopoverMoreFilters from "./PopoverMoreFilters";
 import DateRangePicker from "./DateRangePicker/DateRangePicker";
-
-const getClientConfig = async () => {
-	const response = await fetch("http://localhost:8082/api/client-config");
-	return response.json();
-};
+import { getClientConfig } from "@/api";
 
 export default function SearchBar() {
 	const navigate = useNavigate();
@@ -32,10 +28,14 @@ export default function SearchBar() {
 	const [isCityFilterOpen, setIsCityFilterOpen] = useState(searchParams.get("cities") ? true : false);
 	const [isPublisherFilterOpen, setIsPublisherFilterOpen] = useState(searchParams.get("publishers") ? true : false);
 	const [isPublicationDateFilterOpen, setIsPublicationDateFilterOpen] = useState(
-		searchParams.get("startPublicationDate") ? true : false
+		searchParams.get("startPublicationDate") || searchParams.get("endPublicationDate") ? true : false
 	);
-	/* const [isTranslationDateFilterOpen, setIsTranslationDateFilterOpen] = useState(false);
-	const [isReeditionDateFilterOpen, setIsReeditionDateFilterOpen] = useState(false); */
+	const [isTranslationDateFilterOpen, setIsTranslationDateFilterOpen] = useState(
+		searchParams.get("startTranslationDate") || searchParams.get("endTranslationDate") ? true : false
+	);
+	const [isReissueDateFilterOpen, setIsReissueDateFilterOpen] = useState(
+		searchParams.get("startReissueDate") || searchParams.get("endReissueDate") ? true : false
+	);
 
 	const [selectedRegions, setSelectedRegions] = useState<string[]>(searchParams.get("regions")?.split(",") || []);
 	const [selectedDepartments, setSelectedDepartments] = useState<string[]>(searchParams.get("departments")?.split(",") || []);
@@ -47,17 +47,27 @@ export default function SearchBar() {
 	const [selectedEndPublicationDate, setSelectedEndPublicationDate] = useState<Date | undefined>(
 		searchParams.get("endPublicationDate") ? new Date(Number(searchParams.get("endPublicationDate")!)) : undefined
 	);
-	/* const [selectedTranslationDate, setSelectedTranslationDate] = useState<string | undefined>(
-		searchParams.get("translationDate") || undefined
+	const [selectedStartTranslationDate, setSelectedStartTranslationDate] = useState<Date | undefined>(
+		searchParams.get("startTranslationDate") ? new Date(Number(searchParams.get("startTranslationDate")!)) : undefined
 	);
-	const [selectedReeditionDate, setSelectedReeditionDate] = useState<string | undefined>(
-		searchParams.get("reeditionDate") || undefined
-	); */
+	const [selectedEndTranslationDate, setSelectedEndTranslationDate] = useState<Date | undefined>(
+		searchParams.get("endTranslationDate") ? new Date(Number(searchParams.get("endTranslationDate")!)) : undefined
+	);
+	const [selectedStartReissueDate, setSelectedStartReissueDate] = useState<Date | undefined>(
+		searchParams.get("startReissueDate") ? new Date(Number(searchParams.get("startReissueDate")!)) : undefined
+	);
+	const [selectedEndReissueDate, setSelectedEndReissueDate] = useState<Date | undefined>(
+		searchParams.get("endReissueDate") ? new Date(Number(searchParams.get("endReissueDate")!)) : undefined
+	);
 
 	useEffect(() => {
 		const dateFilters = [
 			{ label: "startPublicationDate", value: selectedStartPublicationDate },
 			{ label: "endPublicationDate", value: selectedEndPublicationDate },
+			{ label: "startTranslationDate", value: selectedStartTranslationDate },
+			{ label: "endTranslationDate", value: selectedEndTranslationDate },
+			{ label: "startReissueDate", value: selectedStartReissueDate },
+			{ label: "endReissueDate", value: selectedEndReissueDate },
 		];
 
 		dateFilters.forEach((filter) => {
@@ -105,6 +115,10 @@ export default function SearchBar() {
 		selectedPublishers,
 		selectedStartPublicationDate,
 		selectedEndPublicationDate,
+		selectedStartTranslationDate,
+		selectedEndTranslationDate,
+		selectedStartReissueDate,
+		selectedEndReissueDate,
 	]);
 
 	if (isLoading || !data) return <div>{t("SearchBar.loading")}</div>;
@@ -162,10 +176,29 @@ export default function SearchBar() {
 					)}
 					{isPublicationDateFilterOpen && (
 						<DateRangePicker
+							label={t("filters.publicationDates.label")}
 							selectedStartPublicationDate={selectedStartPublicationDate}
 							selectedEndPublicationDate={selectedEndPublicationDate}
 							setSelectedStartPublicationDate={setSelectedStartPublicationDate}
 							setSelectedEndPublicationDate={setSelectedEndPublicationDate}
+						/>
+					)}
+					{isTranslationDateFilterOpen && (
+						<DateRangePicker
+							label={t("filters.translationDates.label")}
+							selectedStartPublicationDate={selectedStartTranslationDate}
+							selectedEndPublicationDate={selectedEndTranslationDate}
+							setSelectedStartPublicationDate={setSelectedStartTranslationDate}
+							setSelectedEndPublicationDate={setSelectedEndTranslationDate}
+						/>
+					)}
+					{isReissueDateFilterOpen && (
+						<DateRangePicker
+							label={t("filters.reissueDates.label")}
+							selectedStartPublicationDate={selectedStartReissueDate}
+							selectedEndPublicationDate={selectedEndReissueDate}
+							setSelectedStartPublicationDate={setSelectedStartReissueDate}
+							setSelectedEndPublicationDate={setSelectedEndReissueDate}
 						/>
 					)}
 				</div>
@@ -186,6 +219,14 @@ export default function SearchBar() {
 					setIsPublicationDateFilterOpen={setIsPublicationDateFilterOpen}
 					setSelectedStartPublicationDate={setSelectedStartPublicationDate}
 					setSelectedEndPublicationDate={setSelectedEndPublicationDate}
+					isTranslationDateFilterOpen={isTranslationDateFilterOpen}
+					setIsTranslationDateFilterOpen={setIsTranslationDateFilterOpen}
+					setSelectedStartTranslationDate={setSelectedStartTranslationDate}
+					setSelectedEndTranslationDate={setSelectedEndTranslationDate}
+					isReissueDateFilterOpen={isReissueDateFilterOpen}
+					setIsReissueDateFilterOpen={setIsReissueDateFilterOpen}
+					setSelectedStartReissueDate={setSelectedStartReissueDate}
+					setSelectedEndReissueDate={setSelectedEndReissueDate}
 				/>
 			</div>
 		</div>

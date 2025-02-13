@@ -256,6 +256,18 @@
 				"robert-laffont": "Robert Laffont",
 				"minuit": "Minuit"
 			}
+		},
+		"publicationDates": {
+			"placeholder": "Dates de publication",
+			"label": "Publication"
+		},
+		"translationDates": {
+			"placeholder": "Dates de traduction",
+			"label": "Traduction"
+		},
+		"reissueDates": {
+			"placeholder": "Dates de réédition",
+			"label": "Réédition"
 		}
 	}
 }

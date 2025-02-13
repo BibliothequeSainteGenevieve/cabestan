@@ -6,13 +6,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import Suggestions from "./Suggestions";
 import { useTranslation } from "react-i18next";
 import { Search } from "lucide-react";
-
-const getSuggestions = async (value: string | undefined) => {
-	if (!value) return [];
-
-	const response = await fetch(`http://localhost:8082/api/rcr/suggestion?str=${value}`);
-	return response.json();
-};
+import { getSuggestions } from "@/api";
 
 interface CommandSearchProps {
 	setSearchString: (value: string | undefined) => void;

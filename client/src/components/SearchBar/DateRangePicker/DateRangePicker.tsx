@@ -8,6 +8,7 @@ interface DateRangePickerProps {
 	selectedEndPublicationDate: Date | undefined;
 	setSelectedStartPublicationDate: (date: Date | undefined) => void;
 	setSelectedEndPublicationDate: (date: Date | undefined) => void;
+	label: string;
 }
 
 export default function DateRangePicker({
@@ -15,6 +16,7 @@ export default function DateRangePicker({
 	selectedEndPublicationDate,
 	setSelectedStartPublicationDate,
 	setSelectedEndPublicationDate,
+	label,
 }: DateRangePickerProps) {
 	const { t } = useTranslation();
 
@@ -25,7 +27,7 @@ export default function DateRangePicker({
 				(selectedStartPublicationDate || selectedEndPublicationDate) && "bg-lightRed text-primary"
 			)}>
 			<CalendarIcon />
-			Publication :
+			{label} :
 			<div className="flex items-center gap-0">
 				<PopoverWithDropdownCalendar
 					date={selectedStartPublicationDate}

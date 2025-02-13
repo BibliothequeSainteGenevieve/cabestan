@@ -20,6 +20,14 @@ interface PopoverMoreFiltersProps {
 	setIsPublicationDateFilterOpen: (isOpen: boolean) => void;
 	setSelectedStartPublicationDate: (date: Date | undefined) => void;
 	setSelectedEndPublicationDate: (date: Date | undefined) => void;
+	isTranslationDateFilterOpen: boolean;
+	setIsTranslationDateFilterOpen: (isOpen: boolean) => void;
+	setSelectedStartTranslationDate: (date: Date | undefined) => void;
+	setSelectedEndTranslationDate: (date: Date | undefined) => void;
+	isReissueDateFilterOpen: boolean;
+	setIsReissueDateFilterOpen: (isOpen: boolean) => void;
+	setSelectedStartReissueDate: (date: Date | undefined) => void;
+	setSelectedEndReissueDate: (date: Date | undefined) => void;
 }
 
 export default function PopoverMoreFilters({
@@ -39,6 +47,14 @@ export default function PopoverMoreFilters({
 	setIsPublicationDateFilterOpen,
 	setSelectedStartPublicationDate,
 	setSelectedEndPublicationDate,
+	isTranslationDateFilterOpen,
+	setIsTranslationDateFilterOpen,
+	setSelectedStartTranslationDate,
+	setSelectedEndTranslationDate,
+	isReissueDateFilterOpen,
+	setIsReissueDateFilterOpen,
+	setSelectedStartReissueDate,
+	setSelectedEndReissueDate,
 }: PopoverMoreFiltersProps) {
 	const { t } = useTranslation();
 	return (
@@ -57,7 +73,7 @@ export default function PopoverMoreFilters({
 							setIsRegionFilterOpen(!isRegionFilterOpen);
 							setSelectedRegions([]);
 						}}>
-						Région
+						{t("filters.regions.placeholder")}
 						{isRegionFilterOpen && <Check className="w-4 h-4" />}
 					</Button>
 					<Button
@@ -66,7 +82,7 @@ export default function PopoverMoreFilters({
 							setIsDepartmentFilterOpen(!isDepartmentFilterOpen);
 							setSelectedDepartments([]);
 						}}>
-						Département
+						{t("filters.departments.placeholder")}
 						{isDepartmentFilterOpen && <Check className="w-4 h-4" />}
 					</Button>
 					<Button
@@ -75,7 +91,7 @@ export default function PopoverMoreFilters({
 							setIsCityFilterOpen(!isCityFilterOpen);
 							setSelectedCities([]);
 						}}>
-						Ville
+						{t("filters.cities.placeholder")}
 						{isCityFilterOpen && <Check className="w-4 h-4" />}
 					</Button>
 					<Button
@@ -84,7 +100,7 @@ export default function PopoverMoreFilters({
 							setIsPublisherFilterOpen(!isPublisherFilterOpen);
 							setSelectedPublishers([]);
 						}}>
-						Editeur
+						{t("filters.publishers.placeholder")}
 						{isPublisherFilterOpen && <Check className="w-4 h-4" />}
 					</Button>
 					<Button
@@ -94,11 +110,29 @@ export default function PopoverMoreFilters({
 							setSelectedStartPublicationDate(undefined);
 							setSelectedEndPublicationDate(undefined);
 						}}>
-						Date de publication
+						{t("filters.publicationDates.placeholder")}
 						{isPublicationDateFilterOpen && <Check className="w-4 h-4" />}
 					</Button>
-					<Button variant="ghost">Date de traduction</Button>
-					<Button variant="ghost">Date de réédition</Button>
+					<Button
+						variant="ghost"
+						onClick={() => {
+							setIsTranslationDateFilterOpen(!isTranslationDateFilterOpen);
+							setSelectedStartTranslationDate(undefined);
+							setSelectedEndTranslationDate(undefined);
+						}}>
+						{t("filters.translationDates.placeholder")}
+						{isTranslationDateFilterOpen && <Check className="w-4 h-4" />}
+					</Button>
+					<Button
+						variant="ghost"
+						onClick={() => {
+							setIsReissueDateFilterOpen(!isReissueDateFilterOpen);
+							setSelectedStartReissueDate(undefined);
+							setSelectedEndReissueDate(undefined);
+						}}>
+						{t("filters.reissueDates.placeholder")}
+						{isReissueDateFilterOpen && <Check className="w-4 h-4" />}
+					</Button>
 				</div>
 			</PopoverContent>
 		</Popover>
