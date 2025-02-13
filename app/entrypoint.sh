@@ -11,7 +11,7 @@ if python manage.py shell -c "from rest.models import Department; exit(0 if Depa
     echo "Fixtures already added"
 else
     echo "Loading fixtures..."
-    python manage.py loaddata regions country_types rcr_types book_types languages departments
+    python manage.py loaddata regions country_types rcr_types book_types languages departments author_types 
     echo "Fixtures added"
 fi
 python manage.py runserver 0.0.0.0:8080
