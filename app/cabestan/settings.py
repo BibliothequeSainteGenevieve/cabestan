@@ -226,7 +226,7 @@ CONSTANCE_CONFIG = {
         str,
     ),
     "URL_SUDOC": (
-        "https://www.sudoc.abes.fr/cbs/sru/?operation=searchRetrieve&version=1.1&recordSchema=unimarc&query={query}",
+        "https://www.sudoc.abes.fr/cbs/sru",
         "URL de récupération œuvres Sudoc",
         str,
     ),

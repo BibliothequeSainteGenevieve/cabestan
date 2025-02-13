@@ -84,7 +84,7 @@ services:
       - ../client:/app
       - /app/node_modules/
 
-  cabestan-scraper:
+  cabestan-scraper-rcr:
     restart: always
     build:
       context: ../app
@@ -102,12 +102,39 @@ services:
       - WORK_DIR=/home/cabestan/
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - SECRET_KEY=${SECRET_KEY}
+      - SCRIPT=scraper_cron_rcr
     volumes:
       - ../app:/home/cabestan/app/
     depends_on:
       db_pg:
         condition: service_healthy
-    container_name: ${COMPOSE_PROJECT_NAME}_scraper_web
+    container_name: ${COMPOSE_PROJECT_NAME}_scraper_rcr_web
+
+  cabestan-scraper-book:
+    restart: always
+    build:
+      context: ../app
+      dockerfile: ../docker/cron/cabestan_scraper_dockerfile
+      args:
+        - CABESTAN_ENV=${CABESTAN_ENV}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+        - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
+    environment:
+      - CABESTAN_ENV=${CABESTAN_ENV}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WORK_DIR=/home/cabestan/
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - SECRET_KEY=${SECRET_KEY}
+      - SCRIPT=scraper_cron_book
+    volumes:
+      - ../app:/home/cabestan/app/
+    depends_on:
+      db_pg:
+        condition: service_healthy
+    container_name: ${COMPOSE_PROJECT_NAME}_scraper_book_web
 
   wiremock:
     image: "wiremock/wiremock:latest"

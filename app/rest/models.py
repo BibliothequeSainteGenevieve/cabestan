@@ -54,6 +54,7 @@ class Rcr(models.Model):
     phone = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     country_type = models.ForeignKey(CountryType, on_delete=models.CASCADE)
+    books_count = models.IntegerField(null=True, blank=True, default=0)
 
     def __str__(self):
         return f"{self.title} ({self.rcr_number})"
@@ -76,7 +77,7 @@ class AuthorType(models.Model):
 
 
 class Author(models.Model):
-    firstname = models.CharField(max_length=100)
+    firstname = models.CharField(max_length=100, null=True, blank=True)
     lastname = models.CharField(max_length=100)
     type = models.ForeignKey(AuthorType, on_delete=models.CASCADE)
 
@@ -85,7 +86,7 @@ class Author(models.Model):
 
 
 class Editor(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.TextField(max_length=200)
 
     def __str__(self):
         return self.title
@@ -99,15 +100,20 @@ class BookType(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
-    lang = models.ForeignKey(Lang, on_delete=models.CASCADE)
-    type = models.ForeignKey(BookType, on_delete=models.CASCADE)
-    editor = models.ForeignKey(Editor, on_delete=models.CASCADE)
-    publication_date = models.DateField()
-    is_reedition = models.BooleanField(default=False)
+    ppn = models.CharField(max_length=200, unique=True, default="")
+    title = models.TextField(max_length=200, null=True, blank=True)
+    lang = models.ForeignKey(Lang, on_delete=models.CASCADE, null=True, blank=True)
+    type = models.ForeignKey(BookType, on_delete=models.CASCADE, null=True, blank=True)
+    editor = models.ForeignKey(Editor, on_delete=models.CASCADE, null=True, blank=True)
+    publication_date = models.DateField(null=True, blank=True)
+    is_reedition = models.BooleanField(null=True, blank=True)
     reedition_date = models.DateField(null=True, blank=True)
     author = models.ForeignKey(
-        Author, on_delete=models.CASCADE, related_name="authored_books"
+        Author,
+        on_delete=models.CASCADE,
+        related_name="authored_books",
+        null=True,
+        blank=True,
     )
     illustrator = models.ForeignKey(
         Author,
@@ -123,10 +129,15 @@ class Book(models.Model):
         null=True,
         blank=True,
     )
-    publication_city = models.ForeignKey(City, on_delete=models.CASCADE)
-    publication_address = models.CharField(max_length=255, null=True, blank=True)
-    publication_country_type = models.ForeignKey(CountryType, on_delete=models.CASCADE)
+    publication_city = models.ForeignKey(
+        City, on_delete=models.CASCADE, null=True, blank=True
+    )
+    publication_address = models.TextField(max_length=255, null=True, blank=True)
+    publication_country_type = models.ForeignKey(
+        CountryType, on_delete=models.CASCADE, null=True, blank=True
+    )
     misc_book_data = models.JSONField(null=True, blank=True)
+    rcr = models.ForeignKey(Rcr, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.title
