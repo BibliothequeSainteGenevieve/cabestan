@@ -7,48 +7,79 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rest', '0007_book_ppn'),
+        ("rest", "0007_book_ppn"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='book',
-            name='author',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='authored_books', to='rest.author'),
+            model_name="book",
+            name="author",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="authored_books",
+                to="rest.author",
+            ),
         ),
         migrations.AlterField(
-            model_name='book',
-            name='editor',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='rest.editor'),
+            model_name="book",
+            name="editor",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="rest.editor",
+            ),
         ),
         migrations.AlterField(
-            model_name='book',
-            name='is_reedition',
+            model_name="book",
+            name="is_reedition",
             field=models.BooleanField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='book',
-            name='lang',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='rest.lang'),
+            model_name="book",
+            name="lang",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="rest.lang",
+            ),
         ),
         migrations.AlterField(
-            model_name='book',
-            name='publication_city',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='rest.city'),
+            model_name="book",
+            name="publication_city",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="rest.city",
+            ),
         ),
         migrations.AlterField(
-            model_name='book',
-            name='publication_country_type',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='rest.countrytype'),
+            model_name="book",
+            name="publication_country_type",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="rest.countrytype",
+            ),
         ),
         migrations.AlterField(
-            model_name='book',
-            name='publication_date',
+            model_name="book",
+            name="publication_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='book',
-            name='type',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='rest.booktype'),
+            model_name="book",
+            name="type",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="rest.booktype",
+            ),
         ),
     ]
