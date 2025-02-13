@@ -11,6 +11,7 @@ from cabestan.config import get_config
 import csv
 import codecs
 import re
+from rest.management.commands.book_parser import UnimarcBookParser
 
 
 class Command(BaseCommand):
@@ -19,6 +20,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Langues
         rcr_url: str = get_config("URL_RCR")
+        self.sudoc_url: str = get_config("URL_SUDOC")
         self.stdout.write("Scrape all rcr from" + str(rcr_url))
         rcr_csv: str = rq.get(rcr_url)
         reader = csv.DictReader(
@@ -50,6 +52,8 @@ class Command(BaseCommand):
                 else None
             )
 
+            books_count = self.find_books_count(rcr)
+
             Rcr.objects.update_or_create(
                 rcr_number=rcr,
                 defaults=dict(
@@ -63,6 +67,7 @@ class Command(BaseCommand):
                     latitude=row["LATITUDE"],
                     longitude=row["LONGITUDE"],
                     email=row["EMAIL"],
+                    books_count=books_count,
                 ),
             )
 
@@ -117,3 +122,16 @@ class Command(BaseCommand):
             return CountryType.objects.get(label="com")
         else:
             return CountryType.objects.get(label="foreign")
+
+    def find_books_count(self, rcr_number: str):
+        url = f"{self.sudoc_url}/?operation=searchRetrieve&version=1.1&query=rbc%3D{rcr_number}&maximumRecords=1&startRecord=1"
+        rcr_csv: str = rq.get(url)
+        reader = csv.DictReader(
+            codecs.iterdecode(rcr_csv.iter_lines(), "utf-8"),
+            delimiter="\t",
+            lineterminator="\r\n",
+        )
+        data = list(reader)
+        parser = UnimarcBookParser(data)
+        number_of_records = parser.get_number_of_records()
+        return number_of_records
