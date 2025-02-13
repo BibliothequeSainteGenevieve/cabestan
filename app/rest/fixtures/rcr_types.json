@@ -3,140 +3,168 @@
     "model": "rest.rcrtype",
     "pk": 1,
     "fields": {
-      "label": "national-library"
+      "label": "national-library",
+      "abes_code": "10"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 2,
     "fields": {
-      "label": "university-library"
+      "label": "university-library",
+      "abes_code": "21"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 3,
     "fields": {
-      "label": "university-department-library"
+      "label": "university-department-library",
+      "abes_code": "22"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 4,
     "fields": {
-      "label": "higher-education-library"
+      "label": "higher-education-library",
+      "abes_code": "23"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 5,
     "fields": {
-      "label": "general-library"
+      "label": "general-library",
+      "abes_code": "30"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 6,
     "fields": {
-      "label": "school-library"
+      "label": "school-library",
+      "abes_code": "40"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 7,
     "fields": {
-      "label": "public-specialized-library"
+      "label": "public-specialized-library",
+      "abes_code": "51"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 8,
     "fields": {
-      "label": "restricted-public-specialized-library"
+      "label": "restricted-public-specialized-library",
+      "abes_code": "52"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 9,
     "fields": {
-      "label": "private-specialized-library"
+      "label": "private-specialized-library",
+      "abes_code": "53"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 10,
     "fields": {
-      "label": "restricted-private-specialized-library"
+      "label": "restricted-private-specialized-library",
+      "abes_code": "54"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 11,
     "fields": {
-      "label": "classified-municipal-library"
+      "label": "classified-municipal-library",
+      "abes_code": "61"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 12,
     "fields": {
-      "label": "municipal-library"
+      "label": "municipal-library",
+      "abes_code": "62"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 13,
     "fields": {
-      "label": "public-library"
+      "label": "public-library",
+      "abes_code": "63"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 14,
     "fields": {
-      "label": "corporate-library"
+      "label": "corporate-library",
+      "abes_code": "64"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 15,
     "fields": {
-      "label": "association-library"
+      "label": "association-library",
+      "abes_code": "65"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 16,
     "fields": {
-      "label": "religious-library"
+      "label": "religious-library",
+      "abes_code": "54"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 17,
     "fields": {
-      "label": "archive-center"
+      "label": "archive-center",
+      "abes_code": "51"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 18,
     "fields": {
-      "label": "museum-library"
+      "label": "museum-library",
+      "abes_code": "51"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 19,
     "fields": {
-      "label": "documentation-center"
+      "label": "documentation-center",
+      "abes_code": "51"
     }
   },
   {
     "model": "rest.rcrtype",
     "pk": 20,
     "fields": {
-      "label": "other"
+      "label": "other",
+      "abes_code": "30"
+    }
+  },
+  {
+    "model": "rest.rcrtype",
+    "pk": 21,
+    "fields": {
+      "label": "unknown",
+      "abes_code": "99"
     }
   }
 ]

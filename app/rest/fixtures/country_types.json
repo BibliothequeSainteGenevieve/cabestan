@@ -3,28 +3,28 @@
     "model": "rest.countrytype",
     "pk": 1,
     "fields": {
-      "label": "Métropolitain"
+      "label": "metropolitan"
     }
   },
   {
     "model": "rest.countrytype",
     "pk": 2,
     "fields": {
-      "label": "DROM"
+      "label": "drom"
     }
   },
   {
     "model": "rest.countrytype",
     "pk": 3,
     "fields": {
-      "label": "COM"
+      "label": "com"
     }
   },
   {
     "model": "rest.countrytype",
     "pk": 4,
     "fields": {
-      "label": "Étranger"
+      "label": "foreign"
     }
   }
 ]

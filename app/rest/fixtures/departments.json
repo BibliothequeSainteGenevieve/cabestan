@@ -153,6 +153,14 @@
   },
   {
     "model": "rest.department",
+    "pk": 20,
+    "fields": {
+      "label": "Corse",
+      "region": 5
+    }
+  },
+  {
+    "model": "rest.department",
     "pk": 21,
     "fields": {
       "label": "Côte-d'Or",
@@ -788,6 +796,62 @@
     "pk": 976,
     "fields": {
       "label": "Mayotte",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 977,
+    "fields": {
+      "label": "Saint-Barthélemy",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 978,
+    "fields": {
+      "label": "Saint-Martin",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 984,
+    "fields": {
+      "label": "Terres australes et antarctiques françaises",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 986,
+    "fields": {
+      "label": "Wallis-et-Futuna",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 987,
+    "fields": {
+      "label": "Polynésie française",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 988,
+    "fields": {
+      "label": "Nouvelle-Calédonie",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 989,
+    "fields": {
+      "label": "Île de Clipperton",
       "region": 6
     }
   }
