@@ -2,8 +2,22 @@ import { CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator 
 import { Book, Landmark, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+type Suggestion = {
+	title: string;
+	subtitle: string;
+	type: SuggestionType;
+};
+
+enum SuggestionType {
+	LIBRARY = "rcr",
+	DOCUMENT = "document",
+	AUTHOR = "author",
+	ILLUSTRATOR = "illustrator",
+	TRANSLATOR = "translator",
+}
+
 interface SuggestionsProps {
-	suggestions: any;
+	suggestions: Suggestion[];
 	isLoading: boolean;
 	error: any;
 	setInputValue: (value: string) => void;
@@ -13,6 +27,29 @@ interface SuggestionsProps {
 
 function Suggestions({ suggestions, isLoading, error, setInputValue, setSearchString, setIsOpen }: SuggestionsProps) {
 	const { t } = useTranslation();
+
+	const suggestionsSections = [
+		{
+			icon: <Landmark className="w-4 h-4" />,
+			type: SuggestionType.LIBRARY,
+		},
+		{
+			icon: <Book className="w-4 h-4" />,
+			type: SuggestionType.DOCUMENT,
+		},
+		{
+			icon: <User className="w-4 h-4" />,
+			type: SuggestionType.AUTHOR,
+		},
+		{
+			icon: <User className="w-4 h-4" />,
+			type: SuggestionType.ILLUSTRATOR,
+		},
+		{
+			icon: <User className="w-4 h-4" />,
+			type: SuggestionType.TRANSLATOR,
+		},
+	];
 
 	const handleSelect = ({ searchString, inputValue }: { searchString: string; inputValue: string }) => {
 		setInputValue(inputValue);
@@ -26,55 +63,52 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setSearchSt
 	return (
 		<CommandList className="absolute bg-white top-11 w-full z-50">
 			<CommandEmpty>{t("CommandSearch.suggestions.empty")}</CommandEmpty>
-			<CommandGroup
+			{suggestionsSections.map((section) => (
+				<>
+					<CommandGroup
+						key={section.type}
+						heading={
+							<span className="flex items-center gap-1 font-bold">
+								{section.icon} {t(`CommandSearch.suggestions.types.${section.type}`)}
+							</span>
+						}>
+						{suggestions
+							.filter((suggestion) => suggestion.type === section.type)
+							.map((suggestion) => (
+								<CommandItem
+									key={suggestion.title}
+									value={suggestion.title}
+									onSelect={() =>
+										handleSelect({ searchString: suggestion.title, inputValue: suggestion.title })
+									}>
+									<span>
+										{suggestion.title} {suggestion.subtitle ? `- ${suggestion?.subtitle}` : ""}
+									</span>
+								</CommandItem>
+							))}
+					</CommandGroup>
+					<CommandSeparator />
+				</>
+			))}
+			{/* 			<CommandGroup
 				heading={
 					<span className="flex items-center gap-1 font-bold">
 						<Landmark className="w-4 h-4" /> {t("CommandSearch.suggestions.libraries")}
 					</span>
 				}>
-				{suggestions?.rcr?.slice(0, 5).map((rcr: any) => (
-					<CommandItem
-						key={rcr.rcr}
-						value={rcr.rcr}
-						onSelect={() => handleSelect({ searchString: rcr.rcr, inputValue: `${rcr.name} - ${rcr.rcr}` })}>
-						<span>
-							{rcr.name} - {rcr.rcr}
-						</span>
-					</CommandItem>
-				))}
-			</CommandGroup>
-			<CommandSeparator />
-			<CommandGroup
-				heading={
-					<span className="flex items-center gap-1 font-bold">
-						<Book className="w-4 h-4" /> {t("CommandSearch.suggestions.documents")}
-					</span>
-				}>
-				{suggestions?.documents?.slice(0, 5).map((document: any) => (
-					<CommandItem
-						key={document.title}
-						value={document.title}
-						onSelect={() => handleSelect({ searchString: document.title, inputValue: document.title })}>
-						<span>{document.title}</span>
-					</CommandItem>
-				))}
-			</CommandGroup>
-			<CommandSeparator />
-			<CommandGroup
-				heading={
-					<span className="flex items-center gap-1 font-bold">
-						<User className="w-4 h-4" /> {t("CommandSearch.suggestions.authors")}
-					</span>
-				}>
-				{suggestions?.authors?.slice(0, 5).map((author: any) => (
-					<CommandItem
-						key={author.name}
-						value={author.name}
-						onSelect={() => handleSelect({ searchString: author.name, inputValue: author.name })}>
-						<span>{author.name}</span>
-					</CommandItem>
-				))}
-			</CommandGroup>
+				{suggestions
+					?.filter((suggestion: any) => suggestion.type === SuggestionType.LIBRARY)
+					.map((rcr: any) => (
+						<CommandItem
+							key={rcr.rcr}
+							value={rcr.rcr}
+							onSelect={() => handleSelect({ searchString: rcr.rcr, inputValue: `${rcr.name} - ${rcr.rcr}` })}>
+							<span>
+								{rcr.name} - {rcr.rcr}
+							</span>
+						</CommandItem>
+					))}
+			</CommandGroup> */}
 		</CommandList>
 	);
 }

@@ -42,10 +42,10 @@ export default function SearchBar() {
 	const [selectedCities, setSelectedCities] = useState<string[]>(searchParams.get("cities")?.split(",") || []);
 	const [selectedPublishers, setSelectedPublishers] = useState<string[]>(searchParams.get("publishers")?.split(",") || []);
 	const [selectedStartPublicationDate, setSelectedStartPublicationDate] = useState<Date | undefined>(
-		searchParams.get("startPublicationDate") ? new Date(searchParams.get("startPublicationDate")!) : undefined
+		searchParams.get("startPublicationDate") ? new Date(Number(searchParams.get("startPublicationDate")!)) : undefined
 	);
 	const [selectedEndPublicationDate, setSelectedEndPublicationDate] = useState<Date | undefined>(
-		searchParams.get("endPublicationDate") ? new Date(searchParams.get("endPublicationDate")!) : undefined
+		searchParams.get("endPublicationDate") ? new Date(Number(searchParams.get("endPublicationDate")!)) : undefined
 	);
 	/* const [selectedTranslationDate, setSelectedTranslationDate] = useState<string | undefined>(
 		searchParams.get("translationDate") || undefined
@@ -55,13 +55,21 @@ export default function SearchBar() {
 	); */
 
 	useEffect(() => {
-		if (searchString) {
-			searchParams.set("str", searchString);
-		} else {
-			searchParams.delete("str");
-		}
+		const dateFilters = [
+			{ label: "startPublicationDate", value: selectedStartPublicationDate },
+			{ label: "endPublicationDate", value: selectedEndPublicationDate },
+		];
 
-		const filters = [
+		dateFilters.forEach((filter) => {
+			if (filter.value) {
+				searchParams.set(filter.label, filter.value.getTime().toString());
+			} else {
+				searchParams.delete(filter.label);
+			}
+		});
+
+		const otherFilters = [
+			{ label: "str", value: [searchString] },
 			{ label: "languages", value: selectedLanguages },
 			{ label: "establishementsTypes", value: selectedEstablishementsTypes },
 			{ label: "booksTypes", value: selectedBooksTypes },
@@ -70,11 +78,9 @@ export default function SearchBar() {
 			{ label: "cities", value: selectedCities },
 			{ label: "publishers", value: selectedPublishers },
 			{ label: "booksTypes", value: selectedBooksTypes },
-			{ label: "startPublicationDate", value: [selectedStartPublicationDate] },
-			{ label: "endPublicationDate", value: [selectedEndPublicationDate] },
 		];
 
-		filters.forEach((filter) => {
+		otherFilters.forEach((filter) => {
 			if (filter.value.length > 0 && filter.value[0] !== undefined) {
 				searchParams.set(filter.label, filter.value.join(","));
 			} else {

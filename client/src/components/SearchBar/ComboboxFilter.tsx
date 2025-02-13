@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useTranslation } from "react-i18next";
 
 interface ComboboxFilterProps {
-	options: string[];
+	options: { slug: string }[];
 	type: string;
 	value: string[];
 	setValue: (value: string[]) => void;
@@ -54,8 +54,8 @@ export default function ComboboxFilter({ options, type, value, setValue }: Combo
 							)}
 							{options.map((option) => (
 								<CommandItem
-									key={option}
-									value={option}
+									key={option.slug}
+									value={option.slug}
 									onSelect={(currentValue) => {
 										if (value.includes(currentValue)) {
 											setValue(value.filter((item) => item !== currentValue));
@@ -63,8 +63,8 @@ export default function ComboboxFilter({ options, type, value, setValue }: Combo
 											setValue([...value, currentValue]);
 										}
 									}}>
-									{t(`filters.${type}.options.${option}`)}
-									<Check className={cn("ml-auto", value.includes(option) ? "opacity-100" : "opacity-0")} />
+									{t(`filters.${type}.options.${option.slug}`)}
+									<Check className={cn("ml-auto", value.includes(option.slug) ? "opacity-100" : "opacity-0")} />
 								</CommandItem>
 							))}
 						</CommandGroup>

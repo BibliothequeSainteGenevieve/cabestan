@@ -12,28 +12,26 @@
 		"jsonBody": {
 			"languages": [{ "slug": "fr" }, { "slug": "en" }, { "slug": "es" }, { "slug": "de" }, { "slug": "it" }],
 			"establishementsTypes": [
-				[
-					{ "slug": "national-library" },
-					{ "slug": "university-library" },
-					{ "slug": "university-department-library" },
-					{ "slug": "higher-education-library" },
-					{ "slug": "general-library" },
-					{ "slug": "school-library" },
-					{ "slug": "public-specialized-library" },
-					{ "slug": "restricted-public-specialized-library" },
-					{ "slug": "private-specialized-library" },
-					{ "slug": "restricted-private-specialized-library" },
-					{ "slug": "classified-municipal-library" },
-					{ "slug": "municipal-library" },
-					{ "slug": "public-library" },
-					{ "slug": "corporate-library" },
-					{ "slug": "association-library" },
-					{ "slug": "religious-library" },
-					{ "slug": "archive-center" },
-					{ "slug": "museum-library" },
-					{ "slug": "documentation-center" },
-					{ "slug": "other" }
-				]
+				{ "slug": "national-library" },
+				{ "slug": "university-library" },
+				{ "slug": "university-department-library" },
+				{ "slug": "higher-education-library" },
+				{ "slug": "general-library" },
+				{ "slug": "school-library" },
+				{ "slug": "public-specialized-library" },
+				{ "slug": "restricted-public-specialized-library" },
+				{ "slug": "private-specialized-library" },
+				{ "slug": "restricted-private-specialized-library" },
+				{ "slug": "classified-municipal-library" },
+				{ "slug": "municipal-library" },
+				{ "slug": "public-library" },
+				{ "slug": "corporate-library" },
+				{ "slug": "association-library" },
+				{ "slug": "religious-library" },
+				{ "slug": "archive-center" },
+				{ "slug": "museum-library" },
+				{ "slug": "documentation-center" },
+				{ "slug": "other" }
 			],
 			"documentTypes": [
 				{ "slug": "article" },
@@ -173,14 +171,14 @@
 				{ "slug": "974" },
 				{ "slug": "976" }
 			],
-			"city": [
+			"cities": [
 				{ "slug": "paris" },
 				{ "slug": "marseille" },
 				{ "slug": "lyon" },
 				{ "slug": "toulouse" },
 				{ "slug": "bordeaux" }
 			],
-			"publisher": [
+			"publishers": [
 				{ "slug": "gallimard" },
 				{ "slug": "hachette" },
 				{ "slug": "flammarion" },

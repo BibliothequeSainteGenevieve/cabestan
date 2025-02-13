@@ -9,34 +9,35 @@
 		"headers": {
 			"Content-Type": "application/json;charset=UTF-8"
 		},
-		"jsonBody": {
-			"rcr": [
-				{
-					"rcr": "18468494",
-					"name": "Bibliothèque municipale de Paris"
-				},
-				{
-					"rcr": "216546846",
-					"name": "Bibliothèque municipale de Lyon"
-				}
-			],
-			"documents": [
-				{
-					"title": "The small horse",
-					"originalTitle": "Le petit cheval"
-				},
-				{
-					"title": "Sonnette"
-				}
-			],
-			"authors": [
-				{
-					"name": "Jean-Jacques Rousseau"
-				},
-				{
-					"name": "Baptiste Colin"
-				}
-			]
-		}
+		"jsonBody": [
+			{
+				"title": "Bibliothèque municipale de Paris",
+				"subtitle": "18468494",
+				"type": "rcr"
+			},
+			{
+				"title": "Bibliothèque municipale de Lyon",
+				"subtitle": "216546846",
+				"type": "rcr"
+			},
+			{
+				"title": "The small horse",
+				"subtitle": "Le petit cheval",
+				"type": "document"
+			},
+			{
+				"title": "Sonnette",
+				"subtitle": "La sonnette",
+				"type": "document"
+			},
+			{
+				"title": "Jean-Jacques Rousseau",
+				"type": "author"
+			},
+			{
+				"title": "Baptiste Colin",
+				"type": "author"
+			}
+		]
 	}
 }

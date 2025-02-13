@@ -7,7 +7,8 @@ import LayoutBase from "./layouts/LayoutBase";
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			gcTime: 1000 * 60 * 60 * 24, // 24 hours
+			gcTime: 1000, // 1 second
+			// gcTime: 1000 * 60 * 60 * 24, // 24 hours
 		},
 	},
 });
