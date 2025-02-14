@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Command, CommandInput } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useTranslation } from "react-i18next";
-import { getEditorsSuggestions } from "@/api";
+import { getPublishersSuggestions } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@/hooks/useDebounce";
 import Suggestions from "./Suggestions";
 import { useSearchParams } from "react-router";
+import PublishersLabel from "./Value";
 
 interface PublishersFilterProps {
 	type: string;
@@ -28,8 +29,8 @@ export default function PublishersFilter({ type }: PublishersFilterProps) {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ["publishers-suggestion", searchEditorsSuggestionsValue],
-		queryFn: () => getEditorsSuggestions(searchEditorsSuggestionsValue),
+		queryKey: [`${type}-suggestion`, searchEditorsSuggestionsValue],
+		queryFn: () => getPublishersSuggestions(searchEditorsSuggestionsValue),
 	});
 
 	const setSearchEditorsSuggestionsValueDebounced = useDebounce(setSearchEditorsSuggestionsValue, 300);
@@ -48,7 +49,15 @@ export default function PublishersFilter({ type }: PublishersFilterProps) {
 						"bg-white hover:bg-white w-auto p-4 justify-between",
 						value.length > 0 ? "bg-lightRed text-primary" : ""
 					)}>
-					{value.length > 0 ? value.join(", ") : t(`filters.${type}.placeholder`)}
+					{value.length > 0 ? (
+						value?.map((slug, index) => (
+							<>
+								<PublishersLabel key={slug} slug={slug} isLast={index === value.length - 1} />
+							</>
+						))
+					) : (
+						<span>{t(`filters.${type}.placeholder`)}</span>
+					)}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>

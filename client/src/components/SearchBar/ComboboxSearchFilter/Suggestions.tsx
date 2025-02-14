@@ -4,8 +4,12 @@ import { CommandEmpty, CommandItem, CommandList } from "@/components/ui/command"
 import { useTranslation } from "react-i18next";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 
+type ComboboxSearchOption = {
+	slug: string;
+	label: string;
+};
 interface ComboboxSearchFilterProps {
-	suggestions: { slug: string; label: string }[];
+	suggestions: ComboboxSearchOption[];
 	value: string[];
 	setValue: (value: string[]) => void;
 	setOpen: (value: boolean) => void;
@@ -44,12 +48,12 @@ export default function PublishersSuggestions({
 					<X className={cn("ml-auto", "opacity-100")} />
 				</CommandItem>
 			)}
-			{suggestions?.map((suggestion: { slug: string; label: string }) => (
+			{suggestions?.map((suggestion: ComboboxSearchOption) => (
 				<>
 					<CommandItem
 						key={suggestion.slug}
 						onSelect={() => {
-							let newValues = [];
+							let newValues: string[] = [];
 							if (value.includes(suggestion.slug)) {
 								newValues = value.filter((item) => item !== suggestion.slug);
 							} else {

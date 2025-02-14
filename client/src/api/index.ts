@@ -12,9 +12,14 @@ export const getSuggestions = async (value: string | undefined) => {
 	return response.json();
 };
 
-export const getEditorsSuggestions = async (value: string | undefined) => {
+export const getPublishersSuggestions = async (value: string | undefined) => {
 	if (!value) return [];
 
 	const response = await fetch(`${API_HOST}/api/rcr/publishers-suggestion?str=${value}`);
+	return response.json();
+};
+
+export const getPublisherDetails = async (slug: string) => {
+	const response = await fetch(`${API_HOST}/api/rcr/publishers/${slug}`);
 	return response.json();
 };

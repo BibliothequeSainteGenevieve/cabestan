@@ -1,0 +1,18 @@
+{
+	"request": {
+		"method": "GET",
+		"urlPattern": "/api/rcr/publishers/([a-z-]*)",
+		"urlPathPattern": "/api/rcr/publishers/{slug}",
+		"headers": {}
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "application/json;charset=UTF-8"
+		},
+		"jsonBody": {
+			"slug": "{{request.path.[3]}}",
+			"label": "Label {{request.path.[3]}}"
+		}
+	}
+}
