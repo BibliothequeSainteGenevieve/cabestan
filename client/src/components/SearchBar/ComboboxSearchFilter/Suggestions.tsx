@@ -11,6 +11,7 @@ interface ComboboxSearchFilterProps {
 	setOpen: (value: boolean) => void;
 	isLoading: boolean;
 	error: any;
+	type: string;
 }
 
 export default function PublishersSuggestions({
@@ -20,6 +21,7 @@ export default function PublishersSuggestions({
 	setOpen,
 	isLoading,
 	error,
+	type,
 }: ComboboxSearchFilterProps) {
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
@@ -36,7 +38,7 @@ export default function PublishersSuggestions({
 					onSelect={() => {
 						setValue([]);
 						setOpen(false);
-						setFilterSearchParams([], "publishers");
+						setFilterSearchParams([], type);
 					}}>
 					{t("ComboboxFilter.reset")}
 					<X className={cn("ml-auto", "opacity-100")} />
@@ -54,7 +56,7 @@ export default function PublishersSuggestions({
 								newValues = [...value, suggestion.slug];
 							}
 							setValue(newValues);
-							setFilterSearchParams(newValues, "publishers");
+							setFilterSearchParams(newValues, type);
 						}}>
 						{suggestion.label}
 						<Check className={cn("ml-auto", value.includes(suggestion.slug) ? "opacity-100" : "opacity-0")} />

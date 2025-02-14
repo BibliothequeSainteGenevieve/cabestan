@@ -8,17 +8,16 @@ import { useTranslation } from "react-i18next";
 import { getEditorsSuggestions } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@/hooks/useDebounce";
-import PublishersSuggestions from "./Suggestions";
+import Suggestions from "./Suggestions";
 
-interface ComboboxSearchFilterProps {
-	options: { slug: string }[];
+interface PublishersFilterProps {
 	type: string;
-	value: string[];
-	setValue: (value: string[]) => void;
 }
 
-export default function ComboboxSearchFilter({ type, value, setValue }: ComboboxSearchFilterProps) {
+export default function PublishersFilter({ type }: PublishersFilterProps) {
+	const [value, setValue] = useState<string[]>([]);
 	const [open, setOpen] = useState(false);
+
 	const [searchEditorsSuggestionsValue, setSearchEditorsSuggestionsValue] = useState<string>("");
 	const { t } = useTranslation();
 
@@ -54,13 +53,14 @@ export default function ComboboxSearchFilter({ type, value, setValue }: Combobox
 			<PopoverContent className="w-[200px] p-0 bg-white">
 				<Command shouldFilter={false}>
 					<CommandInput placeholder={t("ComboboxFilter.searchPlaceholder")} onValueChange={handleInputChange} />
-					<PublishersSuggestions
+					<Suggestions
 						isLoading={isLoading}
 						error={error}
 						suggestions={suggestions}
 						value={value}
 						setValue={setValue}
 						setOpen={setOpen}
+						type={type}
 					/>
 				</Command>
 			</PopoverContent>

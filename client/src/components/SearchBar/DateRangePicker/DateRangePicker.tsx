@@ -2,22 +2,22 @@ import { CalendarIcon } from "lucide-react";
 import PopoverWithDropdownCalendar from "./PopoverWithDropdownCalendar";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { useSearchParams } from "react-router";
 
 interface DateRangePickerProps {
-	selectedStartDate: Date | undefined;
-	selectedEndDate: Date | undefined;
-	setSelectedStartDate: (date: Date | undefined) => void;
-	setSelectedEndDate: (date: Date | undefined) => void;
 	type: string;
 }
 
-export default function DateRangePicker({
-	selectedStartDate,
-	selectedEndDate,
-	setSelectedStartDate,
-	setSelectedEndDate,
-	type,
-}: DateRangePickerProps) {
+export default function DateRangePicker({ type }: DateRangePickerProps) {
+	console.log({ type });
+	const [searchParams] = useSearchParams();
+	const [selectedStartDate, setSelectedStartDate] = useState<Date | undefined>(
+		searchParams.get(`${type}Start`) ? new Date(Number(searchParams.get(`${type}Start`)!)) : undefined
+	);
+	const [selectedEndDate, setSelectedEndDate] = useState<Date | undefined>(
+		searchParams.get(`${type}End`) ? new Date(Number(searchParams.get(`${type}End`)!)) : undefined
+	);
 	const { t } = useTranslation();
 
 	return (

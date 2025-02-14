@@ -7,55 +7,35 @@ import { useTranslation } from "react-i18next";
 interface PopoverMoreFiltersProps {
 	isRegionFilterOpen: boolean;
 	setIsRegionFilterOpen: (isOpen: boolean) => void;
-	setSelectedRegions: (regions: string[]) => void;
 	isDepartmentFilterOpen: boolean;
 	setIsDepartmentFilterOpen: (isOpen: boolean) => void;
-	setSelectedDepartments: (departments: string[]) => void;
 	isCityFilterOpen: boolean;
 	setIsCityFilterOpen: (isOpen: boolean) => void;
-	setSelectedCities: (cities: string[]) => void;
 	isPublisherFilterOpen: boolean;
 	setIsPublisherFilterOpen: (isOpen: boolean) => void;
-	setSelectedPublishers: (publishers: string[]) => void;
 	isPublicationDateFilterOpen: boolean;
 	setIsPublicationDateFilterOpen: (isOpen: boolean) => void;
-	setSelectedStartPublicationDate: (date: Date | undefined) => void;
-	setSelectedEndPublicationDate: (date: Date | undefined) => void;
 	isTranslationDateFilterOpen: boolean;
 	setIsTranslationDateFilterOpen: (isOpen: boolean) => void;
-	setSelectedStartTranslationDate: (date: Date | undefined) => void;
-	setSelectedEndTranslationDate: (date: Date | undefined) => void;
 	isReissueDateFilterOpen: boolean;
 	setIsReissueDateFilterOpen: (isOpen: boolean) => void;
-	setSelectedStartReissueDate: (date: Date | undefined) => void;
-	setSelectedEndReissueDate: (date: Date | undefined) => void;
 }
 
 export default function PopoverMoreFilters({
 	isRegionFilterOpen,
 	setIsRegionFilterOpen,
-	setSelectedRegions,
 	isDepartmentFilterOpen,
 	setIsDepartmentFilterOpen,
-	setSelectedDepartments,
 	isCityFilterOpen,
 	setIsCityFilterOpen,
-	setSelectedCities,
 	isPublisherFilterOpen,
 	setIsPublisherFilterOpen,
-	setSelectedPublishers,
 	isPublicationDateFilterOpen,
 	setIsPublicationDateFilterOpen,
-	setSelectedStartPublicationDate,
-	setSelectedEndPublicationDate,
 	isTranslationDateFilterOpen,
 	setIsTranslationDateFilterOpen,
-	setSelectedStartTranslationDate,
-	setSelectedEndTranslationDate,
 	isReissueDateFilterOpen,
 	setIsReissueDateFilterOpen,
-	setSelectedStartReissueDate,
-	setSelectedEndReissueDate,
 }: PopoverMoreFiltersProps) {
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
@@ -74,7 +54,6 @@ export default function PopoverMoreFilters({
 						variant="ghost"
 						onClick={() => {
 							setIsRegionFilterOpen(!isRegionFilterOpen);
-							setSelectedRegions([]);
 							setFilterSearchParams([], "regions");
 						}}>
 						{t("filters.regions.placeholder")}
@@ -84,7 +63,6 @@ export default function PopoverMoreFilters({
 						variant="ghost"
 						onClick={() => {
 							setIsDepartmentFilterOpen(!isDepartmentFilterOpen);
-							setSelectedDepartments([]);
 							setFilterSearchParams([], "departments");
 						}}>
 						{t("filters.departments.placeholder")}
@@ -94,7 +72,6 @@ export default function PopoverMoreFilters({
 						variant="ghost"
 						onClick={() => {
 							setIsCityFilterOpen(!isCityFilterOpen);
-							setSelectedCities([]);
 							setFilterSearchParams([], "cities");
 						}}>
 						{t("filters.cities.placeholder")}
@@ -104,7 +81,6 @@ export default function PopoverMoreFilters({
 						variant="ghost"
 						onClick={() => {
 							setIsPublisherFilterOpen(!isPublisherFilterOpen);
-							setSelectedPublishers([]);
 							setFilterSearchParams([], "publishers");
 						}}>
 						{t("filters.publishers.placeholder")}
@@ -114,8 +90,6 @@ export default function PopoverMoreFilters({
 						variant="ghost"
 						onClick={() => {
 							setIsPublicationDateFilterOpen(!isPublicationDateFilterOpen);
-							setSelectedStartPublicationDate(undefined);
-							setSelectedEndPublicationDate(undefined);
 							setFilterSearchParams([], "publicationDatesStart");
 							setFilterSearchParams([], "publicationDatesEnd");
 						}}>
@@ -126,8 +100,6 @@ export default function PopoverMoreFilters({
 						variant="ghost"
 						onClick={() => {
 							setIsTranslationDateFilterOpen(!isTranslationDateFilterOpen);
-							setSelectedStartTranslationDate(undefined);
-							setSelectedEndTranslationDate(undefined);
 							setFilterSearchParams([], "translationDatesStart");
 							setFilterSearchParams([], "translationDatesEnd");
 						}}>
@@ -138,8 +110,6 @@ export default function PopoverMoreFilters({
 						variant="ghost"
 						onClick={() => {
 							setIsReissueDateFilterOpen(!isReissueDateFilterOpen);
-							setSelectedStartReissueDate(undefined);
-							setSelectedEndReissueDate(undefined);
 							setFilterSearchParams([], "reissueDatesStart");
 							setFilterSearchParams([], "reissueDatesEnd");
 						}}>

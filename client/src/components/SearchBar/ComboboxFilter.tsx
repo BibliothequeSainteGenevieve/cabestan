@@ -6,16 +6,17 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useTranslation } from "react-i18next";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
+import { useSearchParams } from "react-router";
 
 interface ComboboxFilterProps {
 	options: { slug: string }[];
 	type: string;
-	value: string[];
-	setValue: (value: string[]) => void;
 }
 
-export default function ComboboxFilter({ options, type, value, setValue }: ComboboxFilterProps) {
+export default function ComboboxFilter({ options, type }: ComboboxFilterProps) {
+	const [searchParams] = useSearchParams();
 	const [open, setOpen] = useState(false);
+	const [value, setValue] = useState<string[]>(searchParams.get(type)?.split(",") || []);
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
 
