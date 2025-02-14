@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 import { Check, SlidersHorizontal } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -57,6 +58,8 @@ export default function PopoverMoreFilters({
 	setSelectedEndReissueDate,
 }: PopoverMoreFiltersProps) {
 	const { t } = useTranslation();
+	const setFilterSearchParams = useSetFilterSearchParams();
+
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -72,6 +75,7 @@ export default function PopoverMoreFilters({
 						onClick={() => {
 							setIsRegionFilterOpen(!isRegionFilterOpen);
 							setSelectedRegions([]);
+							setFilterSearchParams([], "regions");
 						}}>
 						{t("filters.regions.placeholder")}
 						{isRegionFilterOpen && <Check className="w-4 h-4" />}
@@ -81,6 +85,7 @@ export default function PopoverMoreFilters({
 						onClick={() => {
 							setIsDepartmentFilterOpen(!isDepartmentFilterOpen);
 							setSelectedDepartments([]);
+							setFilterSearchParams([], "departments");
 						}}>
 						{t("filters.departments.placeholder")}
 						{isDepartmentFilterOpen && <Check className="w-4 h-4" />}
@@ -90,6 +95,7 @@ export default function PopoverMoreFilters({
 						onClick={() => {
 							setIsCityFilterOpen(!isCityFilterOpen);
 							setSelectedCities([]);
+							setFilterSearchParams([], "cities");
 						}}>
 						{t("filters.cities.placeholder")}
 						{isCityFilterOpen && <Check className="w-4 h-4" />}
@@ -99,6 +105,7 @@ export default function PopoverMoreFilters({
 						onClick={() => {
 							setIsPublisherFilterOpen(!isPublisherFilterOpen);
 							setSelectedPublishers([]);
+							setFilterSearchParams([], "publishers");
 						}}>
 						{t("filters.publishers.placeholder")}
 						{isPublisherFilterOpen && <Check className="w-4 h-4" />}
@@ -109,6 +116,8 @@ export default function PopoverMoreFilters({
 							setIsPublicationDateFilterOpen(!isPublicationDateFilterOpen);
 							setSelectedStartPublicationDate(undefined);
 							setSelectedEndPublicationDate(undefined);
+							setFilterSearchParams([], "publicationDatesStart");
+							setFilterSearchParams([], "publicationDatesEnd");
 						}}>
 						{t("filters.publicationDates.placeholder")}
 						{isPublicationDateFilterOpen && <Check className="w-4 h-4" />}
@@ -119,6 +128,8 @@ export default function PopoverMoreFilters({
 							setIsTranslationDateFilterOpen(!isTranslationDateFilterOpen);
 							setSelectedStartTranslationDate(undefined);
 							setSelectedEndTranslationDate(undefined);
+							setFilterSearchParams([], "translationDatesStart");
+							setFilterSearchParams([], "translationDatesEnd");
 						}}>
 						{t("filters.translationDates.placeholder")}
 						{isTranslationDateFilterOpen && <Check className="w-4 h-4" />}
@@ -129,6 +140,8 @@ export default function PopoverMoreFilters({
 							setIsReissueDateFilterOpen(!isReissueDateFilterOpen);
 							setSelectedStartReissueDate(undefined);
 							setSelectedEndReissueDate(undefined);
+							setFilterSearchParams([], "reissueDatesStart");
+							setFilterSearchParams([], "reissueDatesEnd");
 						}}>
 						{t("filters.reissueDates.placeholder")}
 						{isReissueDateFilterOpen && <Check className="w-4 h-4" />}

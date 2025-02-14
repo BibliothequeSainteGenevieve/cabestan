@@ -7,14 +7,11 @@ import Suggestions from "./Suggestions";
 import { useTranslation } from "react-i18next";
 import { Search } from "lucide-react";
 import { getSuggestions } from "@/api";
+import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 
-interface CommandSearchProps {
-	setSearchString: (value: string | undefined) => void;
-}
-
-export function CommandSearch({ setSearchString }: CommandSearchProps) {
+export function CommandSearch() {
 	const { t } = useTranslation();
-
+	const setFilterSearchParams = useSetFilterSearchParams();
 	const [searchSuggestionsValue, setSearchSuggestionsValue] = useState<string>("");
 	const [inputValue, setInputValue] = useState<string>("");
 	const [isOpen, setIsOpen] = useState(false);
@@ -35,7 +32,7 @@ export function CommandSearch({ setSearchString }: CommandSearchProps) {
 			setSearchSuggestionsValueDebounced(inputValue);
 		} else {
 			setIsOpen(false);
-			setSearchString(undefined);
+			setFilterSearchParams([], "str");
 		}
 	};
 
@@ -56,7 +53,6 @@ export function CommandSearch({ setSearchString }: CommandSearchProps) {
 					error={error}
 					suggestions={suggestions}
 					setInputValue={setInputValue}
-					setSearchString={setSearchString}
 					setIsOpen={setIsOpen}
 				/>
 			)}

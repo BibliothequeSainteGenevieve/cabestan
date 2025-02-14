@@ -4,19 +4,19 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
 interface DateRangePickerProps {
-	selectedStartPublicationDate: Date | undefined;
-	selectedEndPublicationDate: Date | undefined;
-	setSelectedStartPublicationDate: (date: Date | undefined) => void;
-	setSelectedEndPublicationDate: (date: Date | undefined) => void;
-	label: string;
+	selectedStartDate: Date | undefined;
+	selectedEndDate: Date | undefined;
+	setSelectedStartDate: (date: Date | undefined) => void;
+	setSelectedEndDate: (date: Date | undefined) => void;
+	type: string;
 }
 
 export default function DateRangePicker({
-	selectedStartPublicationDate,
-	selectedEndPublicationDate,
-	setSelectedStartPublicationDate,
-	setSelectedEndPublicationDate,
-	label,
+	selectedStartDate,
+	selectedEndDate,
+	setSelectedStartDate,
+	setSelectedEndDate,
+	type,
 }: DateRangePickerProps) {
 	const { t } = useTranslation();
 
@@ -24,20 +24,22 @@ export default function DateRangePicker({
 		<div
 			className={cn(
 				"bg-white flex items-center gap-1 rounded-md shadow text-sm font-medium px-2",
-				(selectedStartPublicationDate || selectedEndPublicationDate) && "bg-lightRed text-primary"
+				(selectedStartDate || selectedEndDate) && "bg-lightRed text-primary"
 			)}>
 			<CalendarIcon />
-			{label} :
+			{t(`filters.${type}.label`)} :
 			<div className="flex items-center gap-0">
 				<PopoverWithDropdownCalendar
-					date={selectedStartPublicationDate}
-					setDate={setSelectedStartPublicationDate}
+					type={`${type}Start`}
+					date={selectedStartDate}
+					setDate={setSelectedStartDate}
 					label={t("DateRangePicker.startDate")}
 				/>
 				-
 				<PopoverWithDropdownCalendar
-					date={selectedEndPublicationDate}
-					setDate={setSelectedEndPublicationDate}
+					type={`${type}End`}
+					date={selectedEndDate}
+					setDate={setSelectedEndDate}
 					label={t("DateRangePicker.endDate")}
 				/>
 			</div>

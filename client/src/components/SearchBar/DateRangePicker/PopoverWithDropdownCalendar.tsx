@@ -5,14 +5,18 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 
 interface PopoverWithDropdownCalendarProps {
 	date: Date | undefined;
-	setDate: (date: Date) => void;
+	setDate: (date: Date | undefined) => void;
 	label: string;
+	type: string;
 }
 
-export default function PopoverWithDropdownCalendar({ date, setDate, label }: PopoverWithDropdownCalendarProps) {
+export default function PopoverWithDropdownCalendar({ date, setDate, label, type }: PopoverWithDropdownCalendarProps) {
+	const setFilterSearchParams = useSetFilterSearchParams();
+
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
@@ -26,8 +30,15 @@ export default function PopoverWithDropdownCalendar({ date, setDate, label }: Po
 				<Calendar
 					mode="single"
 					selected={date}
-					// @ts-expect-error wrong type
-					onSelect={setDate}
+					onSelect={(value) => {
+						if (value) {
+							setDate(value);
+							setFilterSearchParams([value.getTime().toString()], type);
+						} else {
+							setDate(undefined);
+							setFilterSearchParams([], type);
+						}
+					}}
 					captionLayout="dropdown-buttons"
 					fromYear={2010}
 					toYear={2024}

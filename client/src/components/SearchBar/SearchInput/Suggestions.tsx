@@ -1,4 +1,5 @@
 import { CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
+import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 import { Book, Landmark, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -21,12 +22,12 @@ interface SuggestionsProps {
 	isLoading: boolean;
 	error: any;
 	setInputValue: (value: string) => void;
-	setSearchString: (value: string) => void;
 	setIsOpen: (value: boolean) => void;
 }
 
-function Suggestions({ suggestions, isLoading, error, setInputValue, setSearchString, setIsOpen }: SuggestionsProps) {
+function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }: SuggestionsProps) {
 	const { t } = useTranslation();
+	const setFilterSearchParams = useSetFilterSearchParams();
 
 	const suggestionsSections = [
 		{
@@ -53,7 +54,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setSearchSt
 
 	const handleSelect = ({ searchString, inputValue }: { searchString: string; inputValue: string }) => {
 		setInputValue(inputValue);
-		setSearchString(searchString);
+		setFilterSearchParams([searchString], "str");
 		setIsOpen(false);
 	};
 

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useTranslation } from "react-i18next";
+import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 
 interface ComboboxFilterProps {
 	options: { slug: string }[];
@@ -16,6 +17,7 @@ interface ComboboxFilterProps {
 export default function ComboboxFilter({ options, type, value, setValue }: ComboboxFilterProps) {
 	const [open, setOpen] = useState(false);
 	const { t } = useTranslation();
+	const setFilterSearchParams = useSetFilterSearchParams();
 
 	if (!options) return null;
 
@@ -47,6 +49,7 @@ export default function ComboboxFilter({ options, type, value, setValue }: Combo
 									onSelect={() => {
 										setValue([]);
 										setOpen(false);
+										setFilterSearchParams([], type);
 									}}>
 									{t("ComboboxFilter.reset")}
 									<X className={cn("ml-auto", "opacity-100")} />
@@ -57,11 +60,14 @@ export default function ComboboxFilter({ options, type, value, setValue }: Combo
 									key={option.slug}
 									value={option.slug}
 									onSelect={(currentValue) => {
+										let newValues = [];
 										if (value.includes(currentValue)) {
-											setValue(value.filter((item) => item !== currentValue));
+											newValues = value.filter((item) => item !== currentValue);
 										} else {
-											setValue([...value, currentValue]);
+											newValues = [...value, currentValue];
 										}
+										setValue(newValues);
+										setFilterSearchParams(newValues, type);
 									}}>
 									{t(`filters.${type}.options.${option.slug}`)}
 									<Check className={cn("ml-auto", value.includes(option.slug) ? "opacity-100" : "opacity-0")} />

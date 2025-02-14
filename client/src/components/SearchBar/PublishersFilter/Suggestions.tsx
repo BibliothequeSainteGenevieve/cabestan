@@ -2,6 +2,7 @@ import { X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CommandEmpty, CommandItem, CommandList } from "@/components/ui/command";
 import { useTranslation } from "react-i18next";
+import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 
 interface ComboboxSearchFilterProps {
 	suggestions: { slug: string; label: string }[];
@@ -21,6 +22,7 @@ export default function PublishersSuggestions({
 	error,
 }: ComboboxSearchFilterProps) {
 	const { t } = useTranslation();
+	const setFilterSearchParams = useSetFilterSearchParams();
 
 	if (isLoading) return <span>{t("CommandSearch.suggestions.loading")}</span>;
 	if (error) return <span>{t("CommandSearch.suggestions.error", { error: error.message })}</span>;
@@ -34,6 +36,7 @@ export default function PublishersSuggestions({
 					onSelect={() => {
 						setValue([]);
 						setOpen(false);
+						setFilterSearchParams([], "publishers");
 					}}>
 					{t("ComboboxFilter.reset")}
 					<X className={cn("ml-auto", "opacity-100")} />
@@ -44,11 +47,14 @@ export default function PublishersSuggestions({
 					<CommandItem
 						key={suggestion.slug}
 						onSelect={() => {
+							let newValues = [];
 							if (value.includes(suggestion.slug)) {
-								setValue(value.filter((item) => item !== suggestion.slug));
+								newValues = value.filter((item) => item !== suggestion.slug);
 							} else {
-								setValue([...value, suggestion.slug]);
+								newValues = [...value, suggestion.slug];
 							}
+							setValue(newValues);
+							setFilterSearchParams(newValues, "publishers");
 						}}>
 						{suggestion.label}
 						<Check className={cn("ml-auto", value.includes(suggestion.slug) ? "opacity-100" : "opacity-0")} />
