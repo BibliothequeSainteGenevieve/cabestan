@@ -177,23 +177,6 @@
 				{ "slug": "lyon" },
 				{ "slug": "toulouse" },
 				{ "slug": "bordeaux" }
-			],
-			"publishers": [
-				{ "slug": "gallimard" },
-				{ "slug": "hachette" },
-				{ "slug": "flammarion" },
-				{ "slug": "albin-michel" },
-				{ "slug": "seuil" },
-				{ "slug": "actes-sud" },
-				{ "slug": "larousse" },
-				{ "slug": "nathan" },
-				{ "slug": "grasset" },
-				{ "slug": "pocket" },
-				{ "slug": "dunod" },
-				{ "slug": "presses-universitaires-de-france" },
-				{ "slug": "harmattan" },
-				{ "slug": "robert-laffont" },
-				{ "slug": "minuit" }
 			]
 		}
 	}

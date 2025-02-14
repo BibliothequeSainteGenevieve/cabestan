@@ -2,11 +2,12 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
-import { CommandSearch } from "./CommandSearch/CommandSearch";
+import { CommandSearch } from "./SearchInput/SearchInput";
 import ComboboxFilter from "./ComboboxFilter";
 import PopoverMoreFilters from "./PopoverMoreFilters";
 import DateRangePicker from "./DateRangePicker/DateRangePicker";
 import { getClientConfig } from "@/api";
+import ComboboxSearchFilter from "./PublishersFilter/PublishersFilter";
 
 export default function SearchBar() {
 	const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function SearchBar() {
 	const { data, isLoading, error } = useQuery({ queryKey: ["clientConfig"], queryFn: getClientConfig });
 	const [searchParams] = useSearchParams();
 
-	// Base filters
+	// Base filters values
 	const [searchString, setSearchString] = useState<string | undefined>(searchParams.get("str") || undefined);
 	const [selectedLanguages, setSelectedLanguages] = useState<string[]>(searchParams.get("languages")?.split(",") || []);
 	const [selectedEstablishementsTypes, setSelectedEstablishementsTypes] = useState<string[]>(
@@ -22,7 +23,7 @@ export default function SearchBar() {
 	);
 	const [selectedBooksTypes, setSelectedBooksTypes] = useState<string[]>(searchParams.get("booksTypes")?.split(",") || []);
 
-	// More filters
+	// More filters open state
 	const [isRegionFilterOpen, setIsRegionFilterOpen] = useState(searchParams.get("regions") ? true : false);
 	const [isDepartmentFilterOpen, setIsDepartmentFilterOpen] = useState(searchParams.get("departments") ? true : false);
 	const [isCityFilterOpen, setIsCityFilterOpen] = useState(searchParams.get("cities") ? true : false);
@@ -37,6 +38,7 @@ export default function SearchBar() {
 		searchParams.get("startReissueDate") || searchParams.get("endReissueDate") ? true : false
 	);
 
+	// More filters values
 	const [selectedRegions, setSelectedRegions] = useState<string[]>(searchParams.get("regions")?.split(",") || []);
 	const [selectedDepartments, setSelectedDepartments] = useState<string[]>(searchParams.get("departments")?.split(",") || []);
 	const [selectedCities, setSelectedCities] = useState<string[]>(searchParams.get("cities")?.split(",") || []);
@@ -60,6 +62,7 @@ export default function SearchBar() {
 		searchParams.get("endReissueDate") ? new Date(Number(searchParams.get("endReissueDate")!)) : undefined
 	);
 
+	// Effect to update the search params when the filters values change
 	useEffect(() => {
 		const dateFilters = [
 			{ label: "startPublicationDate", value: selectedStartPublicationDate },
@@ -167,7 +170,7 @@ export default function SearchBar() {
 						<ComboboxFilter type="cities" options={data.cities} value={selectedCities} setValue={setSelectedCities} />
 					)}
 					{isPublisherFilterOpen && (
-						<ComboboxFilter
+						<ComboboxSearchFilter
 							type="publishers"
 							options={data.publishers}
 							value={selectedPublishers}

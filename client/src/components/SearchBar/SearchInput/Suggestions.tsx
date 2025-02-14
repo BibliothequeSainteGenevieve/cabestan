@@ -90,25 +90,6 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setSearchSt
 					<CommandSeparator />
 				</>
 			))}
-			{/* 			<CommandGroup
-				heading={
-					<span className="flex items-center gap-1 font-bold">
-						<Landmark className="w-4 h-4" /> {t("CommandSearch.suggestions.libraries")}
-					</span>
-				}>
-				{suggestions
-					?.filter((suggestion: any) => suggestion.type === SuggestionType.LIBRARY)
-					.map((rcr: any) => (
-						<CommandItem
-							key={rcr.rcr}
-							value={rcr.rcr}
-							onSelect={() => handleSelect({ searchString: rcr.rcr, inputValue: `${rcr.name} - ${rcr.rcr}` })}>
-							<span>
-								{rcr.name} - {rcr.rcr}
-							</span>
-						</CommandItem>
-					))}
-			</CommandGroup> */}
 		</CommandList>
 	);
 }

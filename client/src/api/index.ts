@@ -11,3 +11,10 @@ export const getSuggestions = async (value: string | undefined) => {
 	const response = await fetch(`${API_HOST}/api/rcr/suggestion?str=${value}`);
 	return response.json();
 };
+
+export const getEditorsSuggestions = async (value: string | undefined) => {
+	if (!value) return [];
+
+	const response = await fetch(`${API_HOST}/api/rcr/publishers-suggestion?str=${value}`);
+	return response.json();
+};
