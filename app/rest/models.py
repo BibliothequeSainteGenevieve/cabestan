@@ -59,6 +59,12 @@ class Rcr(models.Model):
     def __str__(self):
         return f"{self.title} ({self.rcr_number})"
 
+    class Meta:
+        indexes = [
+            models.Index(fields=["rcr_number"]),
+            models.Index(fields=["title"]),
+        ]
+
 
 # Book related models
 class Lang(models.Model):
@@ -84,12 +90,23 @@ class Author(models.Model):
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
 
+    class Meta:
+        indexes = [
+            models.Index(fields=["firstname"]),
+            models.Index(fields=["lastname"]),
+        ]
+
 
 class Editor(models.Model):
     title = models.TextField(max_length=200)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["title"]),
+        ]
 
 
 class BookType(models.Model):
@@ -141,6 +158,11 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["title"]),
+        ]
 
 
 class RcrBook(models.Model):
