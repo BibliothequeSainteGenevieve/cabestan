@@ -8,6 +8,7 @@ import PopoverMoreFilters from "./PopoverMoreFilters";
 import DateRangePicker from "./DateRangePicker/DateRangePicker";
 import { getClientConfig } from "@/api";
 import ComboboxSearchFilter from "./ComboboxSearchFilter/ComoboxSearchFilter";
+import { FilterTypes } from "@/models/Filters";
 
 export default function SearchBar() {
 	const { t } = useTranslation();
@@ -39,16 +40,16 @@ export default function SearchBar() {
 			<CommandSearch />
 			<div className="flex flex-wrap lg:flex-nowrap items-center justify-between flex-1 gap-6">
 				<div className="flex flex-wrap items-center gap-2 lg:min-w-[500px]">
-					<ComboboxFilter type="languages" options={data.languages} />
-					<ComboboxFilter type="establishementsTypes" options={data.establishementsTypes} />
-					<ComboboxFilter type="booksTypes" options={data.booksTypes} />
-					{isRegionFilterOpen && <ComboboxFilter type="regions" options={data.regions} />}
-					{isDepartmentFilterOpen && <ComboboxFilter type="departments" options={data.departments} />}
-					{isCityFilterOpen && <ComboboxFilter type="cities" options={data.cities} />}
-					{isPublisherFilterOpen && <ComboboxSearchFilter type="publishers" />}
-					{isPublicationDateFilterOpen && <DateRangePicker type="publicationDates" />}
-					{isTranslationDateFilterOpen && <DateRangePicker type="translationDates" />}
-					{isReissueDateFilterOpen && <DateRangePicker type="reissueDates" />}
+					<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
+					<ComboboxFilter type={FilterTypes.ESTABLISHMENTS_TYPES} options={data.establishementsTypes} />
+					<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.booksTypes} />
+					{isRegionFilterOpen && <ComboboxFilter type={FilterTypes.REGIONS} options={data.regions} />}
+					{isDepartmentFilterOpen && <ComboboxFilter type={FilterTypes.DEPARTMENTS} options={data.departments} />}
+					{isCityFilterOpen && <ComboboxFilter type={FilterTypes.CITIES} options={data.cities} />}
+					{isPublisherFilterOpen && <ComboboxSearchFilter type={FilterTypes.PUBLISHERS} />}
+					{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
+					{isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />}
+					{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
 				</div>
 				<PopoverMoreFilters
 					isRegionFilterOpen={isRegionFilterOpen}

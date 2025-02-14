@@ -10,7 +10,6 @@ interface DateRangePickerProps {
 }
 
 export default function DateRangePicker({ type }: DateRangePickerProps) {
-	console.log({ type });
 	const [searchParams] = useSearchParams();
 	const [selectedStartDate, setSelectedStartDate] = useState<Date | undefined>(
 		searchParams.get(`${type}Start`) ? new Date(Number(searchParams.get(`${type}Start`)!)) : undefined

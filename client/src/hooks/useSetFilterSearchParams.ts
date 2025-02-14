@@ -10,7 +10,6 @@ export function useSetFilterSearchParams() {
 	const navigate = useNavigate();
 
 	function setFilterSearchParams(newValues: string[], type: string) {
-		console.log(newValues, type);
 		if (newValues.length > 0 && newValues[0] !== undefined) {
 			searchParams.set(type, newValues.join(","));
 		} else {

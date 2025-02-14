@@ -9,13 +9,15 @@ import { getEditorsSuggestions } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@/hooks/useDebounce";
 import Suggestions from "./Suggestions";
+import { useSearchParams } from "react-router";
 
 interface PublishersFilterProps {
 	type: string;
 }
 
 export default function PublishersFilter({ type }: PublishersFilterProps) {
-	const [value, setValue] = useState<string[]>([]);
+	const [searchParams] = useSearchParams();
+	const [value, setValue] = useState<string[]>(searchParams.get(type)?.split(",") || []);
 	const [open, setOpen] = useState(false);
 
 	const [searchEditorsSuggestionsValue, setSearchEditorsSuggestionsValue] = useState<string>("");
