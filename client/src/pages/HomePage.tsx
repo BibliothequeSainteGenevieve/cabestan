@@ -1,10 +1,13 @@
-import Header from "../components/Header";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
+	const { t } = useTranslation();
+
 	return (
-		<div className="p-4 lg:py-4 lg:px-16">
-			<Header />
-			<main>Contenu</main>
+		<div className="py-4">
+			<h1 className="pb-2">{t("HomePage.title")}</h1>
+			<SearchBar />
 		</div>
 	);
 }
