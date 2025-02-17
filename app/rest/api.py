@@ -1,6 +1,6 @@
 from ninja import Router, Query, Schema
 from typing import Optional
-from .models import Book, Editor, City
+from .models import Book, Editor, City, Rcr, Author
 from .views import ClientConfigView
 from django.db.models import Q
 
@@ -52,15 +52,15 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         if filters.search_type == "author":
             search_query = Q(author__lastname=filters.search) | Q(
                 author__firstname=filters.search
-            )
+            ) & Q(author__type__label="author")
         if filters.search_type == "translator":
             search_query = Q(translator__lastname=filters.search) | Q(
                 translator__firstname=filters.search
-            )
+            ) & Q(translator__type__label="translator")
         if filters.search_type == "illustrator":
             search_query = Q(illustrator__lastname=filters.search) | Q(
                 illustrator__firstname=filters.search
-            )
+            ) & Q(illustrator__type__label="illustrator")
         if filters.search_type == "book":
             search_query = Q(title=filters.search)
 
@@ -142,28 +142,26 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         }
     else:
         response = {
-            "items": [
-                {
-                    "rcr": book.rcr.rcr_number,
-                    "name": book.rcr.title,
-                    "numberOfDocuments": book.rcr.books_count,
-                    "contact": {
-                        "address": {
-                            "street": book.rcr.address,
-                            "postalCode": (
-                                book.rcr.city.zipcode if book.rcr.city else None
-                            ),
-                            "city": book.rcr.city.label if book.rcr.city else None,
-                            "country": "France",
-                        }
-                    },
-                    "location": {
-                        "longitude": book.rcr.longitude,
-                        "latitude": book.rcr.latitude,
-                    },
-                }
-                for book in queryset
-            ],
+            {
+                "rcr": book.rcr.rcr_number,
+                "name": book.rcr.title,
+                "numberOfDocuments": book.rcr.books_count,
+                "contact": {
+                    "address": {
+                        "street": book.rcr.address,
+                        "postalCode": (
+                            book.rcr.city.zipcode if book.rcr.city else None
+                        ),
+                        "city": book.rcr.city.label if book.rcr.city else None,
+                        "country": "France",
+                    }
+                },
+                "location": {
+                    "longitude": book.rcr.longitude,
+                    "latitude": book.rcr.latitude,
+                },
+            }
+            for book in queryset
         }
     return response
 
@@ -181,7 +179,7 @@ def search_editor(request, filters: EditorSearchFilters = Query(...)):
         "id", "title"
     )[:10]
 
-    return {"items": list(queryset)}
+    return list(queryset)
 
 
 class CitySearchFilters(Schema):
@@ -197,4 +195,80 @@ def search_city(request, filters: CitySearchFilters = Query(...)):
         "id", "label", "zipcode"
     )[:10]
 
-    return {"items": list(queryset)}
+    return list(queryset)
+
+
+class SuggestionsSearchFilters(Schema):
+    search: str
+
+
+@router.get("/suggestions/search")
+def search_suggestions(request, filters: SuggestionsSearchFilters = Query(...)):
+    books = Book.objects.filter(title__icontains=filters.search).values("title")[:3]
+    rcr = Rcr.objects.filter(title__icontains=filters.search).values(
+        "title", "rcr_number"
+    )[:3]
+    authors = (
+        Author.objects.filter(lastname__icontains=filters.search)
+        .filter(type__label="author")
+        .values("lastname", "firstname")[:3]
+    )
+    translators = (
+        Author.objects.filter(lastname__icontains=filters.search)
+        .filter(type__label="translator")
+        .values("lastname", "firstname")[:3]
+    )
+    illustrators = (
+        Author.objects.filter(lastname__icontains=filters.search)
+        .filter(type__label="illustrator")
+        .values("lastname", "firstname")[:3]
+    )
+    editors = Editor.objects.filter(title__icontains=filters.search).values("title")[:3]
+
+    formatted_results = []
+
+    # Format RCR results
+    for r in rcr:
+        formatted_results.append(
+            {"title": r["title"], "subtitle": r["rcr_number"], "type": "rcr"}
+        )
+
+    # Format Book results
+    for b in books:
+        formatted_results.append(
+            {
+                "title": b["title"],
+                "subtitle": None,
+                "type": "book",
+            }
+        )
+
+    # Format Author results
+    for a in authors:
+        formatted_results.append(
+            {
+                "title": a["firstname"],
+                "subtitle": a["lastname"],
+                "type": "author",
+            }
+        )
+
+    # Format Translator results
+    for t in translators:
+        formatted_results.append(
+            {"title": t["firstname"], "subtitle": t["lastname"], "type": "translator"}
+        )
+
+    # Format Illustrator results
+    for i in illustrators:
+        formatted_results.append(
+            {"title": i["firstname"], "subtitle": i["lastname"], "type": "illustrator"}
+        )
+
+    # Format Editor results
+    for e in editors:
+        formatted_results.append(
+            {"title": e["title"], "subtitle": None, "type": "editor"}
+        )
+
+    return formatted_results
