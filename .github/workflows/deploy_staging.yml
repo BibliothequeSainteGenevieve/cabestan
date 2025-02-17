@@ -25,6 +25,11 @@ env:
   DJANGO_HTTP_PORT: ${{vars.DJANGO_HTTP_PORT}}
   DJANGO_HTTPS_PORT: ${{vars.DJANGO_HTTPS_PORT}}
   SECRET_KEY: ${{vars.SECRET_KEY}}
+  VITE_API_PROTOCOL: https
+  VITE_API_HOST: ${{vars.HOST}}
+  VITE_API_PATH: /api/rest
+  VITE_CACHE_TTL: 1000
+
 jobs:
   deploy_staging:
     environment: staging

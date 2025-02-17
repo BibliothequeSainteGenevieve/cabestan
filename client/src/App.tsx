@@ -7,8 +7,9 @@ import LayoutBase from "./layouts/LayoutBase";
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			gcTime: 1000, // 1 second
+			gcTime: import.meta.env.VITE_CACHE_TTL?import.meta.env.VITE_CACHE_TTL:1000, // 1 second
 			// gcTime: 1000 * 60 * 60 * 24, // 24 hours
+			staleTime: import.meta.env.VITE_CACHE_TTL?import.meta.env.VITE_CACHE_TTL:1000, // 1 second
 		},
 	},
 });

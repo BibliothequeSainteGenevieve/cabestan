@@ -1,6 +1,16 @@
 import { GlobalSuggestionType } from "@/models/Suggestions";
 
-const API_HOST = "http://localhost:8082";
+const API_HOST = import.meta.env.VITE_API_HOST ?? "localhost";
+const API_PROTOCOL = import.meta.env.VITE_API_PROTOCOL ?? "http";
+const API_PATH = import.meta.env.VITE_API_PATH ?? "/api/rest";
+
+const getApiUrl = (path: string) => `${API_PROTOCOL}://${API_HOST}${API_PATH}${path}`;
+
+const getApiHeaders = () => {
+	const headers = new Headers();
+	headers.set("Authorization", "Bearer a");
+	return headers;
+};
 
 type getClientConfigResponse = {
 	languages: { slug: string }[];
@@ -13,7 +23,7 @@ type getClientConfigResponse = {
 };
 
 export const getClientConfig = async (): Promise<getClientConfigResponse> => {
-	const response = await fetch(`${API_HOST}/api/client-config`);
+	const response = await fetch(`${getApiUrl("/client-config")}`,{headers:getApiHeaders()});
 	return response.json();
 };
 
@@ -26,7 +36,7 @@ type getGlobalSuggestionsResponse = {
 export const getGlobalSuggestions = async (value: string | undefined): Promise<getGlobalSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${API_HOST}/api/rcr/suggestion?str=${value}`);
+	const response = await fetch(`${getApiUrl("/suggestion")}?str=${value}`,{headers:getApiHeaders()});
 	return response.json();
 };
 
@@ -38,7 +48,7 @@ type getFilterSuggestionsResponse = {
 export const getFilterSuggestions = async (type: string, value: string | undefined): Promise<getFilterSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${API_HOST}/api/${type}/${value}`);
+	const response = await fetch(`${getApiUrl(`/api/${type}/${value}`)}`,{headers:getApiHeaders()});
 	return response.json();
 };
 
@@ -48,6 +58,6 @@ type getDetailsResponse = {
 };
 
 export const getDetails = async (type: string, slug: string): Promise<getDetailsResponse> => {
-	const response = await fetch(`${API_HOST}/api/${type}/details/${slug}`);
+	const response = await fetch(`${getApiUrl(`/api/${type}/details/${slug}`)}`,{headers:getApiHeaders()});
 	return response.json();
 };
