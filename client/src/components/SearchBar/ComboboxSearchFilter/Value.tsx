@@ -1,16 +1,17 @@
-import { getPublisherDetails } from "@/api";
+import { getDetails } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 
-type PublishersValueProps = {
+type ValueLabelProps = {
 	slug: string;
 	isLast: boolean;
+	type: string;
 };
 
 // Separate component to use tanstack caching
-export default function PublishersValue({ slug, isLast }: PublishersValueProps) {
+export default function ValueLabel({ type, slug, isLast }: ValueLabelProps) {
 	const { data: details } = useQuery({
-		queryKey: [`${slug}-details`],
-		queryFn: () => getPublisherDetails(slug),
+		queryKey: [type, slug],
+		queryFn: () => getDetails(type, slug),
 	});
 
 	return (

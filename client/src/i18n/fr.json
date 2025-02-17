@@ -16,7 +16,7 @@
 		"suggestions": {
 			"empty": "Aucun résultat",
 			"loading": "Chargement des suggestions...",
-			"error": "Erreur lors du chargement des suggestions: {error.message}",
+			"error": "Erreur lors du chargement des suggestions",
 			"types": {
 				"rcr": "Bibliothèques",
 				"document": "Documents",

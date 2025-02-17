@@ -18,7 +18,7 @@ interface ComboboxSearchFilterProps {
 	type: string;
 }
 
-export default function PublishersSuggestions({
+export default function Suggestions({
 	suggestions,
 	value,
 	setValue,
@@ -31,7 +31,7 @@ export default function PublishersSuggestions({
 	const setFilterSearchParams = useSetFilterSearchParams();
 
 	if (isLoading) return <span>{t("CommandSearch.suggestions.loading")}</span>;
-	if (error) return <span>{t("CommandSearch.suggestions.error", { error: error.message })}</span>;
+	if (error) return <span>{t("CommandSearch.suggestions.error")}</span>;
 
 	return (
 		<CommandList>
@@ -49,23 +49,21 @@ export default function PublishersSuggestions({
 				</CommandItem>
 			)}
 			{suggestions?.map((suggestion: ComboboxSearchOption) => (
-				<>
-					<CommandItem
-						key={suggestion.slug}
-						onSelect={() => {
-							let newValues: string[] = [];
-							if (value.includes(suggestion.slug)) {
-								newValues = value.filter((item) => item !== suggestion.slug);
-							} else {
-								newValues = [...value, suggestion.slug];
-							}
-							setValue(newValues);
-							setFilterSearchParams(newValues, type);
-						}}>
-						{suggestion.label}
-						<Check className={cn("ml-auto", value.includes(suggestion.slug) ? "opacity-100" : "opacity-0")} />
-					</CommandItem>
-				</>
+				<CommandItem
+					key={suggestion.slug}
+					onSelect={() => {
+						let newValues: string[] = [];
+						if (value.includes(suggestion.slug)) {
+							newValues = value.filter((item) => item !== suggestion.slug);
+						} else {
+							newValues = [...value, suggestion.slug];
+						}
+						setValue(newValues);
+						setFilterSearchParams(newValues, type);
+					}}>
+					{suggestion.label}
+					<Check className={cn("ml-auto", value.includes(suggestion.slug) ? "opacity-100" : "opacity-0")} />
+				</CommandItem>
 			))}
 		</CommandList>
 	);

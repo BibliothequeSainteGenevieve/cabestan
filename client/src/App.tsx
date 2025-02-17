@@ -9,7 +9,6 @@ const queryClient = new QueryClient({
 		queries: {
 			gcTime: 1000, // 1 second
 			// gcTime: 1000 * 60 * 60 * 24, // 24 hours
-			staleTime: 1000, // 1 second
 		},
 	},
 });

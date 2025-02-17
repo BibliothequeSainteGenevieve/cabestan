@@ -1,7 +1,7 @@
 {
 	"request": {
 		"method": "GET",
-		"urlPattern": "/api/rcr/publishers-suggestion\\?str=.*",
+		"urlPathPattern": "/api/publishers/([a-z-]*)",
 		"headers": {}
 	},
 	"response": {
