@@ -1,6 +1,6 @@
 from ninja import Router, Query, Schema
 from typing import Optional
-from .models import Book
+from .models import Book, Editor, City
 from .views import ClientConfigView
 from django.db.models import Q
 
@@ -156,3 +156,35 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             ],
         }
     return response
+
+
+class EditorSearchFilters(Schema):
+    search: str
+
+
+@router.get("/editor/search")
+def search_editor(request, filters: EditorSearchFilters = Query(...)):
+    if len(filters.search) < 3:
+        return {"items": []}
+
+    queryset = Editor.objects.filter(title__icontains=filters.search).values(
+        "id", "title"
+    )[:10]
+
+    return {"items": list(queryset)}
+
+
+class CitySearchFilters(Schema):
+    search: str
+
+
+@router.get("/city/search")
+def search_city(request, filters: CitySearchFilters = Query(...)):
+    if len(filters.search) < 3:
+        return {"items": []}
+
+    queryset = City.objects.filter(label__icontains=filters.search).values(
+        "id", "label", "zipcode"
+    )[:10]
+
+    return {"items": list(queryset)}
