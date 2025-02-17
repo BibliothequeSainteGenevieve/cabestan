@@ -16,6 +16,7 @@ def get_client_config(request):
 
 class RcrSearchFilters(Schema):
     search: Optional[str] = None
+    search_type: Optional[str] = None
     language: Optional[str] = None
     region: Optional[int] = None
     department: Optional[int] = None
@@ -42,18 +43,27 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     )
 
     if filters.search:
-        search_query = (
-            Q(rcr__rcr_number=filters.search)
-            | Q(rcr__title=filters.search)
-            | Q(title=filters.search)
-            | Q(editor__title=filters.search)
-            | Q(author__firstname=filters.search)
-            | Q(author__lastname=filters.search)
-            | Q(translator__firstname=filters.search)
-            | Q(translator__lastname=filters.search)
-            | Q(illustrator__firstname=filters.search)
-            | Q(illustrator__lastname=filters.search)
-        )
+        if filters.search_type == "rcr":
+            search_query = Q(rcr__rcr_number=filters.search) | Q(
+                rcr__title=filters.search
+            )
+        if filters.search_type == "editor":
+            search_query = Q(editor__title=filters.search)
+        if filters.search_type == "author":
+            search_query = Q(author__lastname=filters.search) | Q(
+                author__firstname=filters.search
+            )
+        if filters.search_type == "translator":
+            search_query = Q(translator__lastname=filters.search) | Q(
+                translator__firstname=filters.search
+            )
+        if filters.search_type == "illustrator":
+            search_query = Q(illustrator__lastname=filters.search) | Q(
+                illustrator__firstname=filters.search
+            )
+        if filters.search_type == "book":
+            search_query = Q(title=filters.search)
+
         queryset = queryset.filter(search_query)
 
     if filters.region:
