@@ -1,25 +1,53 @@
+import { GlobalSuggestionType } from "@/models/Suggestions";
+
 const API_HOST = "http://localhost:8082";
 
-export const getClientConfig = async () => {
+type getClientConfigResponse = {
+	languages: { slug: string }[];
+	establishementsTypes: { slug: string }[];
+	documentTypes: { slug: string }[];
+	booksTypes: { slug: string }[];
+	regions: { slug: string }[];
+	departments: { slug: string }[];
+	cities: { slug: string }[];
+};
+
+export const getClientConfig = async (): Promise<getClientConfigResponse> => {
 	const response = await fetch(`${API_HOST}/api/client-config`);
 	return response.json();
 };
 
-export const getSuggestions = async (value: string | undefined) => {
+type getGlobalSuggestionsResponse = {
+	title: string;
+	subtitle: string;
+	type: GlobalSuggestionType;
+};
+
+export const getGlobalSuggestions = async (value: string | undefined): Promise<getGlobalSuggestionsResponse[]> => {
 	if (!value) return [];
 
 	const response = await fetch(`${API_HOST}/api/rcr/suggestion?str=${value}`);
 	return response.json();
 };
 
-export const getPublishersSuggestions = async (value: string | undefined) => {
+type getFilterSuggestionsResponse = {
+	slug: string;
+	label: string;
+};
+
+export const getFilterSuggestions = async (type: string, value: string | undefined): Promise<getFilterSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${API_HOST}/api/rcr/publishers-suggestion?str=${value}`);
+	const response = await fetch(`${API_HOST}/api/${type}/${value}`);
 	return response.json();
 };
 
-export const getPublisherDetails = async (slug: string) => {
-	const response = await fetch(`${API_HOST}/api/rcr/publishers/${slug}`);
+type getDetailsResponse = {
+	slug: string;
+	label: string;
+};
+
+export const getDetails = async (type: string, slug: string): Promise<getDetailsResponse> => {
+	const response = await fetch(`${API_HOST}/api/${type}/details/${slug}`);
 	return response.json();
 };

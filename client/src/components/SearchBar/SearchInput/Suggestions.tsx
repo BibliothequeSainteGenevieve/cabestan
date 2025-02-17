@@ -1,24 +1,11 @@
 import { CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
+import { GlobalSuggestion, GlobalSuggestionType } from "@/models/Suggestions";
 import { Book, Landmark, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-type Suggestion = {
-	title: string;
-	subtitle: string;
-	type: SuggestionType;
-};
-
-enum SuggestionType {
-	LIBRARY = "rcr",
-	DOCUMENT = "document",
-	AUTHOR = "author",
-	ILLUSTRATOR = "illustrator",
-	TRANSLATOR = "translator",
-}
-
 interface SuggestionsProps {
-	suggestions: Suggestion[];
+	suggestions: GlobalSuggestion[];
 	isLoading: boolean;
 	error: any;
 	setInputValue: (value: string) => void;
@@ -32,23 +19,23 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 	const suggestionsSections = [
 		{
 			icon: <Landmark className="w-4 h-4" />,
-			type: SuggestionType.LIBRARY,
+			type: GlobalSuggestionType.LIBRARY,
 		},
 		{
 			icon: <Book className="w-4 h-4" />,
-			type: SuggestionType.DOCUMENT,
+			type: GlobalSuggestionType.DOCUMENT,
 		},
 		{
 			icon: <User className="w-4 h-4" />,
-			type: SuggestionType.AUTHOR,
+			type: GlobalSuggestionType.AUTHOR,
 		},
 		{
 			icon: <User className="w-4 h-4" />,
-			type: SuggestionType.ILLUSTRATOR,
+			type: GlobalSuggestionType.ILLUSTRATOR,
 		},
 		{
 			icon: <User className="w-4 h-4" />,
-			type: SuggestionType.TRANSLATOR,
+			type: GlobalSuggestionType.TRANSLATOR,
 		},
 	];
 

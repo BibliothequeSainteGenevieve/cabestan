@@ -1,0 +1,31 @@
+{
+	"request": {
+		"method": "GET",
+		"urlPathPattern": "/api/cities/([a-z-]*)",
+		"headers": {}
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "application/json;charset=UTF-8"
+		},
+		"jsonBody": [
+			{
+				"slug": "paris",
+				"label": "Paris"
+			},
+			{
+				"slug": "lyon",
+				"label": "Lyon"
+			},
+			{
+				"slug": "toulouse",
+				"label": "Toulouse"
+			},
+			{
+				"slug": "nantes",
+				"label": "Nantes"
+			}
+		]
+	}
+}

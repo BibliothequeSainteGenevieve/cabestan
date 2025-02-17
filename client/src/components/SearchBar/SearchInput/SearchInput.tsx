@@ -6,21 +6,27 @@ import { useDebounce } from "@/hooks/useDebounce";
 import Suggestions from "./Suggestions";
 import { useTranslation } from "react-i18next";
 import { Search } from "lucide-react";
-import { getSuggestions } from "@/api";
+import { getGlobalSuggestions } from "@/api";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
+import { useSearchParams } from "react-router";
 
 export function CommandSearch() {
 	const { t } = useTranslation();
+	const [searchParams] = useSearchParams();
 	const setFilterSearchParams = useSetFilterSearchParams();
-	const [searchSuggestionsValue, setSearchSuggestionsValue] = useState<string>("");
-	const [inputValue, setInputValue] = useState<string>("");
+
+	const [searchSuggestionsValue, setSearchSuggestionsValue] = useState<string>(searchParams.get("str") || "");
+	const [inputValue, setInputValue] = useState<string>(searchParams.get("str") || "");
 	const [isOpen, setIsOpen] = useState(false);
 
 	const {
 		data: suggestions,
 		isLoading,
 		error,
-	} = useQuery({ queryKey: ["suggestions", searchSuggestionsValue], queryFn: () => getSuggestions(searchSuggestionsValue) });
+	} = useQuery({
+		queryKey: ["suggestions", searchSuggestionsValue],
+		queryFn: () => getGlobalSuggestions(searchSuggestionsValue),
+	});
 
 	const setSearchSuggestionsValueDebounced = useDebounce(setSearchSuggestionsValue, 300);
 
@@ -51,7 +57,7 @@ export function CommandSearch() {
 				<Suggestions
 					isLoading={isLoading}
 					error={error}
-					suggestions={suggestions}
+					suggestions={suggestions || []}
 					setInputValue={setInputValue}
 					setIsOpen={setIsOpen}
 				/>

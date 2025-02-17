@@ -7,7 +7,7 @@ import ComboboxFilter from "./ComboboxFilter";
 import PopoverMoreFilters from "./PopoverMoreFilters";
 import DateRangePicker from "./DateRangePicker/DateRangePicker";
 import { getClientConfig } from "@/api";
-import ComboboxSearchFilter from "./ComboboxSearchFilter/ComoboxSearchFilter";
+import ComboboxSearchFilter from "./ComboboxSearchFilter/ComboboxSearchFilter";
 import { FilterTypes } from "@/models/Filters";
 
 export default function SearchBar() {
@@ -45,7 +45,7 @@ export default function SearchBar() {
 					<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.booksTypes} />
 					{isRegionFilterOpen && <ComboboxFilter type={FilterTypes.REGIONS} options={data.regions} />}
 					{isDepartmentFilterOpen && <ComboboxFilter type={FilterTypes.DEPARTMENTS} options={data.departments} />}
-					{isCityFilterOpen && <ComboboxFilter type={FilterTypes.CITIES} options={data.cities} />}
+					{isCityFilterOpen && <ComboboxSearchFilter type={FilterTypes.CITIES} />}
 					{isPublisherFilterOpen && <ComboboxSearchFilter type={FilterTypes.PUBLISHERS} />}
 					{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
 					{isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />}

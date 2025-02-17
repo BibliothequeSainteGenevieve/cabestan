@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Command, CommandInput } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useTranslation } from "react-i18next";
-import { getPublishersSuggestions } from "@/api";
+import { getFilterSuggestions } from "@/api";
 import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@/hooks/useDebounce";
 import Suggestions from "./Suggestions";
 import { useSearchParams } from "react-router";
-import PublishersLabel from "./Value";
+import ValueLabel from "./Value";
 
 interface PublishersFilterProps {
 	type: string;
@@ -21,7 +21,7 @@ export default function PublishersFilter({ type }: PublishersFilterProps) {
 	const [value, setValue] = useState<string[]>(searchParams.get(type)?.split(",") || []);
 	const [open, setOpen] = useState(false);
 
-	const [searchEditorsSuggestionsValue, setSearchEditorsSuggestionsValue] = useState<string>("");
+	const [searchSuggestionsValue, setSearchSuggestionsValue] = useState<string>("");
 	const { t } = useTranslation();
 
 	const {
@@ -29,14 +29,14 @@ export default function PublishersFilter({ type }: PublishersFilterProps) {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: [`${type}-suggestion`, searchEditorsSuggestionsValue],
-		queryFn: () => getPublishersSuggestions(searchEditorsSuggestionsValue),
+		queryKey: [type, searchSuggestionsValue],
+		queryFn: () => getFilterSuggestions(type, searchSuggestionsValue),
 	});
 
-	const setSearchEditorsSuggestionsValueDebounced = useDebounce(setSearchEditorsSuggestionsValue, 300);
+	const setSearchSuggestionsValueDebounced = useDebounce(setSearchSuggestionsValue, 300);
 
 	const handleInputChange = (value: string) => {
-		setSearchEditorsSuggestionsValueDebounced(value);
+		setSearchSuggestionsValueDebounced(value);
 	};
 
 	return (
@@ -51,9 +51,7 @@ export default function PublishersFilter({ type }: PublishersFilterProps) {
 					)}>
 					{value.length > 0 ? (
 						value?.map((slug, index) => (
-							<>
-								<PublishersLabel key={slug} slug={slug} isLast={index === value.length - 1} />
-							</>
+							<ValueLabel key={slug} type={type} slug={slug} isLast={index === value.length - 1} />
 						))
 					) : (
 						<span>{t(`filters.${type}.placeholder`)}</span>
@@ -67,7 +65,7 @@ export default function PublishersFilter({ type }: PublishersFilterProps) {
 					<Suggestions
 						isLoading={isLoading}
 						error={error}
-						suggestions={suggestions}
+						suggestions={suggestions || []}
 						value={value}
 						setValue={setValue}
 						setOpen={setOpen}
