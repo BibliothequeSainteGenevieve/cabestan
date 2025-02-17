@@ -43,16 +43,16 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
 
     if filters.search:
         search_query = (
-            Q(rcr__rcr_number__icontains=filters.search)
-            | Q(rcr__title__icontains=filters.search)
-            | Q(title__icontains=filters.search)
-            | Q(editor__title__icontains=filters.search)
-            | Q(author__firstname__icontains=filters.search)
-            | Q(author__lastname__icontains=filters.search)
-            | Q(translator__firstname__icontains=filters.search)
-            | Q(translator__lastname__icontains=filters.search)
-            | Q(illustrator__firstname__icontains=filters.search)
-            | Q(illustrator__lastname__icontains=filters.search)
+            Q(rcr__rcr_number=filters.search)
+            | Q(rcr__title=filters.search)
+            | Q(title=filters.search)
+            | Q(editor__title=filters.search)
+            | Q(author__firstname=filters.search)
+            | Q(author__lastname=filters.search)
+            | Q(translator__firstname=filters.search)
+            | Q(translator__lastname=filters.search)
+            | Q(illustrator__firstname=filters.search)
+            | Q(illustrator__lastname=filters.search)
         )
         queryset = queryset.filter(search_query)
 
