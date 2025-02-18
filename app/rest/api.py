@@ -18,9 +18,9 @@ class RcrSearchFilters(Schema):
     search: Optional[str] = None
     search_type: Optional[str] = None
     language: Optional[str] = None
-    region: Optional[int] = None
-    department: Optional[int] = None
-    city: Optional[int] = None
+    region: Optional[str] = None
+    department: Optional[str] = None
+    city: Optional[str] = None
     rcr_type: Optional[str] = None
     book_type: Optional[str] = None
     publisher: Optional[str] = None
@@ -67,23 +67,46 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         queryset = queryset.filter(search_query)
 
     if filters.region:
-        queryset = queryset.filter(rcr__city__department__region_id=filters.region)
+        region_query = Q()
+        for region_id in filters.region.split(","):
+            region_query |= Q(rcr__city__department__region_id=region_id.strip())
+        queryset = queryset.filter(region_query)
+
     if filters.department:
-        queryset = queryset.filter(rcr__city__department_id=filters.department)
+        department_query = Q()
+        for department_id in filters.department.split(","):
+            department_query |= Q(rcr__city__department_id=department_id.strip())
+        queryset = queryset.filter(department_query)
+
     if filters.city:
-        queryset = queryset.filter(rcr__city_id=filters.city)
+        city_query = Q()
+        for city_id in filters.city.split(","):
+            city_query |= Q(rcr__city_id=city_id.strip())
+        queryset = queryset.filter(city_query)
 
     if filters.rcr_type:
-        queryset = queryset.filter(rcr__type__label=filters.rcr_type)
+        rcr_query = Q()
+        for rcr_type in filters.rcr_type.split(","):
+            rcr_query |= Q(rcr__type__label=rcr_type.strip())
+        queryset = queryset.filter(rcr_query)
 
     if filters.language:
-        queryset = queryset.filter(lang__iso_code=filters.language)
+        lang_query = Q()
+        for lang in filters.language.split(","):
+            lang_query |= Q(lang__iso_code=lang.strip())
+        queryset = queryset.filter(lang_query)
 
     if filters.book_type:
-        queryset = queryset.filter(type__label=filters.book_type)
+        book_type_query = Q()
+        for b_type in filters.book_type.split(","):
+            book_type_query |= Q(type__label=b_type.strip())
+        queryset = queryset.filter(book_type_query)
 
     if filters.publisher:
-        queryset = queryset.filter(editor__title__icontains=filters.publisher)
+        publisher_query = Q()
+        for pub in filters.publisher.split(","):
+            publisher_query |= Q(editor__title__icontains=pub.strip())
+        queryset = queryset.filter(publisher_query)
 
     queryset = queryset.distinct("rcr__books_count", "rcr")
 
