@@ -191,7 +191,7 @@ class EditorSearchFilters(Schema):
     str: str
 
 
-@router.get("/editor/search")
+@router.get("/publishers/search")
 def search_editor(request, filters: EditorSearchFilters = Query(...)):
     if len(filters.str) < 3:
         return {"items": []}
@@ -207,7 +207,7 @@ class CitySearchFilters(Schema):
     str: str
 
 
-@router.get("/city/search")
+@router.get("/cities/search")
 def search_city(request, filters: CitySearchFilters = Query(...)):
     if len(filters.str) < 3:
         return {"items": []}
