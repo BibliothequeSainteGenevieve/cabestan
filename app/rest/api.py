@@ -32,21 +32,6 @@ class RcrSearchFilters(Schema):
 @router.get("/rcr/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
 
-    # if filters.map_format:
-    #     queryset = Book.objects.select_related(
-    #         "lang",
-    #         "type",
-    #         "rcr",
-    #     )
-    # else:
-    #     queryset = Book.objects.select_related(
-    #         "type",
-    #         "editor",
-    #         "author",
-    #         "translator",
-    #         "illustrator",
-    #         "rcr",
-    #     )
     queryset = Book.objects.select_related(
         "lang",
         "type",
