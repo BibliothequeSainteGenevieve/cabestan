@@ -554,23 +554,24 @@
 				"national-library": "Bibliothèque nationale",
 				"university-library": "Bibliothèque universitaire",
 				"university-department-library": "Bibliothèque de département universitaire",
-				"higher-education-library": "Bibliothèque de haute éducation",
+				"higher-education-library": "Bibliothèque d'enseignement supérieur",
 				"general-library": "Bibliothèque générale",
 				"school-library": "Bibliothèque scolaire",
 				"public-specialized-library": "Bibliothèque spécialisée publique",
-				"restricted-public-specialized-library": "Bibliothèque spécialisée publique restreinte",
+				"restricted-public-specialized-library": "Bibliothèque spécialisée publique à accès restreint",
 				"private-specialized-library": "Bibliothèque spécialisée privée",
-				"restricted-private-specialized-library": "Bibliothèque spécialisée privée restreinte",
+				"restricted-private-specialized-library": "Bibliothèque spécialisée privée à accès restreint",
 				"classified-municipal-library": "Bibliothèque municipale classée",
 				"municipal-library": "Bibliothèque municipale",
 				"public-library": "Bibliothèque publique",
-				"corporate-library": "Bibliothèque de l'entreprise",
+				"corporate-library": "Bibliothèque d'entreprise",
 				"association-library": "Bibliothèque associative",
 				"religious-library": "Bibliothèque religieuse",
-				"archive-center": "Centre de documentation",
-				"museum-library": "Bibliothèque du musée",
+				"archive-center": "Centre d'archives",
+				"museum-library": "Bibliothèque de musée",
 				"documentation-center": "Centre de documentation",
-				"other": "Autre"
+				"other": "Autre",
+				"unknown": "Inconnu"
 			}
 		},
 		"booksTypes": {
@@ -715,7 +716,14 @@
 				"972": "Mayotte",
 				"973": "Guyane",
 				"974": "La Réunion",
-				"976": "Saint-Pierre-et-Miquelon"
+				"976": "Saint-Pierre-et-Miquelon",
+				"977": "Saint-Barthélemy",
+				"978": "Saint-Martin",
+				"984": "Terres australes et antarctiques françaises",
+				"986": "Wallis-et-Futuna",
+				"987": "Polynésie française",
+				"988": "Nouvelle-Calédonie",
+				"989": "Île de Clipperton"
 			}
 		},
 		"cities": {
