@@ -1,3 +1,4 @@
+import { RCR } from "@/models/RCR";
 import { GlobalSuggestionType } from "@/models/Suggestions";
 
 const API_HOST = import.meta.env.VITE_API_HOST ?? "localhost";
@@ -59,5 +60,19 @@ type getDetailsResponse = {
 
 export const getDetails = async (type: string, slug: string): Promise<getDetailsResponse> => {
 	const response = await fetch(`${getApiUrl(`/api/${type}/details/${slug}`)}`,{headers:getApiHeaders()});
+	return response.json();
+};
+
+type getRCRListResponse = {
+	pagination: {
+		totalResults: number;
+		currentPage: number;
+		itemsPerPage: number;
+	};
+	items: RCR[];
+};
+
+export const getRCRList = async (queryParams: string): Promise<getRCRListResponse> => {
+	const response = await fetch(`${API_HOST}/api/rcr/search${queryParams ? `?${queryParams}` : ""}`);
 	return response.json();
 };

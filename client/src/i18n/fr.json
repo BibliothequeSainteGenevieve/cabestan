@@ -33,6 +33,16 @@
 	"PopoverMoreFilters": {
 		"title": "Filtres avancés"
 	},
+	"RCRList": {
+		"error": "Erreur lors du chargement des résultats",
+		"results": "Résultats",
+		"books": "{{count}} Ouvrages",
+		"rcrCode": "Code RCR",
+		"pagination": {
+			"resultsPerPage": "Résultats par page",
+			"page": "Page"
+		}
+	},
 	"SearchBar": {
 		"loading": "Chargement des filtres...",
 		"error": "Erreur lors du chargement des filtres: {error.message}"
