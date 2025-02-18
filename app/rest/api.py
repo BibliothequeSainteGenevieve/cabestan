@@ -31,92 +31,87 @@ class RcrSearchFilters(Schema):
 
 @router.get("/rcr/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
-
-    queryset = Book.objects.select_related(
-        "lang",
-        "type",
-        "rcr",
-    )
+    queryset = Rcr.objects.all()
 
     if filters.string:
         search_value = filters.string
-        print("search: " + filters.string)
         if filters.type == "rcr":
-            search_query = Q(rcr__rcr_number=search_value) | Q(rcr__title=search_value)
+            queryset = queryset.filter(
+                Q(rcr_number=search_value) | Q(title=search_value)
+            )
         if filters.type == "editor":
-            queryset.select_related("editor")
-            search_query = Q(editor__title=search_value)
+            queryset = queryset.filter(books__editor__title=search_value).distinct()
         if filters.type == "author":
-            queryset.select_related("author")
-            search_query = Q(author__lastname=search_value) | Q(
-                author__firstname=search_value
-            ) & Q(author__type__label="author")
+            queryset = queryset.filter(
+                Q(books__author__lastname=search_value)
+                | Q(books__author__firstname=search_value),
+                books__author__type__label="author",
+            ).distinct()
         if filters.type == "translator":
-            queryset.select_related("translator")
-            search_query = Q(translator__lastname=search_value) | Q(
-                translator__firstname=search_value
-            ) & Q(translator__type__label="translator")
+            queryset = queryset.filter(
+                Q(books__translator__lastname=search_value)
+                | Q(books__translator__firstname=search_value),
+                books__translator__type__label="translator",
+            ).distinct()
         if filters.type == "illustrator":
-            queryset.select_related("illustrator")
-            search_query = Q(illustrator__lastname=search_value) | Q(
-                illustrator__firstname=search_value
-            ) & Q(illustrator__type__label="illustrator")
+            queryset = queryset.filter(
+                Q(books__illustrator__lastname=search_value)
+                | Q(books__illustrator__firstname=search_value),
+                books__illustrator__type__label="illustrator",
+            ).distinct()
         if filters.type == "book":
-            search_query = Q(title=search_value)
-
-        queryset = queryset.filter(search_query)
+            queryset = queryset.filter(books__title=search_value).distinct()
 
     if filters.region:
         region_query = Q()
         for region_id in filters.region.split(","):
-            region_query |= Q(rcr__city__department__region_id=region_id.strip())
+            region_query |= Q(city__department__region_id=region_id.strip())
         queryset = queryset.filter(region_query)
 
     if filters.department:
         department_query = Q()
         for department_id in filters.department.split(","):
-            department_query |= Q(rcr__city__department_id=department_id.strip())
+            department_query |= Q(city__department_id=department_id.strip())
         queryset = queryset.filter(department_query)
 
     if filters.city:
         city_query = Q()
         for city_id in filters.city.split(","):
-            city_query |= Q(rcr__city_id=city_id.strip())
+            city_query |= Q(city_id=city_id.strip())
         queryset = queryset.filter(city_query)
 
     if filters.rcr_type:
         rcr_query = Q()
         for rcr_type in filters.rcr_type.split(","):
-            rcr_query |= Q(rcr__type__label=rcr_type.strip())
+            rcr_query |= Q(type__label=rcr_type.strip())
         queryset = queryset.filter(rcr_query)
 
     if filters.language:
         lang_query = Q()
         for lang in filters.language.split(","):
-            lang_query |= Q(lang__iso_code=lang.strip())
-        queryset = queryset.filter(lang_query)
+            lang_query |= Q(books__lang__iso_code=lang.strip())
+        queryset = queryset.filter(lang_query).distinct()
 
     if filters.book_type:
         book_type_query = Q()
         for b_type in filters.book_type.split(","):
-            book_type_query |= Q(type__label=b_type.strip())
-        queryset = queryset.filter(book_type_query)
+            book_type_query |= Q(books__type__label=b_type.strip())
+        queryset = queryset.filter(book_type_query).distinct()
 
     if filters.publisher:
         publisher_query = Q()
         for pub in filters.publisher.split(","):
-            publisher_query |= Q(editor__title__icontains=pub.strip())
-        queryset = queryset.filter(publisher_query)
+            publisher_query |= Q(books__editor__title__icontains=pub.strip())
+        queryset = queryset.filter(publisher_query).distinct()
 
-    queryset = queryset.distinct("rcr__books_count", "rcr")
+    queryset = queryset.order_by("-books_count", "title")
 
-    queryset = queryset.order_by("-rcr__books_count", "rcr")
-
-    total = queryset.count()
-    start = (filters.page - 1) * filters.per_page
-    end = start + filters.per_page
     if not filters.map_format:
+        total = queryset.count()
+        start = (filters.page - 1) * filters.per_page
+        end = start + filters.per_page
         queryset = queryset[start:end]
+
         response = {
             "pagination": {
                 "totalResults": total,
@@ -126,64 +121,63 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             },
             "items": [
                 {
-                    "rcr": book.rcr.rcr_number,
-                    "name": book.rcr.title,
+                    "rcr": rcr.rcr_number,
+                    "name": rcr.title,
                     "translatedName": None,
-                    "numberOfDocuments": book.rcr.books_count,
+                    "numberOfDocuments": rcr.books_count,
                     "contact": {
-                        "website": book.rcr.website,
-                        "phone": book.rcr.phone,
-                        "email": book.rcr.email,
+                        "website": rcr.website,
+                        "phone": rcr.phone,
+                        "email": rcr.email,
                         "address": {
-                            "street": book.rcr.address,
-                            "postalCode": (
-                                book.rcr.city.zipcode if book.rcr.city else None
-                            ),
-                            "city": book.rcr.city.label if book.rcr.city else None,
+                            "street": rcr.address,
+                            "postalCode": rcr.city.zipcode if rcr.city else None,
+                            "city": rcr.city.label if rcr.city else None,
                             "country": "France",
                         },
                     },
                     "location": {
-                        "longitude": book.rcr.longitude,
-                        "latitude": book.rcr.latitude,
+                        "longitude": rcr.longitude,
+                        "latitude": rcr.latitude,
                     },
                     "languages": {
-                        "count": None,  # TODO,
-                        "supported": None,  # TODO,
+                        "count": None,
+                        "supported": None,
                     },
                     "metadata": {
-                        "author": None,  # TODO
-                        "publicationPlace": None,  # TODO
-                        "publisher": None,  # TODO
-                        "publicationDate": None,  # TODO
-                        "documentLanguage": None,  # TODO
-                        "tags": None,  # TODO,
+                        "author": None,
+                        "publicationPlace": None,
+                        "publisher": None,
+                        "publicationDate": None,
+                        "documentLanguage": None,
+                        "tags": None,
                     },
                 }
-                for book in queryset
+                for rcr in queryset
             ],
         }
     else:
         response = [
             {
-                "rcr": book.rcr.rcr_number,
-                "name": book.rcr.title,
-                "numberOfDocuments": book.rcr.books_count,
+                "rcr": rcr.rcr_number,
+                "name": rcr.title,
+                "numberOfDocuments": rcr.books_count,
                 "contact": {
                     "address": {
-                        "street": book.rcr.address,
-                        "postalCode": book.rcr.city.zipcode if book.rcr.city else None,
-                        "city": book.rcr.city.label if book.rcr.city else None,
+                        "street": rcr.address,
+                        "postalCode": rcr.city.zipcode if rcr.city else None,
+                        "city": rcr.city.label if rcr.city else None,
                         "country": "France",
                     }
                 },
                 "location": {
-                    "longitude": book.rcr.longitude,
-                    "latitude": book.rcr.latitude,
+                    "longitude": rcr.longitude,
+                    "latitude": rcr.latitude,
                 },
             }
-            for book in queryset
+            for rcr in queryset
         ]
+
     return response
 
 
