@@ -44,25 +44,3 @@ class ConfigDepartmentSerializer(serializers.ModelSerializer):
 
     def get_slug(self, obj):
         return str(obj.id).zfill(2)  # Pour avoir "01" au lieu de "1"
-
-
-class ConfigCitySerializer(serializers.ModelSerializer):
-    slug = serializers.SerializerMethodField()
-
-    class Meta:
-        model = City
-        fields = ["slug"]
-
-    def get_slug(self, obj):
-        return obj.label.lower()
-
-
-class ConfigEditorSerializer(serializers.ModelSerializer):
-    slug = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Editor
-        fields = ["slug"]
-
-    def get_slug(self, obj):
-        return obj.title.lower()

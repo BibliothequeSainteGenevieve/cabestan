@@ -83,6 +83,11 @@ services:
     volumes:
       - ../client:/app
       - /app/node_modules/
+    environment:
+      - VITE_API_PROTOCOL=http
+      - VITE_API_HOST=${HOST}
+      - VITE_API_PATH=/api/rest
+      - VITE_CACHE_TTL=1000
 
   cabestan-scraper-rcr:
     restart: always

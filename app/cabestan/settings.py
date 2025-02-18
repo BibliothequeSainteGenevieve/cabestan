@@ -35,6 +35,12 @@ CSRF_TRUSTED_ORIGINS = [f"https://{i}" for i in ALLOWED_HOSTS] + [
     f"http://{i}" for i in ALLOWED_HOSTS
 ]
 
+CORS_ALLOWED_ORIGINS = (
+    [f"https://{i}" for i in ALLOWED_HOSTS]
+    + [f"http://{i}" for i in ALLOWED_HOSTS]
+    + ["http://servogne.com:5173", "http://localhost:5173"]
+)
+
 CABESTAN_ENV_LIST = ["PROD", "STAGING", "DEV"]
 CABESTAN_ENV = "PROD"
 
@@ -62,11 +68,13 @@ INSTALLED_APPS = [
     "constance",
     "constance.backends.database",
     "rest_framework",
+    "corsheaders",
 ] + [a + ".apps." + a.title() + "Config" for a in CABESTAN_APPS]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
