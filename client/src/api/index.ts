@@ -15,15 +15,13 @@ const getApiHeaders = () => {
 type getClientConfigResponse = {
 	languages: { slug: string }[];
 	establishementsTypes: { slug: string }[];
-	documentTypes: { slug: string }[];
-	booksTypes: { slug: string }[];
+	documentsTypes: { slug: string }[];
 	regions: { slug: string }[];
 	departments: { slug: string }[];
-	cities: { slug: string }[];
 };
 
 export const getClientConfig = async (): Promise<getClientConfigResponse> => {
-	const response = await fetch(`${getApiUrl("/client-config")}`,{headers:getApiHeaders()});
+	const response = await fetch(`${getApiUrl("/client-config")}`, { headers: getApiHeaders() });
 	return response.json();
 };
 
@@ -36,7 +34,7 @@ type getGlobalSuggestionsResponse = {
 export const getGlobalSuggestions = async (value: string | undefined): Promise<getGlobalSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${getApiUrl("/suggestions/search")}?str=${value}`,{headers:getApiHeaders()});
+	const response = await fetch(`${getApiUrl("/suggestions/search")}?str=${value}`, { headers: getApiHeaders() });
 	return response.json();
 };
 
@@ -48,7 +46,7 @@ type getFilterSuggestionsResponse = {
 export const getFilterSuggestions = async (type: string, value: string | undefined): Promise<getFilterSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${getApiUrl(`/api/${type}/${value}`)}`,{headers:getApiHeaders()});
+	const response = await fetch(`${getApiUrl(`/api/${type}/${value}`)}`, { headers: getApiHeaders() });
 	return response.json();
 };
 
@@ -58,6 +56,6 @@ type getDetailsResponse = {
 };
 
 export const getDetails = async (type: string, slug: string): Promise<getDetailsResponse> => {
-	const response = await fetch(`${getApiUrl(`/api/${type}/details/${slug}`)}`,{headers:getApiHeaders()});
+	const response = await fetch(`${getApiUrl(`/api/${type}/details/${slug}`)}`, { headers: getApiHeaders() });
 	return response.json();
 };

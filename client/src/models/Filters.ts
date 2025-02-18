@@ -1,7 +1,7 @@
 export enum FilterTypes {
 	LANGUAGES = "languages",
 	ESTABLISHMENTS_TYPES = "establishementsTypes",
-	BOOKS_TYPES = "booksTypes",
+	BOOKS_TYPES = "documentsTypes",
 	REGIONS = "regions",
 	DEPARTMENTS = "departments",
 	CITIES = "cities",
