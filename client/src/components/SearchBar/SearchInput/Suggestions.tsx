@@ -39,9 +39,11 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 		},
 	];
 
-	const handleSelect = ({ searchString, inputValue }: { searchString: string; inputValue: string }) => {
+	const handleSelect = ({ searchString, inputValue,searchType }: { searchString: string; inputValue: string; searchType:GlobalSuggestionType }) => {
 		setInputValue(inputValue);
-		setFilterSearchParams([searchString], "str");
+		setFilterSearchParams([searchString], "string");
+		setFilterSearchParams([searchType], "type");
+		setFilterSearchParams(["false"], "map_format");
 		setIsOpen(false);
 	};
 
@@ -67,7 +69,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 									key={suggestion.title}
 									value={suggestion.title}
 									onSelect={() =>
-										handleSelect({ searchString: suggestion.title, inputValue: suggestion.title })
+										handleSelect({ searchString: suggestion.title, inputValue: suggestion.title, searchType: section.type })
 									}>
 									<span>
 										{suggestion.title} {suggestion.subtitle ? `- ${suggestion?.subtitle}` : ""}

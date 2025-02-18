@@ -73,6 +73,6 @@ type getRCRListResponse = {
 };
 
 export const getRCRList = async (queryParams: string): Promise<getRCRListResponse> => {
-	const response = await fetch(`${API_HOST}/api/rcr/search${queryParams ? `?${queryParams}` : ""}`);
+	const response = await fetch(`${getApiUrl("/rcr/search")}${queryParams ? `?${queryParams}` : ""}`,{headers:getApiHeaders()});
 	return response.json();
 };
