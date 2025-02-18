@@ -21,9 +21,9 @@ class ClientConfigView(APIView):
         # Sérialiser les données
         data = {
             "languages": ConfigLangSerializer(languages, many=True).data,
-            "establishementsTypes": [
-                ConfigRcrTypeSerializer(establishment_types, many=True).data
-            ],
+            "establishementsTypes": ConfigRcrTypeSerializer(
+                establishment_types, many=True
+            ).data,
             "documentTypes": ConfigBookTypeSerializer(document_types, many=True).data,
             "departments": ConfigDepartmentSerializer(departments, many=True).data,
         }

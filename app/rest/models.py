@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.indexes import HashIndex
 
 
 # Localisation models
@@ -61,8 +62,8 @@ class Rcr(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=["rcr_number"]),
-            models.Index(fields=["title"]),
+            HashIndex(fields=["rcr_number"]),
+            HashIndex(fields=["title"]),
         ]
 
 
@@ -92,8 +93,8 @@ class Author(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=["firstname"]),
-            models.Index(fields=["lastname"]),
+            HashIndex(fields=["firstname"]),
+            HashIndex(fields=["lastname"]),
         ]
 
 
@@ -105,7 +106,7 @@ class Editor(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=["title"]),
+            HashIndex(fields=["title"]),
         ]
 
 
@@ -161,7 +162,7 @@ class Book(models.Model):
 
     class Meta:
         indexes = [
-            models.Index(fields=["title"]),
+            HashIndex(fields=["title"]),
         ]
 
 
