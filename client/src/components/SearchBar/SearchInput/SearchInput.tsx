@@ -40,7 +40,9 @@ export function CommandSearch() {
 			setSearchSuggestionsValueDebounced(inputValue);
 		} else {
 			setIsOpen(false);
-			setFilterSearchParams([], "str");
+			setFilterSearchParams([], "string");
+			setFilterSearchParams([], "subtitle");
+			setFilterSearchParams([], "type");
 		}
 	};
 
