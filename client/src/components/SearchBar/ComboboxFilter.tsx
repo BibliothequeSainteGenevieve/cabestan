@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useTranslation } from "react-i18next";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 import { useSearchParams } from "react-router";
+import { FilterTypes } from "@/models/Filters";
 
 interface ComboboxFilterProps {
 	options: { slug: string }[];
@@ -33,8 +34,14 @@ export default function ComboboxFilter({ options, type }: ComboboxFilterProps) {
 						value.length > 0 ? "bg-lightRed text-primary" : ""
 					)}>
 					{value.length > 0
-						? value.map((item) => t(`filters.${type}.options.${item}`)).join(", ")
-						: t(`filters.${type}.placeholder`)}
+						? value
+								.map((item) =>
+									type === FilterTypes.LANGUAGES
+										? t(`filters.${type}.options.${item}`) + " (" + item + ")"
+										: t(`filters.${type}.options.${item}`)
+								)
+								.join(", ")
+						: t(`filters.${type}.placeholder`)}{" "}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
@@ -71,6 +78,7 @@ export default function ComboboxFilter({ options, type }: ComboboxFilterProps) {
 										setFilterSearchParams(newValues, type);
 									}}>
 									{t(`filters.${type}.options.${option.slug}`)}
+									{type === FilterTypes.LANGUAGES && " (" + option.slug + ")"}
 									<Check className={cn("ml-auto", value.includes(option.slug) ? "opacity-100" : "opacity-0")} />
 								</CommandItem>
 							))}
