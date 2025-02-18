@@ -33,7 +33,7 @@
 				{ "slug": "documentation-center" },
 				{ "slug": "other" }
 			],
-			"documentTypes": [
+			"documentsTypes": [
 				{ "slug": "article" },
 				{ "slug": "printed-monograph" },
 				{ "slug": "manuscript" },

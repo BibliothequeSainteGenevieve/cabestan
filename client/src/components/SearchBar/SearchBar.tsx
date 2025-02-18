@@ -42,7 +42,7 @@ export default function SearchBar() {
 				<div className="flex flex-wrap items-center gap-2 lg:min-w-[500px]">
 					<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
 					<ComboboxFilter type={FilterTypes.ESTABLISHMENTS_TYPES} options={data.establishementsTypes} />
-					<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.booksTypes} />
+					<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.documentsTypes} />
 					{isRegionFilterOpen && <ComboboxFilter type={FilterTypes.REGIONS} options={data.regions} />}
 					{isDepartmentFilterOpen && <ComboboxFilter type={FilterTypes.DEPARTMENTS} options={data.departments} />}
 					{isCityFilterOpen && <ComboboxSearchFilter type={FilterTypes.CITIES} />}

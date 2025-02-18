@@ -24,7 +24,7 @@ class ClientConfigView(APIView):
             "establishementsTypes": ConfigRcrTypeSerializer(
                 establishment_types, many=True
             ).data,
-            "documentTypes": ConfigBookTypeSerializer(document_types, many=True).data,
+            "documentsTypes": ConfigBookTypeSerializer(document_types, many=True).data,
             "departments": ConfigDepartmentSerializer(departments, many=True).data,
         }
 

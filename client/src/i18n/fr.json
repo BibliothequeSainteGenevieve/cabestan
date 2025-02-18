@@ -584,12 +584,22 @@
 				"unknown": "Inconnu"
 			}
 		},
-		"booksTypes": {
+		"documentsTypes": {
 			"placeholder": "Type de livre",
 			"options": {
-				"book": "Livre",
-				"magazine": "Magazine",
-				"newspaper": "Journal"
+				"article": "Article",
+				"printed-monograph": "Monographie imprimée",
+				"manuscript": "Manuscrit",
+				"musical-recording": "Enregistrement musical",
+				"still-image": "Image fixe",
+				"map": "Carte",
+				"musical-score": "Partition musicale",
+				"non-musical-recording": "Enregistrement non musical",
+				"electronic-monograph": "Monographie électronique",
+				"periodical": "Périodique",
+				"audiovisual": "Audiovisuel",
+				"multimedia": "Multimédia",
+				"thesis": "Thèse"
 			}
 		},
 		"locationTypes": {
