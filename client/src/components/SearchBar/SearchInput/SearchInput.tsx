@@ -15,8 +15,10 @@ export function CommandSearch() {
 	const [searchParams] = useSearchParams();
 	const setFilterSearchParams = useSetFilterSearchParams();
 
-	const [searchSuggestionsValue, setSearchSuggestionsValue] = useState<string>(searchParams.get("str") || "");
-	const [inputValue, setInputValue] = useState<string>(searchParams.get("str") || "");
+	const [searchSuggestionsValue, setSearchSuggestionsValue] = useState<string>("");
+	const [inputValue, setInputValue] = useState<string>(
+		searchParams.get("string") ? `${searchParams.get("string")} - ${searchParams.get("subtitle")}` : ""
+	);
 	const [isOpen, setIsOpen] = useState(false);
 
 	const {
