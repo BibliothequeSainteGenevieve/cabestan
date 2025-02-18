@@ -32,15 +32,22 @@ class RcrSearchFilters(Schema):
 @router.get("/rcr/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
 
-    queryset = Book.objects.select_related(
-        "lang",
-        "type",
-        "editor",
-        "author",
-        "translator",
-        "illustrator",
-        "rcr",
-    )
+    if filters.map_format:
+        queryset = Book.objects.select_related(
+            "lang",
+            "type",
+            "rcr",
+        )
+    else:
+        queryset = Book.objects.select_related(
+            "lang",
+            "type",
+            "editor",
+            "author",
+            "translator",
+            "illustrator",
+            "rcr",
+        )
 
     if filters.search:
         if filters.search_type == "rcr":
@@ -164,7 +171,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             ],
         }
     else:
-        response = {
+        response = [
             {
                 "rcr": book.rcr.rcr_number,
                 "name": book.rcr.title,
@@ -172,9 +179,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
                 "contact": {
                     "address": {
                         "street": book.rcr.address,
-                        "postalCode": (
-                            book.rcr.city.zipcode if book.rcr.city else None
-                        ),
+                        "postalCode": book.rcr.city.zipcode if book.rcr.city else None,
                         "city": book.rcr.city.label if book.rcr.city else None,
                         "country": "France",
                     }
@@ -185,7 +190,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
                 },
             }
             for book in queryset
-        }
+        ]
     return response
 
 
