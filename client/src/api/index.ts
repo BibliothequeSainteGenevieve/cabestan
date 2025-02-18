@@ -36,7 +36,7 @@ type getGlobalSuggestionsResponse = {
 export const getGlobalSuggestions = async (value: string | undefined): Promise<getGlobalSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${getApiUrl("/suggestion")}?str=${value}`,{headers:getApiHeaders()});
+	const response = await fetch(`${getApiUrl("/suggestions/search")}?str=${value}`,{headers:getApiHeaders()});
 	return response.json();
 };
 

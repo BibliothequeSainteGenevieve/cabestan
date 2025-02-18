@@ -195,7 +195,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
 
 
 class EditorSearchFilters(Schema):
-    search: str
+    str: str
 
 
 @router.get("/editor/search")
@@ -211,7 +211,7 @@ def search_editor(request, filters: EditorSearchFilters = Query(...)):
 
 
 class CitySearchFilters(Schema):
-    search: str
+    str: str
 
 
 @router.get("/city/search")
@@ -227,31 +227,31 @@ def search_city(request, filters: CitySearchFilters = Query(...)):
 
 
 class SuggestionsSearchFilters(Schema):
-    search: str
+    str: str
 
 
 @router.get("/suggestions/search")
 def search_suggestions(request, filters: SuggestionsSearchFilters = Query(...)):
-    books = Book.objects.filter(title__icontains=filters.search).values("title")[:3]
-    rcr = Rcr.objects.filter(title__icontains=filters.search).values(
+    books = Book.objects.filter(title__icontains=filters.str).values("title")[:3]
+    rcr = Rcr.objects.filter(title__icontains=filters.str).values(
         "title", "rcr_number"
     )[:3]
     authors = (
-        Author.objects.filter(lastname__icontains=filters.search)
+        Author.objects.filter(lastname__icontains=filters.str)
         .filter(type__label="author")
         .values("lastname", "firstname")[:3]
     )
     translators = (
-        Author.objects.filter(lastname__icontains=filters.search)
+        Author.objects.filter(lastname__icontains=filters.str)
         .filter(type__label="translator")
         .values("lastname", "firstname")[:3]
     )
     illustrators = (
-        Author.objects.filter(lastname__icontains=filters.search)
+        Author.objects.filter(lastname__icontains=filters.str)
         .filter(type__label="illustrator")
         .values("lastname", "firstname")[:3]
     )
-    editors = Editor.objects.filter(title__icontains=filters.search).values("title")[:3]
+    editors = Editor.objects.filter(title__icontains=filters.str).values("title")[:3]
 
     formatted_results = []
 
