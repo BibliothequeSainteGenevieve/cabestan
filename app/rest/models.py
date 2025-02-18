@@ -155,7 +155,9 @@ class Book(models.Model):
         CountryType, on_delete=models.CASCADE, null=True, blank=True
     )
     misc_book_data = models.JSONField(null=True, blank=True)
-    rcr = models.ForeignKey(Rcr, on_delete=models.CASCADE, default=None)
+    rcr = models.ForeignKey(
+        Rcr, on_delete=models.CASCADE, default=None, related_name="books"
+    )
 
     def __str__(self):
         return self.title
