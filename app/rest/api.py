@@ -15,8 +15,8 @@ def get_client_config(request):
 
 
 class RcrSearchFilters(Schema):
-    search: Optional[str] = None
-    search_type: Optional[str] = None
+    string: Optional[str] = None
+    type: Optional[str] = None
     language: Optional[str] = None
     region: Optional[str] = None
     department: Optional[str] = None
@@ -32,44 +32,37 @@ class RcrSearchFilters(Schema):
 @router.get("/rcr/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
 
-    if filters.map_format:
-        queryset = Book.objects.select_related(
-            "lang",
-            "type",
-            "rcr",
-        )
-    else:
-        queryset = Book.objects.select_related(
-            "lang",
-            "type",
-            "editor",
-            "author",
-            "translator",
-            "illustrator",
-            "rcr",
-        )
+    queryset = Book.objects.select_related(
+        "lang",
+        "type",
+        "rcr",
+    )
 
-    if filters.search:
-        if filters.search_type == "rcr":
-            search_query = Q(rcr__rcr_number=filters.search) | Q(
-                rcr__title=filters.search
-            )
-        if filters.search_type == "editor":
-            search_query = Q(editor__title=filters.search)
-        if filters.search_type == "author":
-            search_query = Q(author__lastname=filters.search) | Q(
-                author__firstname=filters.search
+    if filters.string:
+        search_value = filters.string
+        print("search: " + filters.string)
+        if filters.type == "rcr":
+            search_query = Q(rcr__rcr_number=search_value) | Q(rcr__title=search_value)
+        if filters.type == "editor":
+            queryset.select_related("editor")
+            search_query = Q(editor__title=search_value)
+        if filters.type == "author":
+            queryset.select_related("author")
+            search_query = Q(author__lastname=search_value) | Q(
+                author__firstname=search_value
             ) & Q(author__type__label="author")
-        if filters.search_type == "translator":
-            search_query = Q(translator__lastname=filters.search) | Q(
-                translator__firstname=filters.search
+        if filters.type == "translator":
+            queryset.select_related("translator")
+            search_query = Q(translator__lastname=search_value) | Q(
+                translator__firstname=search_value
             ) & Q(translator__type__label="translator")
-        if filters.search_type == "illustrator":
-            search_query = Q(illustrator__lastname=filters.search) | Q(
-                illustrator__firstname=filters.search
+        if filters.type == "illustrator":
+            queryset.select_related("illustrator")
+            search_query = Q(illustrator__lastname=search_value) | Q(
+                illustrator__firstname=search_value
             ) & Q(illustrator__type__label="illustrator")
-        if filters.search_type == "book":
-            search_query = Q(title=filters.search)
+        if filters.type == "book":
+            search_query = Q(title=search_value)
 
         queryset = queryset.filter(search_query)
 
@@ -200,10 +193,10 @@ class EditorSearchFilters(Schema):
 
 @router.get("/editor/search")
 def search_editor(request, filters: EditorSearchFilters = Query(...)):
-    if len(filters.search) < 3:
+    if len(filters.str) < 3:
         return {"items": []}
 
-    queryset = Editor.objects.filter(title__icontains=filters.search).values(
+    queryset = Editor.objects.filter(title__icontains=filters.str).values(
         "id", "title"
     )[:10]
 
@@ -216,10 +209,10 @@ class CitySearchFilters(Schema):
 
 @router.get("/city/search")
 def search_city(request, filters: CitySearchFilters = Query(...)):
-    if len(filters.search) < 3:
+    if len(filters.str) < 3:
         return {"items": []}
 
-    queryset = City.objects.filter(label__icontains=filters.search).values(
+    queryset = City.objects.filter(label__icontains=filters.str).values(
         "id", "label", "zipcode"
     )[:10]
 
