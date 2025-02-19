@@ -37,7 +37,7 @@ export function CommandSearch() {
 
 		if (value.length > 2) {
 			setIsOpen(true);
-			setSearchSuggestionsValueDebounced(inputValue);
+			setSearchSuggestionsValueDebounced(value);
 		} else {
 			setIsOpen(false);
 			setFilterSearchParams([], "string");
