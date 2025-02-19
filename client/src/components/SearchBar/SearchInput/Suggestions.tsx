@@ -60,42 +60,45 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 		setIsOpen(false);
 	};
 
-	if (isLoading || suggestions.length === 0) return <span>{t("CommandSearch.suggestions.loading")}</span>;
-	if (error) return <span>{t("CommandSearch.suggestions.error", { error: error.message })}</span>;
+	if (isLoading) return <span className="p-5 text-sm text-center italic">{t("CommandSearch.suggestions.loading")}</span>;
+	if (error) return <span className="p-4 text-red-500">{t("CommandSearch.suggestions.error", { error: error.message })}</span>;
 
 	return (
-		<CommandList ref={ref} className="absolute bg-white top-11 w-full z-50">
-			<CommandEmpty>{t("CommandSearch.suggestions.empty")}</CommandEmpty>
-			{suggestionsSections.map((section) => (
-				<Fragment key={section.type}>
-					<CommandGroup
-						heading={
-							<span className="flex items-center gap-1 font-bold">
-								{section.icon} {t(`CommandSearch.suggestions.types.${section.type}`)}
-							</span>
-						}>
-						{suggestions
-							.filter((suggestion) => suggestion.type === section.type)
-							.map((suggestion, index) => (
-								<CommandItem
-									key={suggestion.subtitle + index}
-									value={suggestion.title}
-									onSelect={() =>
-										handleSelect({
-											searchString: suggestion.title,
-											searchType: section.type,
-											subTitle: suggestion.subtitle,
-										})
-									}>
-									<span>
-										{suggestion.title} {suggestion.subtitle ? `- ${suggestion?.subtitle}` : ""}
-									</span>
-								</CommandItem>
-							))}
-					</CommandGroup>
-					<CommandSeparator />
-				</Fragment>
-			))}
+		<CommandList ref={ref} className="absolute bg-white top-11 w-full z-50 shadow-md">
+			<CommandEmpty>
+				<span>{t("CommandSearch.suggestions.empty")}</span>
+			</CommandEmpty>
+			{suggestions?.length > 0 &&
+				suggestionsSections.map((section) => (
+					<Fragment key={section.type}>
+						<CommandGroup
+							heading={
+								<span className="flex items-center gap-1 font-bold">
+									{section.icon} {t(`CommandSearch.suggestions.types.${section.type}`)}
+								</span>
+							}>
+							{suggestions
+								.filter((suggestion) => suggestion.type === section.type)
+								.map((suggestion, index) => (
+									<CommandItem
+										key={suggestion.subtitle + index}
+										value={suggestion.title}
+										onSelect={() =>
+											handleSelect({
+												searchString: suggestion.title,
+												searchType: section.type,
+												subTitle: suggestion.subtitle,
+											})
+										}>
+										<span>
+											{suggestion.title} {suggestion.subtitle ? `- ${suggestion?.subtitle}` : ""}
+										</span>
+									</CommandItem>
+								))}
+						</CommandGroup>
+						<CommandSeparator />
+					</Fragment>
+				))}
 		</CommandList>
 	);
 }
