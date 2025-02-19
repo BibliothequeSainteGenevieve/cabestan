@@ -40,24 +40,24 @@ export const getGlobalSuggestions = async (value: string | undefined): Promise<g
 };
 
 type getFilterSuggestionsResponse = {
-	slug: string;
-	label: string;
+	id: string;
+	name: string;
 };
 
 export const getFilterSuggestions = async (type: string, value: string | undefined): Promise<getFilterSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${getApiUrl(`/api/${type}/${value}`)}`, { headers: getApiHeaders() });
+	const response = await fetch(`${getApiUrl(`/${type}/seah`)}?str=${value}`, { headers: getApiHeaders() });
 	return response.json();
 };
 
 type getDetailsResponse = {
-	slug: string;
-	label: string;
+	id: string;
+	name: string;
 };
 
-export const getDetails = async (type: string, slug: string): Promise<getDetailsResponse> => {
-	const response = await fetch(`${getApiUrl(`/api/${type}/details/${slug}`)}`, { headers: getApiHeaders() });
+export const getDetails = async (type: string, id: string): Promise<getDetailsResponse> => {
+	const response = await fetch(`${getApiUrl(`/${type}/${id}`)}`, { headers: getApiHeaders() });
 	return response.json();
 };
 
