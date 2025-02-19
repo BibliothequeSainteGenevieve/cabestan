@@ -17,8 +17,8 @@ export default function Home() {
 		isLoading,
 		error,
 	} = useQuery({
-		queryKey: ["rcr-list", searchParams],
-		queryFn: () => getRCRList(searchParams),
+		queryKey: ["rcr-list", searchParams.toString()],
+		queryFn: () => getRCRList(searchParams.toString()),
 	});
 
 	return (
