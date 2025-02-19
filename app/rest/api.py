@@ -99,7 +99,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     if filters.documentsTypes:
         book_type_query = Q()
         for b_type in filters.documentsTypes.split(","):
-            book_type_query |= Q(books__type__id=b_type.strip())
+            book_type_query |= Q(books__type__label=b_type.strip())
         queryset = queryset.filter(book_type_query).distinct()
 
     if filters.publisher:
