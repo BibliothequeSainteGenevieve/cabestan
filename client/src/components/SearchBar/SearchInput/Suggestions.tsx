@@ -1,8 +1,11 @@
 import { CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
+import { useClickOutside } from "@/hooks/useClickOutside";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 import { GlobalSuggestion, GlobalSuggestionType } from "@/models/Suggestions";
 import { Book, Landmark, User } from "lucide-react";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { Fragment } from "react/jsx-runtime";
 
 interface SuggestionsProps {
 	suggestions: GlobalSuggestion[];
@@ -13,8 +16,10 @@ interface SuggestionsProps {
 }
 
 function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }: SuggestionsProps) {
+	const ref = useRef<HTMLDivElement>(null);
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
+	useClickOutside(ref, () => setIsOpen(false));
 
 	const suggestionsSections = [
 		{
@@ -39,11 +44,19 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 		},
 	];
 
-	const handleSelect = ({ searchString, inputValue,searchType }: { searchString: string; inputValue: string; searchType:GlobalSuggestionType }) => {
-		setInputValue(inputValue);
+	const handleSelect = ({
+		searchString,
+		searchType,
+		subTitle,
+	}: {
+		searchString: string;
+		searchType: GlobalSuggestionType;
+		subTitle: string;
+	}) => {
+		setInputValue(`${searchString} - ${subTitle}`);
 		setFilterSearchParams([searchString], "string");
 		setFilterSearchParams([searchType], "type");
-		setFilterSearchParams(["false"], "map_format");
+		setFilterSearchParams([subTitle], "subtitle");
 		setIsOpen(false);
 	};
 
@@ -51,12 +64,11 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 	if (error) return <span>{t("CommandSearch.suggestions.error", { error: error.message })}</span>;
 
 	return (
-		<CommandList className="absolute bg-white top-11 w-full z-50">
+		<CommandList ref={ref} className="absolute bg-white top-11 w-full z-50">
 			<CommandEmpty>{t("CommandSearch.suggestions.empty")}</CommandEmpty>
 			{suggestionsSections.map((section) => (
-				<>
+				<Fragment key={section.type}>
 					<CommandGroup
-						key={section.type}
 						heading={
 							<span className="flex items-center gap-1 font-bold">
 								{section.icon} {t(`CommandSearch.suggestions.types.${section.type}`)}
@@ -64,12 +76,16 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 						}>
 						{suggestions
 							.filter((suggestion) => suggestion.type === section.type)
-							.map((suggestion) => (
+							.map((suggestion, index) => (
 								<CommandItem
-									key={suggestion.title}
+									key={suggestion.subtitle + index}
 									value={suggestion.title}
 									onSelect={() =>
-										handleSelect({ searchString: suggestion.title, inputValue: suggestion.title, searchType: section.type })
+										handleSelect({
+											searchString: suggestion.title,
+											searchType: section.type,
+											subTitle: suggestion.subtitle,
+										})
 									}>
 									<span>
 										{suggestion.title} {suggestion.subtitle ? `- ${suggestion?.subtitle}` : ""}
@@ -78,7 +94,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 							))}
 					</CommandGroup>
 					<CommandSeparator />
-				</>
+				</Fragment>
 			))}
 		</CommandList>
 	);
