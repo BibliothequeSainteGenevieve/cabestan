@@ -33,8 +33,8 @@ export default function PopoverMoreFilters({
 	setIsPublisherFilterOpen,
 	isPublicationDateFilterOpen,
 	setIsPublicationDateFilterOpen,
-	isTranslationDateFilterOpen,
-	setIsTranslationDateFilterOpen,
+	// isTranslationDateFilterOpen,
+	// setIsTranslationDateFilterOpen,
 	isReissueDateFilterOpen,
 	setIsReissueDateFilterOpen,
 }: PopoverMoreFiltersProps) {
@@ -97,7 +97,7 @@ export default function PopoverMoreFilters({
 						{t("filters.publicationDates.placeholder")}
 						{isPublicationDateFilterOpen && <Check className="w-4 h-4" />}
 					</Button>
-					<Button
+					{/* 					<Button
 						variant="ghost"
 						onClick={() => {
 							setIsTranslationDateFilterOpen(!isTranslationDateFilterOpen);
@@ -106,7 +106,7 @@ export default function PopoverMoreFilters({
 						}}>
 						{t("filters.translationDates.placeholder")}
 						{isTranslationDateFilterOpen && <Check className="w-4 h-4" />}
-					</Button>
+					</Button> */}
 					<Button
 						variant="ghost"
 						onClick={() => {

@@ -66,13 +66,14 @@ export default function ComboboxFilter({ options, type }: ComboboxFilterProps) {
 							{options.map((option) => (
 								<CommandItem
 									key={option.slug}
-									value={option.slug}
+									value={t(`filters.${type}.options.${option.slug}`) + "/" + option.slug}
 									onSelect={(currentValue) => {
+										const slug = currentValue.split("/")[1];
 										let newValues = [];
-										if (value.includes(currentValue)) {
-											newValues = value.filter((item) => item !== currentValue);
+										if (value.includes(slug)) {
+											newValues = value.filter((item) => item !== slug);
 										} else {
-											newValues = [...value, currentValue];
+											newValues = [...value, slug];
 										}
 										setValue(newValues);
 										setFilterSearchParams(newValues, type);

@@ -48,7 +48,7 @@ export default function SearchBar() {
 					{isCityFilterOpen && <ComboboxSearchFilter type={FilterTypes.CITIES} />}
 					{isPublisherFilterOpen && <ComboboxSearchFilter type={FilterTypes.PUBLISHERS} />}
 					{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
-					{isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />}
+					{/* {isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />} */}
 					{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
 				</div>
 				<PopoverMoreFilters
