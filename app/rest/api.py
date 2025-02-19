@@ -21,7 +21,7 @@ class RcrSearchFilters(Schema):
     regions: Optional[str] = None
     departments: Optional[str] = None
     cities: Optional[str] = None
-    rcr_type: Optional[str] = None
+    establishementsTypes: Optional[str] = None
     documentsTypes: Optional[str] = None
     publisher: Optional[str] = None
     map_format: Optional[bool] = False
@@ -84,9 +84,9 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             city_query |= Q(city_id=city_id.strip())
         queryset = queryset.filter(city_query)
 
-    if filters.rcr_type:
+    if filters.establishementsTypes:
         rcr_query = Q()
-        for rcr_type in filters.rcr_type.split(","):
+        for rcr_type in filters.establishementsTypes.split(","):
             rcr_query |= Q(type__label=rcr_type.strip())
         queryset = queryset.filter(rcr_query)
 
