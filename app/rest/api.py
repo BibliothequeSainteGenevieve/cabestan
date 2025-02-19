@@ -3,7 +3,7 @@ from typing import Optional
 from .models import Book, Editor, City, Rcr, Author
 from .views import ClientConfigView
 from django.db.models import Q
-
+from datetime import datetime
 
 router = Router()
 
@@ -17,16 +17,20 @@ def get_client_config(request):
 class RcrSearchFilters(Schema):
     string: Optional[str] = None
     type: Optional[str] = None
-    language: Optional[str] = None
-    region: Optional[str] = None
-    department: Optional[str] = None
-    city: Optional[str] = None
+    languages: Optional[str] = None
+    regions: Optional[str] = None
+    departments: Optional[str] = None
+    cities: Optional[str] = None
     rcr_type: Optional[str] = None
-    book_type: Optional[str] = None
+    documentsTypes: Optional[str] = None
     publisher: Optional[str] = None
     map_format: Optional[bool] = False
     page: int = 1
     per_page: int = 20
+    publicationDatesStart: Optional[int] = None
+    publicationDatesEnd: Optional[int] = None
+    reeditionDatesStart: Optional[int] = None
+    reeditionDatesEnd: Optional[int] = None
 
 
 @router.get("/rcr/search")
@@ -62,21 +66,21 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         if filters.type == "book":
             queryset = queryset.filter(books__title=search_value).distinct()
 
-    if filters.region:
+    if filters.regions:
         region_query = Q()
-        for region_id in filters.region.split(","):
+        for region_id in filters.regions.split(","):
             region_query |= Q(city__department__region_id=region_id.strip())
         queryset = queryset.filter(region_query)
 
-    if filters.department:
+    if filters.departments:
         department_query = Q()
-        for department_id in filters.department.split(","):
+        for department_id in filters.departments.split(","):
             department_query |= Q(city__department_id=department_id.strip())
         queryset = queryset.filter(department_query)
 
-    if filters.city:
+    if filters.cities:
         city_query = Q()
-        for city_id in filters.city.split(","):
+        for city_id in filters.cities.split(","):
             city_query |= Q(city_id=city_id.strip())
         queryset = queryset.filter(city_query)
 
@@ -86,23 +90,45 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             rcr_query |= Q(type__label=rcr_type.strip())
         queryset = queryset.filter(rcr_query)
 
-    if filters.language:
+    if filters.languages:
         lang_query = Q()
-        for lang in filters.language.split(","):
+        for lang in filters.languages.split(","):
             lang_query |= Q(books__lang__iso_code=lang.strip())
         queryset = queryset.filter(lang_query).distinct()
 
-    if filters.book_type:
+    if filters.documentsTypes:
         book_type_query = Q()
-        for b_type in filters.book_type.split(","):
-            book_type_query |= Q(books__type__label=b_type.strip())
+        for b_type in filters.documentsTypes.split(","):
+            book_type_query |= Q(books__type__id=b_type.strip())
         queryset = queryset.filter(book_type_query).distinct()
 
     if filters.publisher:
         publisher_query = Q()
         for pub in filters.publisher.split(","):
-            publisher_query |= Q(books__editor__title__icontains=pub.strip())
+            publisher_query |= Q(books__editor__id=pub.strip())
         queryset = queryset.filter(publisher_query).distinct()
+
+    if filters.publicationDatesStart:
+        publication_date_start = datetime.fromtimestamp(
+            filters.publicationDatesStart / 1000
+        )
+        print(publication_date_start)
+        queryset = queryset.filter(books__publication_date__gte=publication_date_start)
+
+    if filters.publicationDatesEnd:
+        publication_date_end = datetime.fromtimestamp(
+            filters.publicationDatesEnd / 1000
+        )
+        queryset = queryset.filter(books__publication_date__lte=publication_date_end)
+    if filters.reeditionDatesStart:
+        reedition_date_start = datetime.fromtimestamp(
+            filters.reeditionDatesStart / 1000
+        )
+        queryset = queryset.filter(books__reedition_date__gte=reedition_date_start)
+
+    if filters.reeditionDatesEnd:
+        reedition_date_end = datetime.fromtimestamp(filters.reeditionDatesEnd / 1000)
+        queryset = queryset.filter(books__reedition_date__lte=reedition_date_end)
 
     queryset = queryset.order_by("-books_count", "title")
 
@@ -177,7 +203,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             }
             for rcr in queryset
         ]
-
+    print(queryset.query)
     return response
 
 
