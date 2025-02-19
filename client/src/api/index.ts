@@ -70,7 +70,10 @@ type getRCRListResponse = {
 	items: RCR[];
 };
 
-export const getRCRList = async (queryParams: string): Promise<getRCRListResponse> => {
-	const response = await fetch(`${getApiUrl("/rcr/search")}${queryParams ? `?${queryParams}` : ""}`,{headers:getApiHeaders()});
+export const getRCRList = async (searchParams: URLSearchParams): Promise<getRCRListResponse> => {
+	searchParams.set("map_format", "false");
+	const response = await fetch(`${getApiUrl("/rcr/search")}${searchParams ? `?${searchParams}` : ""}`, {
+		headers: getApiHeaders(),
+	});
 	return response.json();
 };
