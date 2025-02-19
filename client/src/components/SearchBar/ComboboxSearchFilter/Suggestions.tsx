@@ -30,8 +30,8 @@ export default function Suggestions({
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
 
-	if (isLoading) return <span>{t("CommandSearch.suggestions.loading")}</span>;
-	if (error) return <span>{t("CommandSearch.suggestions.error")}</span>;
+	if (isLoading) return <span className="p-4">{t("CommandSearch.suggestions.loading")}</span>;
+	if (error) return <span className="p-4 text-red-500">{t("CommandSearch.suggestions.error")}</span>;
 
 	return (
 		<CommandList>

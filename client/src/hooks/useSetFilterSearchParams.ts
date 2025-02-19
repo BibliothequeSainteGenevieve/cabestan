@@ -16,6 +16,10 @@ export function useSetFilterSearchParams() {
 			searchParams.delete(type);
 		}
 
+		if (type !== "page") {
+			searchParams.set("page", "1");
+		}
+
 		navigate({
 			pathname: "/search",
 			search: searchParams.toString(),

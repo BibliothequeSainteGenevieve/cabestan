@@ -10,12 +10,12 @@ type PaginationProps = {
 	totalItems: number;
 };
 
-const itemsPerPageOptions = [5, 10, 20, 50];
+const itemsPerPageOptions = [10, 20, 50];
 
 export function ListPagination({ totalItems }: PaginationProps) {
 	const [searchParams] = useSearchParams();
 	const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
-	const [itemsPerPage, setItemsPerPage] = useState(Number(searchParams.get("itemsPerPage")) || itemsPerPageOptions[0]);
+	const [itemsPerPage, setItemsPerPage] = useState(Number(searchParams.get("itemsPerPage")) || 20);
 	const totalPages = Math.ceil(totalItems / itemsPerPage);
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
@@ -30,7 +30,6 @@ export function ListPagination({ totalItems }: PaginationProps) {
 						setItemsPerPage(Number(value));
 						setFilterSearchParams([value], "itemsPerPage");
 						setCurrentPage(1);
-						setFilterSearchParams(["1"], "page");
 					}}>
 					<SelectTrigger className="w-20 bg-white">
 						<SelectValue placeholder="Page" />
