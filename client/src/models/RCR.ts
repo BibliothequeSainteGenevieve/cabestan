@@ -31,3 +31,21 @@ export type RCR = {
 		tags: string[];
 	};
 };
+
+export type MapRCR = {
+	rcr: string;
+	name: string;
+	numberOfDocuments: number;
+	contact: {
+		address: {
+			street: string;
+			postalCode: string;
+			city: string;
+			country: string;
+		};
+	};
+	location: {
+		longitude: number;
+		latitude: number;
+	};
+};

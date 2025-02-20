@@ -30,6 +30,9 @@
 		"startDate": "A partir du...",
 		"endDate": "Jusqu'au..."
 	},
+	"Map": {
+		"error": "Erreur lors du chargement des données de la carte"
+	},
 	"PopoverMoreFilters": {
 		"title": "Filtres avancés"
 	},

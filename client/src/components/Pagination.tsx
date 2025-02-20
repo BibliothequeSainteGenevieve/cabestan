@@ -12,7 +12,7 @@ type PaginationProps = {
 
 const itemsPerPageOptions = [10, 20, 50];
 
-export function ListPagination({ totalItems }: PaginationProps) {
+export default function ListPagination({ totalItems }: PaginationProps) {
 	const [searchParams] = useSearchParams();
 	const [currentPage, setCurrentPage] = useState(Number(searchParams.get("page")) || 1);
 	const [itemsPerPage, setItemsPerPage] = useState(Number(searchParams.get("itemsPerPage")) || 20);
