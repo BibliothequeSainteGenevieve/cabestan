@@ -20,7 +20,8 @@ class Department(models.Model):
 
 class City(models.Model):
     label = models.CharField(max_length=100)
-    zipcode = models.CharField(max_length=10, null=True, blank=True, unique=True)
+    zipcode = models.CharField(max_length=10, null=True, blank=True)
+    insee = models.CharField(max_length=10, null=True, blank=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -56,6 +57,7 @@ class Rcr(models.Model):
     email = models.EmailField(null=True, blank=True)
     country_type = models.ForeignKey(CountryType, on_delete=models.CASCADE)
     books_count = models.IntegerField(null=True, blank=True, default=0)
+    last_scraped_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
 
     def __str__(self):
         return f"{self.title} ({self.rcr_number})"

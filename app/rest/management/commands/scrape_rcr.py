@@ -12,6 +12,7 @@ import csv
 import codecs
 import re
 from rest.management.commands.book_parser import UnimarcBookParser
+from django.db.models import Q
 
 
 class Command(BaseCommand):
@@ -31,7 +32,7 @@ class Command(BaseCommand):
         for row in reader:
             city = None
             if row["PAYS"] == "FR":
-                city = self.find_or_create_city_by_name(row["VILLE"], row["CDPOSTAL"])
+                city = self.find_city(row["VILLE"], row["CDPOSTAL"], row["CDPOSTAL"])
             rcr = row["\ufeffRCR"].replace('"', "")
             rcr = rcr.replace("\x00=", "")
 
@@ -73,21 +74,31 @@ class Command(BaseCommand):
 
         print("Number of rcr: " + str(reader.line_num))
 
-    def find_or_create_city_by_name(self, label: str, zipcode: int):
+    def find_city(self, label: str, zipcode: int, insee: int):
         try:
             zipcode = "".join(i for i in zipcode if i.isdigit())
             label = label.lower()
-            city = City.objects.filter(zipcode=zipcode).first()
+            # use OR with one request
+            city = City.objects.filter(
+                Q(zipcode=zipcode) | Q(label__icontains=label.strip()) | Q(insee=insee)
+            ).first()
             if not city:
-                department = self.find_department(zipcode)
-                city = City.objects.create(
-                    label=label, zipcode=zipcode, department=department
-                )
-                city.save()
+                print("search with new label : " + self.sanitize_city_name(label))
+                city = City.objects.filter(
+                    Q(label__icontains=self.sanitize_city_name(label.strip()))
+                ).first()
+                if not city:
+                    print("not found for " + label + " " + zipcode + " " + str(insee))
             return city
         except Exception as e:
             print(e)
             return None
+
+    def sanitize_city_name(self, label: str):
+        label = label.lower()
+        label = label.replace("cedex", "")
+        label = label.replace("-", " ")
+        return label
 
     def find_rcr_type(self, label: str):
         type_code = label[5:7]
@@ -124,14 +135,18 @@ class Command(BaseCommand):
             return CountryType.objects.get(label="foreign")
 
     def find_books_count(self, rcr_number: str):
-        url = f"{self.sudoc_url}/?operation=searchRetrieve&version=1.1&query=rbc%3D{rcr_number}&maximumRecords=1&startRecord=1"
-        rcr_csv: str = rq.get(url)
-        reader = csv.DictReader(
-            codecs.iterdecode(rcr_csv.iter_lines(), "utf-8"),
-            delimiter="\t",
-            lineterminator="\r\n",
-        )
-        data = list(reader)
-        parser = UnimarcBookParser(data)
-        number_of_records = parser.get_number_of_records()
-        return number_of_records
+        try:
+            url = f"{self.sudoc_url}/?operation=searchRetrieve&version=1.1&query=rbc%3D{rcr_number}&maximumRecords=1&startRecord=1"
+            rcr_csv: str = rq.get(url)
+            reader = csv.DictReader(
+                codecs.iterdecode(rcr_csv.iter_lines(), "utf-8"),
+                delimiter="\t",
+                lineterminator="\r\n",
+            )
+            data = list(reader)
+            parser = UnimarcBookParser(data)
+            number_of_records = parser.get_number_of_records()
+            return number_of_records
+        except Exception as e:
+            print(e)
+            return None

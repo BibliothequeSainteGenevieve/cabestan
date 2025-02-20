@@ -103,19 +103,24 @@ class UnimarcBookParser:
             "document_type": self.get_book_type(),
         }
 
+    def sanitize_string(self, string: str | None) -> str:
+        if string is None:
+            return None
+        return string.strip().lower()
+
     def get_ppn(self) -> str:
         """Extrait le PPN (003@)"""
-        return self._get_subfield_value("003@", "0")
+        return self.sanitize_string(self._get_subfield_value("003@", "0"))
 
     def get_title(self) -> str:
         """Extrait le titre (021A)"""
-        return self._get_subfield_value("021A", "a")
+        return self.sanitize_string(self._get_subfield_value("021A", "a"))
 
     def get_language(self) -> Dict:
         """Extrait la langue (010@)"""
         return {
-            "iso_code": self._get_subfield_value("010@", "a"),
-            "label": self._get_subfield_value("010@", "8"),
+            "iso_code": self.sanitize_string(self._get_subfield_value("010@", "a")),
+            "label": self.sanitize_string(self._get_subfield_value("010@", "8")),
         }
 
     def get_book_type(self) -> str:
@@ -162,11 +167,11 @@ class UnimarcBookParser:
 
     def get_editor(self) -> Dict:
         """Extrait l'éditeur (033A)"""
-        return {"title": self._get_subfield_value("033A", "n")}
+        return {"title": self.sanitize_string(self._get_subfield_value("033A", "n"))}
 
     def get_publication_date(self) -> Optional[str]:
         """Extrait la date de publication (011@)"""
-        return self._get_subfield_value("011@", "a")
+        return self.sanitize_string(self._get_subfield_value("011@", "a"))
 
     def is_reedition(self) -> bool:
         """Vérifie s'il s'agit d'une réédition"""
@@ -174,13 +179,13 @@ class UnimarcBookParser:
 
     def get_reedition_date(self) -> Optional[str]:
         """Extrait la date de réédition"""
-        return self._get_subfield_value("011@", "b")
+        return self.sanitize_string(self._get_subfield_value("011@", "b"))
 
     def get_main_author(self) -> Dict:
         """Extrait l'auteur principal (028A)"""
         return {
-            "firstname": self._extract_firstname("028A"),
-            "lastname": self._extract_lastname("028A"),
+            "firstname": self.sanitize_string(self._extract_firstname("028A")),
+            "lastname": self.sanitize_string(self._extract_lastname("028A")),
             "type": {"label": "author"},
         }
 
@@ -194,8 +199,12 @@ class UnimarcBookParser:
         if illustrator_fields:
             field = illustrator_fields[0]
             return {
-                "firstname": self._extract_firstname_from_field(field),
-                "lastname": self._extract_lastname_from_field(field),
+                "firstname": self.sanitize_string(
+                    self._extract_firstname_from_field(field)
+                ),
+                "lastname": self.sanitize_string(
+                    self._extract_lastname_from_field(field)
+                ),
                 "type": {"label": "illustrator"},
             }
         return None
@@ -210,23 +219,27 @@ class UnimarcBookParser:
         if translator_fields:
             field = translator_fields[0]
             return {
-                "firstname": self._extract_firstname_from_field(field),
-                "lastname": self._extract_lastname_from_field(field),
+                "firstname": self.sanitize_string(
+                    self._extract_firstname_from_field(field)
+                ),
+                "lastname": self.sanitize_string(
+                    self._extract_lastname_from_field(field)
+                ),
                 "type": {"label": "translator"},
             }
         return None
 
     def get_publication_city(self) -> Dict:
         """Extrait la ville de publication (033A)"""
-        return {"label": self._get_subfield_value("033A", "p")}
+        return {"label": self.sanitize_string(self._get_subfield_value("033A", "p"))}
 
     def get_publication_address(self) -> Optional[str]:
         """Extrait l'adresse de publication"""
-        return self._get_subfield_value("033A", "n")
+        return self.sanitize_string(self._get_subfield_value("033A", "n"))
 
     def get_country_type(self) -> Dict:
         """Détermine le type de pays (019@)"""
-        country_code = self._get_subfield_value("019@", "a")
+        country_code = self.sanitize_string(self._get_subfield_value("019@", "a"))
         return {"label": self._map_country_code(country_code)}
 
     def get_misc_data(self) -> Dict:

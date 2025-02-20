@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.db.models import Q
 from rest.models import (
     Book,
     Rcr,
@@ -18,6 +19,7 @@ from typing import List
 import datetime
 from threading import Thread
 from cabestan.config import get_config
+import pytz
 
 
 class Command(BaseCommand):
@@ -42,10 +44,21 @@ class Command(BaseCommand):
         self.url = get_config("URL_SUDOC")
         print("Importing book data")
         self.get_initial_data()
-        rcrs = Rcr.objects.all()
+        if args:
+            rcrs = Rcr.objects.filter(id__in=args)
+        else:
+            rcrs = Rcr.objects.filter(
+                Q(
+                    last_scraped_date__lte=datetime.datetime.now(tz=pytz.UTC)
+                    - datetime.timedelta(days=7)
+                )
+                | Q(last_scraped_date__isnull=True)
+            )
         for rcr in rcrs:
             try:
                 self.parse_one_rcr(rcr)
+                rcr.last_scraped_date = datetime.datetime.now(tz=pytz.UTC)
+                rcr.save()
             except Exception as e:
                 print(f"Error parsing rcr {rcr.rcr_number}: {e}")
             print(" ")
@@ -84,7 +97,6 @@ class Command(BaseCommand):
                     thread.join()
                 threads = []
                 threads_count = 0
-            # self.parse_one_record(i, rcr_id)
             print(
                 f"scrape {i}/{number_of_records} for rcr:{rcr.rcr_number} - "
                 f"in: {datetime.datetime.now() - start_time}"

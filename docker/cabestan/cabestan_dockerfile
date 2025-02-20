@@ -8,4 +8,5 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 RUN python -m pip install -r /requirements.txt
 WORKDIR /home/cabestan/app
+HEALTHCHECK CMD curl --fail http://localhost:8080 || exit 1
 CMD ["/bin/bash","/entrypoint.sh"]
