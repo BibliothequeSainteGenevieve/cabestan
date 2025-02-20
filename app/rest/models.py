@@ -20,7 +20,8 @@ class Department(models.Model):
 
 class City(models.Model):
     label = models.CharField(max_length=100)
-    zipcode = models.CharField(max_length=10, null=True, blank=True, unique=True)
+    zipcode = models.CharField(max_length=10, null=True, blank=True)
+    insee = models.CharField(max_length=10, null=True, blank=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
