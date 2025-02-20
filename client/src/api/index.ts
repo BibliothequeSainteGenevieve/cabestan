@@ -35,7 +35,10 @@ type getGlobalSuggestionsResponse = {
 export const getGlobalSuggestions = async (value: string | undefined): Promise<getGlobalSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${getApiUrl("/suggestions/search")}?str=${value}`, { headers: getApiHeaders() });
+	const params = new URLSearchParams();
+	params.set("str", value);
+
+	const response = await fetch(`${getApiUrl("/suggestions/search")}?${params}`, { headers: getApiHeaders() });
 	return response.json();
 };
 
@@ -47,7 +50,10 @@ type getFilterSuggestionsResponse = {
 export const getFilterSuggestions = async (type: string, value: string | undefined): Promise<getFilterSuggestionsResponse[]> => {
 	if (!value) return [];
 
-	const response = await fetch(`${getApiUrl(`/${type}/seah`)}?str=${value}`, { headers: getApiHeaders() });
+	const params = new URLSearchParams();
+	params.set("str", value);
+
+	const response = await fetch(`${getApiUrl(`/${type}/search`)}?${params}`, { headers: getApiHeaders() });
 	return response.json();
 };
 
