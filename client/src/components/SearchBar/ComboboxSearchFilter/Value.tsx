@@ -16,7 +16,7 @@ export default function ValueLabel({ type, slug, isLast }: ValueLabelProps) {
 
 	return (
 		<>
-			{details?.label}
+			{details?.name}
 			{isLast ? "" : ", "}
 		</>
 	);
