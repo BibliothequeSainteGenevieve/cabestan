@@ -19,7 +19,7 @@
 			"error": "Erreur lors du chargement des suggestions",
 			"types": {
 				"rcr": "Bibliothèques",
-				"document": "Documents",
+				"book": "Documents",
 				"author": "Auteurs",
 				"illustrator": "Illustrateurs",
 				"translator": "Traducteurs"

@@ -1,12 +1,12 @@
 import { X, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { CommandEmpty, CommandItem, CommandList } from "@/components/ui/command";
+import { CommandEmpty, CommandGroup, CommandItem, CommandList } from "@/components/ui/command";
 import { useTranslation } from "react-i18next";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 
 type ComboboxSearchOption = {
-	slug: string;
-	label: string;
+	id: string;
+	name: string;
 };
 interface ComboboxSearchFilterProps {
 	suggestions: ComboboxSearchOption[];
@@ -36,35 +36,38 @@ export default function Suggestions({
 	return (
 		<CommandList>
 			<CommandEmpty>{t("ComboboxFilter.empty")}</CommandEmpty>
-			{value.length > 0 && (
-				<CommandItem
-					className="uppercase bg-background"
-					onSelect={() => {
-						setValue([]);
-						setOpen(false);
-						setFilterSearchParams([], type);
-					}}>
-					{t("ComboboxFilter.reset")}
-					<X className={cn("ml-auto", "opacity-100")} />
-				</CommandItem>
-			)}
-			{suggestions?.map((suggestion: ComboboxSearchOption) => (
-				<CommandItem
-					key={suggestion.slug}
-					onSelect={() => {
-						let newValues: string[] = [];
-						if (value.includes(suggestion.slug)) {
-							newValues = value.filter((item) => item !== suggestion.slug);
-						} else {
-							newValues = [...value, suggestion.slug];
-						}
-						setValue(newValues);
-						setFilterSearchParams(newValues, type);
-					}}>
-					{suggestion.label}
-					<Check className={cn("ml-auto", value.includes(suggestion.slug) ? "opacity-100" : "opacity-0")} />
-				</CommandItem>
-			))}
+			<CommandGroup>
+				{value.length > 0 && (
+					<CommandItem
+						className="uppercase bg-background"
+						onSelect={() => {
+							setValue([]);
+							setOpen(false);
+							setFilterSearchParams([], type);
+						}}>
+						{t("ComboboxFilter.reset")}
+						<X className={cn("ml-auto", "opacity-100")} />
+					</CommandItem>
+				)}
+				{suggestions?.length > 0 &&
+					suggestions.map((suggestion: ComboboxSearchOption) => (
+						<CommandItem
+							key={suggestion.id}
+							onSelect={() => {
+								let newValues: string[] = [];
+								if (value.includes(suggestion.id)) {
+									newValues = value.filter((item) => item !== suggestion.id);
+								} else {
+									newValues = [...value, suggestion.id];
+								}
+								setValue(newValues);
+								setFilterSearchParams(newValues, type);
+							}}>
+							{suggestion.name}
+							<Check className={cn("ml-auto", value.includes(suggestion.id) ? "opacity-100" : "opacity-0")} />
+						</CommandItem>
+					))}
+			</CommandGroup>
 		</CommandList>
 	);
 }

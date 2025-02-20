@@ -36,7 +36,9 @@ export default function PublishersFilter({ type }: PublishersFilterProps) {
 	const setSearchSuggestionsValueDebounced = useDebounce(setSearchSuggestionsValue, 300);
 
 	const handleInputChange = (value: string) => {
-		setSearchSuggestionsValueDebounced(value);
+		if (value.length > 2) {
+			setSearchSuggestionsValueDebounced(value);
+		}
 	};
 
 	return (

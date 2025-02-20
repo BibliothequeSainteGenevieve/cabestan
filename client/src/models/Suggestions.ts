@@ -6,7 +6,7 @@ export type GlobalSuggestion = {
 
 export enum GlobalSuggestionType {
 	LIBRARY = "rcr",
-	DOCUMENT = "document",
+	DOCUMENT = "book",
 	AUTHOR = "author",
 	ILLUSTRATOR = "illustrator",
 	TRANSLATOR = "translator",

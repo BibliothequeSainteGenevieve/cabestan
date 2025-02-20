@@ -12,6 +12,8 @@ export default function Home() {
 	const { t } = useTranslation();
 
 	const [searchParams] = useSearchParams();
+	searchParams.set("map_format", "false");
+
 	const {
 		data: rcrList,
 		isLoading,
