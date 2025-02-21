@@ -12,11 +12,11 @@ import Suggestions from "./Suggestions";
 import { useSearchParams } from "react-router";
 import ValueLabel from "./Value";
 
-interface PublishersFilterProps {
+interface ComboboxSearchFilterProps {
 	type: string;
 }
 
-export default function PublishersFilter({ type }: PublishersFilterProps) {
+export default function ComboboxSearchFilter({ type }: ComboboxSearchFilterProps) {
 	const [searchParams] = useSearchParams();
 	const [value, setValue] = useState<string[]>(searchParams.get(type)?.split(",") || []);
 	const [open, setOpen] = useState(false);
