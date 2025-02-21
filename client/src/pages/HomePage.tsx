@@ -1,8 +1,8 @@
 import ListPagination from "@/components/Pagination";
 import RCRList from "@/components/RCRList";
 import ResultsCount from "@/components/ResultsCount";
-import SearchBar from "@/components/SearchBar/SearchBar";
-import Map from "@/components/Map/Map";
+import SearchBar from "@/components/SearchBar";
+import Map from "@/components/Map";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { getRCRList } from "@/api";

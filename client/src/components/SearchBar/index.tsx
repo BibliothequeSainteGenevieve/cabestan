@@ -2,12 +2,12 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useSearchParams } from "react-router";
-import { CommandSearch } from "./SearchInput/SearchInput";
+import { CommandSearch } from "./SearchInput";
 import ComboboxFilter from "./ComboboxFilter";
 import PopoverMoreFilters from "./PopoverMoreFilters";
-import DateRangePicker from "./DateRangePicker/DateRangePicker";
+import DateRangePicker from "./DateRangePicker";
 import { getClientConfig } from "@/api";
-import ComboboxSearchFilter from "./ComboboxSearchFilter/ComboboxSearchFilter";
+import ComboboxSearchFilter from "./ComboboxSearchFilter";
 import { FilterTypes } from "@/models/Filters";
 
 export default function SearchBar() {
