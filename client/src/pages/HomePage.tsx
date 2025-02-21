@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getRCRList } from "@/api";
 import { useSearchParams } from "react-router";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import TenBarsChart from "@/components/Chart";
 
 export default function Home() {
 	const { t } = useTranslation();
@@ -52,6 +53,9 @@ export default function Home() {
 							</div>
 							<div className="flex-1 pl-4">
 								<Map />
+								<div>
+									{rcrList?.items.length > 0 && <TenBarsChart data={rcrList?.items.slice(0, 10) || []} />}
+								</div>
 							</div>
 						</div>
 					)}
