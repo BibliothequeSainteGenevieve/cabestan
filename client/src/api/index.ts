@@ -81,7 +81,7 @@ export const getRCRList = async (searchParams: string): Promise<getRCRListRespon
 	mapParams.set("map_format", "false");
 
 	const response = await fetch(
-		`${getApiUrl("/rcr/search")}${searchParams ? `?${searchParams}${mapParams}` : `?${mapParams}`}`,
+		`${getApiUrl("/rcr/search")}${searchParams ? `?${searchParams}&${mapParams}` : `?${mapParams}`}`,
 		{
 			headers: getApiHeaders(),
 		}
@@ -94,7 +94,7 @@ export const getMapData = async (searchParams: string): Promise<MapRCR[]> => {
 	mapParams.set("map_format", "true");
 
 	const response = await fetch(
-		`${getApiUrl("/rcr/search")}${searchParams ? `?${searchParams}${mapParams}` : `?${mapParams}`}`,
+		`${getApiUrl("/rcr/search")}${searchParams ? `?${searchParams}&${mapParams}` : `?${mapParams}`}`,
 		{
 			headers: getApiHeaders(),
 		}
