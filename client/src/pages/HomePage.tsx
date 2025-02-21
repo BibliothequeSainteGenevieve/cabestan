@@ -1,7 +1,8 @@
-import { ListPagination } from "@/components/Pagination";
+import ListPagination from "@/components/Pagination";
 import RCRList from "@/components/RCRList";
 import ResultsCount from "@/components/ResultsCount";
 import SearchBar from "@/components/SearchBar/SearchBar";
+import Map from "@/components/Map/Map";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { getRCRList } from "@/api";
@@ -12,8 +13,6 @@ export default function Home() {
 	const { t } = useTranslation();
 
 	const [searchParams] = useSearchParams();
-	searchParams.set("map_format", "false");
-
 	const {
 		data: rcrList,
 		isLoading,
@@ -41,15 +40,20 @@ export default function Home() {
 						<ResultsCount totalItems={rcrList?.pagination.totalResults || 0} />
 					</div>
 					{rcrList?.items.length > 0 && (
-						<>
-							<div className="md:max-w-md lg:max-w-lg mt-4 pr-4 max-h-[calc(100vh-26rem)] overflow-y-auto">
-								<RCRList items={rcrList?.items || []} />
-							</div>
+						<div className="flex flex-col md:flex-row">
+							<div>
+								<div className="md:max-w-md lg:max-w-lg pr-4 max-h-[calc(100vh-26rem)] overflow-y-auto">
+									<RCRList items={rcrList?.items || []} />
+								</div>
 
-							<div className="md:max-w-md lg:max-w-lg mt-4">
-								<ListPagination totalItems={rcrList?.pagination.totalResults || 0} />
+								<div className="md:max-w-md lg:max-w-lg mt-4">
+									<ListPagination totalItems={rcrList?.pagination.totalResults || 0} />
+								</div>
 							</div>
-						</>
+							<div className="flex-1 pl-4">
+								<Map />
+							</div>
+						</div>
 					)}
 				</div>
 			)}

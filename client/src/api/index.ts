@@ -1,4 +1,4 @@
-import { RCR } from "@/models/RCR";
+import { MapRCR, RCR } from "@/models/RCR";
 import { GlobalSuggestionType } from "@/models/Suggestions";
 
 const API_HOST = import.meta.env.VITE_API_HOST ?? "localhost";
@@ -77,8 +77,27 @@ type getRCRListResponse = {
 };
 
 export const getRCRList = async (searchParams: string): Promise<getRCRListResponse> => {
-	const response = await fetch(`${getApiUrl("/rcr/search")}${searchParams ? `?${searchParams}` : ""}`, {
-		headers: getApiHeaders(),
-	});
+	const mapParams = new URLSearchParams();
+	mapParams.set("map_format", "false");
+
+	const response = await fetch(
+		`${getApiUrl("/rcr/search")}${searchParams ? `?${searchParams}${mapParams}` : `?${mapParams}`}`,
+		{
+			headers: getApiHeaders(),
+		}
+	);
+	return response.json();
+};
+
+export const getMapData = async (searchParams: string): Promise<MapRCR[]> => {
+	const mapParams = new URLSearchParams();
+	mapParams.set("map_format", "true");
+
+	const response = await fetch(
+		`${getApiUrl("/rcr/search")}${searchParams ? `?${searchParams}${mapParams}` : `?${mapParams}`}`,
+		{
+			headers: getApiHeaders(),
+		}
+	);
 	return response.json();
 };
