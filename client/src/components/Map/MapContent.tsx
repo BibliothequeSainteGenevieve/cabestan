@@ -66,7 +66,6 @@ export default function MapContent({ data }: MapContentProps) {
 	const map = useMap();
 
 	const handleResetZoom = () => {
-		console.log({ data, map });
 		if (data && map) {
 			handleFitBounds(data, map);
 		}
@@ -95,7 +94,7 @@ export default function MapContent({ data }: MapContentProps) {
 					) : null
 				)}
 			</MarkerClusterGroup>
-			<button onClick={handleResetZoom} className="reset-zoom-button">
+			<button onClick={handleResetZoom} className="reset-zoom-button shadow">
 				<Undo2 size={16} />
 			</button>
 		</>

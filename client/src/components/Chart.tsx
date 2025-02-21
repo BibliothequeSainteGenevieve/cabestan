@@ -31,11 +31,13 @@ export default function BarsChart({ data }: BarsChartProps) {
 					{isOpen ? <Minus /> : <Plus />}
 				</div>
 			</CardHeader>
+
 			{isOpen && (
 				<CardContent>
-					<ChartContainer config={chartConfig}>
+					<ChartContainer config={chartConfig} className="min-h-[200px] max-h-[300px] w-full">
 						<BarChart
 							accessibilityLayer
+							height={200}
 							data={data}
 							margin={{
 								top: 20,
