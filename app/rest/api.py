@@ -224,11 +224,37 @@ def search_editor(request, filters: EditorSearchFilters = Query(...)):
         "id", "title"
     )[:10]
 
-    return list(queryset)
+    response = [
+        {
+            "id": item["id"],
+            "name": item["title"],
+        }
+        for item in queryset
+    ]
+
+    return response
+
+
+@router.get("/publisher/{id}")
+def get_publisher_by_id(request, id: int):
+    publisher = Editor.objects.get(id=id)
+    return {
+        "id": publisher.id,
+        "name": publisher.title,
+    }
 
 
 class CitySearchFilters(Schema):
     str: str
+
+
+@router.get("/city/{id}")
+def get_city_by_id(request, id: int):
+    city = City.objects.get(id=id)
+    return {
+        "id": city.id,
+        "name": city.label,
+    }
 
 
 @router.get("/cities/search")
@@ -240,7 +266,15 @@ def search_city(request, filters: CitySearchFilters = Query(...)):
         "id", "label", "zipcode"
     )[:10]
 
-    return list(queryset)
+    response = [
+        {
+            "id": item["id"],
+            "name": item["label"],
+        }
+        for item in queryset
+    ]
+
+    return response
 
 
 class SuggestionsSearchFilters(Schema):
