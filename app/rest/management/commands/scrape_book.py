@@ -20,11 +20,14 @@ import datetime
 from threading import Thread
 from cabestan.config import get_config
 import pytz
+from typing import Dict
 
 
 class Command(BaseCommand):
     help = "Import book data"
-    MAX_THREADS = 2  # I think it's a good value without api error
+    MAX_THREADS = (
+        1  # Do not increase this value, it will duplicates authors and editors
+    )
     NUMBER_OF_RECORDS_PER_CALL = 500  # I think it's a good value without api error
 
     langs: List[Lang] = []
@@ -77,8 +80,9 @@ class Command(BaseCommand):
         number_of_records = parser.get_number_of_records()
         if number_of_records == 0 or not number_of_records:
             return
-        threads = []
-        threads_count = 0
+
+        # threads = []
+        # threads_count = 0
         for i in range(
             1,
             int(number_of_records),
@@ -88,15 +92,16 @@ class Command(BaseCommand):
                 else number_of_records
             ),
         ):
-            thread = Thread(target=self.parse_one_record, args=(i, rcr))
-            thread.start()
-            threads.append(thread)
-            threads_count += 1
-            if threads_count >= self.MAX_THREADS:
-                for thread in threads:
-                    thread.join()
-                threads = []
-                threads_count = 0
+            self.parse_one_record(i, rcr)
+            # thread = Thread(target=self.parse_one_record, args=(i, rcr))
+            # thread.start()
+            # threads.append(thread)
+            # threads_count += 1
+            # if threads_count >= self.MAX_THREADS:
+            #     for thread in threads:
+            #         thread.join()
+            #     threads = []
+            #     threads_count = 0
             print(
                 f"scrape {i}/{number_of_records} for rcr:{rcr.rcr_number} - "
                 f"in: {datetime.datetime.now() - start_time}"
@@ -137,7 +142,10 @@ class Command(BaseCommand):
 
         if editor_mapping:
             editors_to_create = [Editor(title=title) for title in editor_mapping.keys()]
-            Editor.objects.bulk_create(editors_to_create, ignore_conflicts=True)
+            Editor.objects.bulk_create(
+                self.remove_duplicates_editors(editors_to_create),
+                ignore_conflicts=True,
+            )
             # Mise à jour du mapping avec les éditeurs créés
             existing_editors = Editor.objects.filter(title__in=editor_mapping.keys())
             for editor in existing_editors:
@@ -186,7 +194,10 @@ class Command(BaseCommand):
                 for (firstname, lastname, role) in author_mapping.keys()
             ]
 
-            Author.objects.bulk_create(authors_to_create, ignore_conflicts=True)
+            Author.objects.bulk_create(
+                self.remove_duplicates_authors(authors_to_create),
+                ignore_conflicts=True,
+            )
             # Mise à jour du mapping avec les auteurs créés
             existing_authors = Author.objects.filter(
                 firstname__in=[a[0] for a in author_mapping.keys()],
@@ -338,3 +349,22 @@ class Command(BaseCommand):
 
         db_time = datetime.datetime.now() - db_start_time
         print(f"Database insertion time: {db_time} for {len(books_to_create)} books")
+
+    def remove_duplicates_authors(self, authors_data: list[Dict]):
+        # remove authors with same lastname and firstname
+        final_authors = []
+        for author in authors_data:
+            if not any(
+                a.lastname == author.lastname and a.firstname == author.firstname
+                for a in final_authors
+            ):
+                final_authors.append(author)
+        return final_authors
+
+    def remove_duplicates_editors(self, editors_data: list[Dict]):
+        # remove editors with same title
+        final_editors = []
+        for editor in editors_data:
+            if not any(e.title == editor.title for e in final_editors):
+                final_editors.append(editor)
+        return final_editors
