@@ -12,7 +12,7 @@ import { LoadingSpinner } from "../LoadingSpinner";
 import { useTranslation } from "react-i18next";
 export default function Map() {
 	const { t } = useTranslation();
-	const [bounds, setBounds] = useState<LatLngBoundsExpression | undefined>(undefined);
+	const [bounds, setBounds] = useState<LatLngBoundsExpression | undefined>();
 
 	const [searchParams] = useSearchParams();
 
@@ -26,12 +26,17 @@ export default function Map() {
 	});
 
 	useEffect(() => {
-		if (mapData) {
+		if (mapData && mapData?.length > 0) {
 			const markers = mapData
 				.slice(0, 100)
 				.map((establishment) => L.marker([establishment.location.latitude, establishment.location.longitude]));
 			const group = L.featureGroup(markers);
 			setBounds(group.getBounds());
+		} else if (mapData && mapData?.length === 0) {
+			setBounds([
+				[51.034222, -5.199594],
+				[41.486518, 9.454489],
+			]);
 		}
 	}, [mapData]);
 
