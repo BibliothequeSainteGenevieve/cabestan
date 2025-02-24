@@ -5,11 +5,12 @@ import { RCR } from "@/models/RCR";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
+import "./BarsChart.css";
 
 const chartConfig = {
 	desktop: {
 		label: "Desktop",
-		color: "#027D83",
+		color: "#d37475",
 	},
 } satisfies ChartConfig;
 
@@ -48,7 +49,7 @@ export default function BarsChart({ data }: BarsChartProps) {
 								tickLine={true}
 								tickMargin={10}
 								axisLine={false}
-								tickFormatter={(value) => value.slice(0, 6)}
+								tickFormatter={(value) => value.slice(0, 8)}
 							/>
 							<ChartTooltip
 								cursor={false}

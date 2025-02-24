@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getRCRList } from "@/api";
 import { useSearchParams } from "react-router";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import BarsChart from "@/components/Chart";
+import BarsChart from "@/components/BarsChart";
 
 export default function Home() {
 	const { t } = useTranslation();
