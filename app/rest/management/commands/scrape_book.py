@@ -17,7 +17,6 @@ import codecs
 from rest.management.commands.book_parser import UnimarcBookParser
 from typing import List
 import datetime
-from threading import Thread
 from cabestan.config import get_config
 import pytz
 from typing import Dict
@@ -25,9 +24,6 @@ from typing import Dict
 
 class Command(BaseCommand):
     help = "Import book data"
-    MAX_THREADS = (
-        1  # Do not increase this value, it will duplicates authors and editors
-    )
     NUMBER_OF_RECORDS_PER_CALL = 500  # I think it's a good value without api error
 
     langs: List[Lang] = []
@@ -81,8 +77,6 @@ class Command(BaseCommand):
         if number_of_records == 0 or not number_of_records:
             return
 
-        # threads = []
-        # threads_count = 0
         for i in range(
             1,
             int(number_of_records),
@@ -93,15 +87,6 @@ class Command(BaseCommand):
             ),
         ):
             self.parse_one_record(i, rcr)
-            # thread = Thread(target=self.parse_one_record, args=(i, rcr))
-            # thread.start()
-            # threads.append(thread)
-            # threads_count += 1
-            # if threads_count >= self.MAX_THREADS:
-            #     for thread in threads:
-            #         thread.join()
-            #     threads = []
-            #     threads_count = 0
             print(
                 f"scrape {i}/{number_of_records} for rcr:{rcr.rcr_number} - "
                 f"in: {datetime.datetime.now() - start_time}"
