@@ -4,6 +4,7 @@ import { FilterTypes } from "@/models/Filters";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 import { Check, SlidersHorizontal } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router";
 
 interface PopoverMoreFiltersProps {
 	isRegionFilterOpen: boolean;
@@ -16,8 +17,8 @@ interface PopoverMoreFiltersProps {
 	setIsPublisherFilterOpen: (isOpen: boolean) => void;
 	isPublicationDateFilterOpen: boolean;
 	setIsPublicationDateFilterOpen: (isOpen: boolean) => void;
-	isTranslationDateFilterOpen: boolean;
-	setIsTranslationDateFilterOpen: (isOpen: boolean) => void;
+	/* 	isTranslationDateFilterOpen: boolean;
+	setIsTranslationDateFilterOpen: (isOpen: boolean) => void; */
 	isReissueDateFilterOpen: boolean;
 	setIsReissueDateFilterOpen: (isOpen: boolean) => void;
 }
@@ -39,7 +40,49 @@ export default function PopoverMoreFilters({
 	setIsReissueDateFilterOpen,
 }: PopoverMoreFiltersProps) {
 	const { t } = useTranslation();
+	const [searchParams] = useSearchParams();
 	const setFilterSearchParams = useSetFilterSearchParams();
+
+	const optionalFilters = [
+		{
+			filter: FilterTypes.REGIONS,
+			isOpen: isRegionFilterOpen,
+			setIsOpen: setIsRegionFilterOpen,
+		},
+		{
+			filter: FilterTypes.DEPARTMENTS,
+			isOpen: isDepartmentFilterOpen,
+			setIsOpen: setIsDepartmentFilterOpen,
+		},
+		{
+			filter: FilterTypes.CITIES,
+			isOpen: isCityFilterOpen,
+			setIsOpen: setIsCityFilterOpen,
+		},
+		{
+			filter: FilterTypes.PUBLISHERS,
+			isOpen: isPublisherFilterOpen,
+			setIsOpen: setIsPublisherFilterOpen,
+		},
+		{
+			filter: FilterTypes.PUBLICATION_DATES,
+			isOpen: isPublicationDateFilterOpen,
+			setIsOpen: setIsPublicationDateFilterOpen,
+			type: "date",
+		},
+		/* 		{
+			filter: FilterTypes.TRANSLATION_DATES,
+			isOpen: isTranslationDateFilterOpen,
+			setIsOpen: setIsTranslationDateFilterOpen,
+			type: "date",
+		}, */
+		{
+			filter: FilterTypes.REISSUE_DATES,
+			isOpen: isReissueDateFilterOpen,
+			setIsOpen: setIsReissueDateFilterOpen,
+			type: "date",
+		},
+	];
 
 	return (
 		<Popover>
@@ -51,72 +94,29 @@ export default function PopoverMoreFilters({
 			</PopoverTrigger>
 			<PopoverContent className="w-50 bg-white">
 				<div className="flex flex-col gap-2">
-					<Button
-						variant="ghost"
-						onClick={() => {
-							setIsRegionFilterOpen(!isRegionFilterOpen);
-							setFilterSearchParams([], FilterTypes.REGIONS);
-						}}>
-						{t("filters.regions.placeholder")}
-						{isRegionFilterOpen && <Check className="w-4 h-4" />}
-					</Button>
-					<Button
-						variant="ghost"
-						onClick={() => {
-							setIsDepartmentFilterOpen(!isDepartmentFilterOpen);
-							setFilterSearchParams([], FilterTypes.DEPARTMENTS);
-						}}>
-						{t("filters.departments.placeholder")}
-						{isDepartmentFilterOpen && <Check className="w-4 h-4" />}
-					</Button>
-					<Button
-						variant="ghost"
-						onClick={() => {
-							setIsCityFilterOpen(!isCityFilterOpen);
-							setFilterSearchParams([], FilterTypes.CITIES);
-						}}>
-						{t("filters.cities.placeholder")}
-						{isCityFilterOpen && <Check className="w-4 h-4" />}
-					</Button>
-					<Button
-						variant="ghost"
-						onClick={() => {
-							setIsPublisherFilterOpen(!isPublisherFilterOpen);
-							setFilterSearchParams([], FilterTypes.PUBLISHERS);
-						}}>
-						{t("filters.publishers.placeholder")}
-						{isPublisherFilterOpen && <Check className="w-4 h-4" />}
-					</Button>
-					<Button
-						variant="ghost"
-						onClick={() => {
-							setIsPublicationDateFilterOpen(!isPublicationDateFilterOpen);
-							setFilterSearchParams([], `${FilterTypes.PUBLICATION_DATES}Start`);
-							setFilterSearchParams([], `${FilterTypes.PUBLICATION_DATES}End`);
-						}}>
-						{t("filters.publicationDates.placeholder")}
-						{isPublicationDateFilterOpen && <Check className="w-4 h-4" />}
-					</Button>
-					{/* 					<Button
-						variant="ghost"
-						onClick={() => {
-							setIsTranslationDateFilterOpen(!isTranslationDateFilterOpen);
-							setFilterSearchParams([], `${FilterTypes.TRANSLATION_DATES}Start`);
-							setFilterSearchParams([], `${FilterTypes.TRANSLATION_DATES}End`);
-						}}>
-						{t("filters.translationDates.placeholder")}
-						{isTranslationDateFilterOpen && <Check className="w-4 h-4" />}
-					</Button> */}
-					<Button
-						variant="ghost"
-						onClick={() => {
-							setIsReissueDateFilterOpen(!isReissueDateFilterOpen);
-							setFilterSearchParams([], `${FilterTypes.REISSUE_DATES}Start`);
-							setFilterSearchParams([], `${FilterTypes.REISSUE_DATES}End`);
-						}}>
-						{t("filters.reissueDates.placeholder")}
-						{isReissueDateFilterOpen && <Check className="w-4 h-4" />}
-					</Button>
+					{optionalFilters.map((filter) => (
+						<Button
+							key={filter.filter}
+							variant="ghost"
+							onClick={() => {
+								filter.setIsOpen(!filter.isOpen);
+								if (filter.type === "date") {
+									if (searchParams.get(`${filter.filter}Start`)) {
+										setFilterSearchParams([], `${filter.filter}Start`);
+									}
+									if (searchParams.get(`${filter.filter}End`)) {
+										setFilterSearchParams([], `${filter.filter}End`);
+									}
+								} else {
+									if (searchParams.get(filter.filter)) {
+										setFilterSearchParams([], filter.filter);
+									}
+								}
+							}}>
+							{t(`filters.${filter.filter}.placeholder`)}
+							{filter.isOpen && <Check className="w-4 h-4" />}
+						</Button>
+					))}
 				</div>
 			</PopoverContent>
 		</Popover>
