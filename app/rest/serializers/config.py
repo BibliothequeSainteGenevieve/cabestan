@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Lang, RcrType, BookType, Department, Region
+from ..models import Lang, RcrType, BookType, Department, Region
 
 
 class ConfigLangSerializer(serializers.ModelSerializer):

@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Lang, RcrType, BookType, Department, Region
-from .serializers import (
+from rest.serializers.config import (
     ConfigLangSerializer,
     ConfigRcrTypeSerializer,
     ConfigBookTypeSerializer,
