@@ -4,6 +4,8 @@ from .models import Book, Editor, City, Rcr, Author
 from .views import ClientConfigView
 from django.db.models import Q, Count
 from datetime import datetime
+import csv
+from django.http import HttpResponse
 
 router = Router()
 
@@ -209,6 +211,47 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         ]
     print(queryset.query)
     return response
+
+
+@router.get("/rcr/export")
+def export_rcr(request, filters: RcrSearchFilters = Query(...)):
+    filters.map_format = True
+    data = search_rcr(request, filters)
+
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="export_rcr.csv"'},
+    )
+
+    writer = csv.writer(response)
+    # Titre de l'établissement Adresse complète +ville + code postal + étranger/france + numero RCR + nb ouvrage
+    writer.writerow(
+        [
+            "Titre de l'établissement",
+            "Adresse complète",
+            "Ville",
+            "Code postal",
+            "Étranger/France",
+            "Numero RCR",
+            "Nb ouvrage",
+        ]
+    )
+    for item in data:
+        writer.writerow(
+            [
+                item["name"],
+                item["contact"]["address"]["street"],
+                item["contact"]["address"]["city"],
+                item["contact"]["address"]["postalCode"],
+                item["contact"]["address"]["country"],
+                item["rcr"],
+                item["numberOfDocuments"],
+            ]
+        )
+
+    return response
+
+    return data
 
 
 class EditorSearchFilters(Schema):
