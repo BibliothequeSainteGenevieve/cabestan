@@ -47,7 +47,7 @@ export function CommandSearch() {
 	};
 
 	return (
-		<Command className="bg-white rounded-lg relative overflow-visible w-[20rem]">
+		<Command className="bg-white rounded-lg relative overflow-visible lg:w-[20rem]">
 			<div className="flex items-center gap-1 py-1 px-2">
 				<Search className="w-5 h-5" />
 				<Input

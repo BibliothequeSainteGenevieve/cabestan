@@ -21,8 +21,8 @@ export default function ListPagination({ totalItems }: PaginationProps) {
 	const setFilterSearchParams = useSetFilterSearchParams();
 
 	return (
-		<div className="flex items-center justify-center gap-3 text-sm">
-			<div className="flex items-center gap-2">
+		<div className="flex items-center justify-center gap-2 sm:gap-3 text-sm">
+			<div className="flex items-center gap-1 sm:gap-2">
 				{t("RCRList.pagination.resultsPerPage")} :
 				<Select
 					value={itemsPerPage.toString()}
@@ -45,7 +45,7 @@ export default function ListPagination({ totalItems }: PaginationProps) {
 					</SelectContent>
 				</Select>
 			</div>
-			<div className="flex items-center gap-2">
+			<div className="flex items-center gap-1 sm:gap-2">
 				{t("RCRList.pagination.page")} :
 				<Select
 					value={currentPage.toString()}
@@ -70,6 +70,7 @@ export default function ListPagination({ totalItems }: PaginationProps) {
 			<div className="flex items-center">
 				<div>
 					<Button
+						className="p-2 sm:p-4"
 						variant="ghost"
 						disabled={currentPage === 1}
 						onClick={() => {
@@ -83,6 +84,7 @@ export default function ListPagination({ totalItems }: PaginationProps) {
 				</div>
 				<div>
 					<Button
+						className="p-2 sm:p-4"
 						variant="ghost"
 						disabled={currentPage === totalPages}
 						onClick={() => {

@@ -39,11 +39,11 @@ export default function Home() {
 						<ResultsCount totalItems={rcrList?.pagination.totalResults || 0} />
 					</div>
 					<div className="flex flex-col md:flex-row">
-						<div className="md:w-[30rem] lg:w-[40rem] min-h-[calc(100vh-23rem)]">
+						<div className="md:w-[25rem] xl:w-[38rem] min-h-[calc(100vh-23rem)]">
 							{rcrList?.items.length === 0 && <p className="text-gray-500 w-full">{t("RCRList.noResults")}</p>}
 							{rcrList?.items.length > 0 && (
 								<>
-									<div className="pr-4 h-[calc(100vh-23rem)] overflow-y-auto">
+									<div className="pr-4  md:h-[calc(100vh-26rem)] lg:h-[calc(100vh-23rem)] overflow-y-auto">
 										<RCRList items={rcrList?.items || []} />
 									</div>
 
@@ -53,7 +53,7 @@ export default function Home() {
 								</>
 							)}
 						</div>
-						<div className="flex-1 pl-4 flex flex-col justify-between">
+						<div className="hidden md:flex flex-col justify-between flex-1 pl-4">
 							<Map />
 							<div>{rcrList?.items.length > 0 && <BarsChart data={rcrList?.items.slice(0, 10) || []} />}</div>
 						</div>

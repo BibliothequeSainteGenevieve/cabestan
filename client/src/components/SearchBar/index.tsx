@@ -24,9 +24,9 @@ export default function SearchBar() {
 	const [isPublicationDateFilterOpen, setIsPublicationDateFilterOpen] = useState(
 		searchParams.get("publicationDatesStart") || searchParams.get("publicationDatesEnd") ? true : false
 	);
-	const [isTranslationDateFilterOpen, setIsTranslationDateFilterOpen] = useState(
+	/* 	const [isTranslationDateFilterOpen, setIsTranslationDateFilterOpen] = useState(
 		searchParams.get("translationDatesStart") || searchParams.get("translationDatesEnd") ? true : false
-	);
+	); */
 	const [isReissueDateFilterOpen, setIsReissueDateFilterOpen] = useState(
 		searchParams.get("reissueDatesStart") || searchParams.get("reissueDatesEnd") ? true : false
 	);
@@ -38,8 +38,8 @@ export default function SearchBar() {
 	return (
 		<div className="flex flex-wrap items-center gap-3">
 			<CommandSearch />
-			<div className="flex flex-wrap lg:flex-nowrap items-center justify-between flex-1 gap-6">
-				<div className="flex flex-wrap items-center gap-2 lg:min-w-[500px]">
+			<div className="flex flex-wrap lg:flex-nowrap items-center justify-between flex-1 gap-3">
+				<div className="flex flex-wrap items-center gap-2">
 					<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
 					<ComboboxFilter type={FilterTypes.ESTABLISHMENTS_TYPES} options={data.establishementsTypes} />
 					<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.documentsTypes} />
@@ -51,22 +51,24 @@ export default function SearchBar() {
 					{/* {isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />} */}
 					{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
 				</div>
-				<PopoverMoreFilters
-					isRegionFilterOpen={isRegionFilterOpen}
-					setIsRegionFilterOpen={setIsRegionFilterOpen}
-					isDepartmentFilterOpen={isDepartmentFilterOpen}
-					setIsDepartmentFilterOpen={setIsDepartmentFilterOpen}
-					isCityFilterOpen={isCityFilterOpen}
-					setIsCityFilterOpen={setIsCityFilterOpen}
-					isPublisherFilterOpen={isPublisherFilterOpen}
-					setIsPublisherFilterOpen={setIsPublisherFilterOpen}
-					isPublicationDateFilterOpen={isPublicationDateFilterOpen}
-					setIsPublicationDateFilterOpen={setIsPublicationDateFilterOpen}
-					isTranslationDateFilterOpen={isTranslationDateFilterOpen}
-					setIsTranslationDateFilterOpen={setIsTranslationDateFilterOpen}
-					isReissueDateFilterOpen={isReissueDateFilterOpen}
-					setIsReissueDateFilterOpen={setIsReissueDateFilterOpen}
-				/>
+				<div className="">
+					<PopoverMoreFilters
+						isRegionFilterOpen={isRegionFilterOpen}
+						setIsRegionFilterOpen={setIsRegionFilterOpen}
+						isDepartmentFilterOpen={isDepartmentFilterOpen}
+						setIsDepartmentFilterOpen={setIsDepartmentFilterOpen}
+						isCityFilterOpen={isCityFilterOpen}
+						setIsCityFilterOpen={setIsCityFilterOpen}
+						isPublisherFilterOpen={isPublisherFilterOpen}
+						setIsPublisherFilterOpen={setIsPublisherFilterOpen}
+						isPublicationDateFilterOpen={isPublicationDateFilterOpen}
+						setIsPublicationDateFilterOpen={setIsPublicationDateFilterOpen}
+						/* 					isTranslationDateFilterOpen={isTranslationDateFilterOpen}
+					setIsTranslationDateFilterOpen={setIsTranslationDateFilterOpen} */
+						isReissueDateFilterOpen={isReissueDateFilterOpen}
+						setIsReissueDateFilterOpen={setIsReissueDateFilterOpen}
+					/>
+				</div>
 			</div>
 		</div>
 	);
