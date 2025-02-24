@@ -41,7 +41,7 @@ export default function Home() {
 					{rcrList?.items.length > 0 && (
 						<div className="flex flex-col md:flex-row">
 							<div>
-								<div className="md:max-w-md lg:max-w-xl pr-4 max-h-[calc(100vh-23rem)] overflow-y-auto">
+								<div className="md:max-w-md lg:max-w-xl pr-4 h-[calc(100vh-23rem)] overflow-y-auto">
 									<RCRList items={rcrList?.items || []} />
 								</div>
 
