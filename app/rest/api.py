@@ -6,6 +6,7 @@ from django.db.models import Q, Count
 from datetime import datetime
 import csv
 from django.http import HttpResponse
+from rest.serializers.search import RcrSerializer
 
 router = Router()
 
@@ -38,6 +39,7 @@ class RcrSearchFilters(Schema):
 @router.get("/rcr/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     queryset = Rcr.objects.all()
+    shouldCountBook = False
 
     if filters.string:
         search_value = filters.string
@@ -46,26 +48,31 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
                 Q(rcr_number=search_value) | Q(title=search_value)
             )
         if filters.type == "editor":
+            shouldCountBook = True
             queryset = queryset.filter(books__editor__title=search_value).distinct()
         if filters.type == "author":
+            shouldCountBook = True
             queryset = queryset.filter(
                 Q(books__author__lastname=search_value)
                 | Q(books__author__firstname=search_value),
                 books__author__type__label="author",
             ).distinct()
         if filters.type == "translator":
+            shouldCountBook = True
             queryset = queryset.filter(
                 Q(books__translator__lastname=search_value)
                 | Q(books__translator__firstname=search_value),
                 books__translator__type__label="translator",
             ).distinct()
         if filters.type == "illustrator":
+            shouldCountBook = True
             queryset = queryset.filter(
                 Q(books__illustrator__lastname=search_value)
                 | Q(books__illustrator__firstname=search_value),
                 books__illustrator__type__label="illustrator",
             ).distinct()
         if filters.type == "book":
+            shouldCountBook = True
             queryset = queryset.filter(books__title=search_value).distinct()
 
     if filters.regions:
@@ -93,24 +100,28 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         queryset = queryset.filter(rcr_query)
 
     if filters.languages:
+        shouldCountBook = True
         lang_query = Q()
         for lang in filters.languages.split(","):
             lang_query |= Q(books__lang__iso_code=lang.strip())
         queryset = queryset.filter(lang_query).distinct()
 
     if filters.documentsTypes:
+        shouldCountBook = True
         book_type_query = Q()
         for b_type in filters.documentsTypes.split(","):
             book_type_query |= Q(books__type__label=b_type.strip())
         queryset = queryset.filter(book_type_query).distinct()
 
     if filters.publisher:
+        shouldCountBook = True
         publisher_query = Q()
         for pub in filters.publisher.split(","):
             publisher_query |= Q(books__editor__id=pub.strip())
         queryset = queryset.filter(publisher_query).distinct()
 
     if filters.publicationDatesStart:
+        shouldCountBook = True
         publication_date_start = datetime.fromtimestamp(
             filters.publicationDatesStart / 1000
         )
@@ -118,31 +129,35 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         queryset = queryset.filter(books__publication_date__gte=publication_date_start)
 
     if filters.publicationDatesEnd:
+        shouldCountBook = True
         publication_date_end = datetime.fromtimestamp(
             filters.publicationDatesEnd / 1000
         )
         queryset = queryset.filter(books__publication_date__lte=publication_date_end)
     if filters.reeditionDatesStart:
+        shouldCountBook = True
         reedition_date_start = datetime.fromtimestamp(
             filters.reeditionDatesStart / 1000
         )
         queryset = queryset.filter(books__reedition_date__gte=reedition_date_start)
 
     if filters.reeditionDatesEnd:
+        shouldCountBook = True
         reedition_date_end = datetime.fromtimestamp(filters.reeditionDatesEnd / 1000)
         queryset = queryset.filter(books__reedition_date__lte=reedition_date_end)
 
-    queryset = queryset.order_by("-books_count", "title")
     # calculate books count
-    queryset = queryset.annotate(calculated_books_count=Count("books"))
-
-    queryset = queryset.order_by("-calculated_books_count", "title")
+    if shouldCountBook:
+        queryset = queryset.annotate(calculated_books_count=Count("books"))
+        queryset = queryset.order_by("-calculated_books_count", "title")
+    else:
+        queryset = queryset.order_by("-books_count", "title")
 
     if not filters.map_format:
         total = queryset.count()
         start = (filters.page - 1) * filters.per_page
         end = start + filters.per_page
-        queryset = queryset[start:end]
+        queryset = queryset.select_related("city")[start:end]
 
         response = {
             "pagination": {
@@ -151,64 +166,11 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
                 "itemsPerPage": filters.per_page,
                 "remainingItems": max(0, total - (filters.page * filters.per_page)),
             },
-            "items": [
-                {
-                    "rcr": rcr.rcr_number,
-                    "name": rcr.title,
-                    "translatedName": None,
-                    "numberOfDocuments": rcr.calculated_books_count,
-                    "contact": {
-                        "website": rcr.website,
-                        "phone": rcr.phone,
-                        "email": rcr.email,
-                        "address": {
-                            "street": rcr.address,
-                            "postalCode": rcr.city.zipcode if rcr.city else None,
-                            "city": rcr.city.label if rcr.city else None,
-                            "country": "France",
-                        },
-                    },
-                    "location": {
-                        "longitude": rcr.longitude,
-                        "latitude": rcr.latitude,
-                    },
-                    "languages": {
-                        "count": None,
-                        "supported": None,
-                    },
-                    "metadata": {
-                        "author": None,
-                        "publicationPlace": None,
-                        "publisher": None,
-                        "publicationDate": None,
-                        "documentLanguage": None,
-                        "tags": None,
-                    },
-                }
-                for rcr in queryset
-            ],
+            "items": RcrSerializer(queryset, many=True).data,
         }
     else:
-        response = [
-            {
-                "rcr": rcr.rcr_number,
-                "name": rcr.title,
-                "numberOfDocuments": rcr.calculated_books_count,
-                "contact": {
-                    "address": {
-                        "street": rcr.address,
-                        "postalCode": rcr.city.zipcode if rcr.city else None,
-                        "city": rcr.city.label if rcr.city else None,
-                        "country": "France",
-                    }
-                },
-                "location": {
-                    "longitude": rcr.longitude,
-                    "latitude": rcr.latitude,
-                },
-            }
-            for rcr in queryset
-        ]
+        queryset = queryset.select_related("city")
+        response = RcrSerializer(queryset, many=True).data
     print(queryset.query)
     return response
 
