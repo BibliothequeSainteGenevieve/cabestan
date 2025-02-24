@@ -1,10 +1,10 @@
 {
-	"HomePage": {
-		"title": "Rechercher"
-	},
-	"Header": {
-		"title": "Cabestan",
-		"subtitle": "L'outil de recherche"
+	"BarsChart": {
+		"title": "Top bibliothèques",
+		"subtitle": "Nombre de documents par bibliothèque",
+		"tooltip": {
+			"numberOfDocuments": "Nombre de documents"
+		}
 	},
 	"ComboboxFilter": {
 		"empty": "Pas de résultat",
@@ -29,6 +29,13 @@
 	"DateRangePicker": {
 		"startDate": "A partir du...",
 		"endDate": "Jusqu'au..."
+	},
+	"HomePage": {
+		"title": "Rechercher"
+	},
+	"Header": {
+		"title": "Cabestan",
+		"subtitle": "L'outil de recherche"
 	},
 	"Map": {
 		"error": "Erreur lors du chargement des données de la carte"

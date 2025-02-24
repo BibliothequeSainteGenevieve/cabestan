@@ -36,7 +36,7 @@ export default function Map() {
 	}, [mapData]);
 
 	return (
-		<div id="map" className="relative z-0">
+		<div id="map" className="relative z-0 h-full flex-1">
 			{isLoading && (
 				<div className="flex justify-center items-center">
 					<LoadingSpinner />
