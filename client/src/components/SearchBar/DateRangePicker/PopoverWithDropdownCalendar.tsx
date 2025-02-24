@@ -39,9 +39,7 @@ export default function PopoverWithDropdownCalendar({ date, setDate, label, type
 							setFilterSearchParams([], type);
 						}
 					}}
-					captionLayout="dropdown-buttons"
-					fromYear={2010}
-					toYear={2024}
+					captionLayout="dropdown"
 					locale={fr}
 					classNames={{
 						caption_label: "hidden",
