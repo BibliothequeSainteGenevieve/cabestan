@@ -98,10 +98,11 @@ class Author(models.Model):
             HashIndex(fields=["firstname"]),
             HashIndex(fields=["lastname"]),
         ]
+        unique_together = ("firstname", "lastname", "type")
 
 
 class Editor(models.Model):
-    title = models.TextField(max_length=200)
+    title = models.TextField(max_length=200, unique=True)
 
     def __str__(self):
         return self.title
