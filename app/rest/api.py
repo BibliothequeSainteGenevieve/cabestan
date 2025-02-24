@@ -26,7 +26,7 @@ class RcrSearchFilters(Schema):
     cities: Optional[str] = None
     establishementsTypes: Optional[str] = None
     documentsTypes: Optional[str] = None
-    publisher: Optional[str] = None
+    publishers: Optional[str] = None
     map_format: Optional[bool] = False
     page: int = 1
     per_page: int = 20
@@ -113,10 +113,10 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             book_type_query |= Q(books__type__label=b_type.strip())
         queryset = queryset.filter(book_type_query).distinct()
 
-    if filters.publisher:
+    if filters.publishers:
         shouldCountBook = True
         publisher_query = Q()
-        for pub in filters.publisher.split(","):
+        for pub in filters.publishers.split(","):
             publisher_query |= Q(books__editor__id=pub.strip())
         queryset = queryset.filter(publisher_query).distinct()
 
