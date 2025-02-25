@@ -19,7 +19,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 	const ref = useRef<HTMLDivElement>(null);
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
-	useClickOutside(ref, () => setIsOpen(false));
+	useClickOutside(ref as React.RefObject<HTMLElement>, () => setIsOpen(false));
 
 	const suggestionsSections = [
 		{
