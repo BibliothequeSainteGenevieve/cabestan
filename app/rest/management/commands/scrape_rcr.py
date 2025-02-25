@@ -89,6 +89,8 @@ class Command(BaseCommand):
                 city = self.find_city_with_sanitized_name(label)
             if not city:
                 city = self.find_city_with_saint_replaced(label)
+            if not city:
+                print("-----------------------------not found AT ALL for " + label)
             return city
         except Exception as e:
             print(e)
@@ -137,11 +139,11 @@ class Command(BaseCommand):
 
     def find_city_with_saint_replaced(self, label: str):
         try:
-            city = self.sanitize_city_name(label)
-            city.replace("saint", "st")
-            city = self.find_city_by_name_exactly(self.sanitize_city_name(label))
+            city_label = self.sanitize_city_name(label)
+            city_label = city_label.replace("saint", "st")
+            city = self.find_city_by_name_exactly(city_label)
             if not city:
-                print("not found for sanitized " + self.sanitize_city_name(label))
+                print("not found saint_replaced " + city_label)
             return city
         except Exception as e:
             print(e)
