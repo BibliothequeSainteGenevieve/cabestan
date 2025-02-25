@@ -3,9 +3,9 @@ import { fr } from "date-fns/locale";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
+import { Calendar } from "./Calendar";
 
 interface PopoverWithDropdownCalendarProps {
 	date: Date | undefined;
@@ -39,17 +39,10 @@ export default function PopoverWithDropdownCalendar({ date, setDate, label, type
 							setFilterSearchParams([], type);
 						}
 					}}
-					captionLayout="dropdown-buttons"
-					fromYear={2010}
-					toYear={2024}
+					captionLayout="dropdown"
 					locale={fr}
-					classNames={{
-						caption_label: "hidden",
-						caption_dropdowns: "flex gap-1",
-						dropdown: "bg-background text-sm capitalize",
-						vhidden: "hidden",
-						day_selected: "bg-primary text-white",
-					}}
+					showOutsideDays={true}
+					numberOfMonths={1}
 				/>
 			</PopoverContent>
 		</Popover>

@@ -39,7 +39,7 @@ export default function Home() {
 						<ResultsCount totalItems={rcrList?.pagination.totalResults || 0} />
 					</div>
 					<div className="flex flex-col md:flex-row">
-						<div className="md:w-[25rem] xl:w-[38rem] min-h-[calc(100vh-23rem)]">
+						<div className="md:w-[25rem] xl:w-[38rem] min-h-[calc(100vh-23rem)] @container">
 							{rcrList?.items.length === 0 && <p className="text-gray-500 w-full">{t("RCRList.noResults")}</p>}
 							{rcrList?.items.length > 0 && (
 								<>

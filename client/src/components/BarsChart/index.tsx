@@ -23,8 +23,8 @@ export default function BarsChart({ data }: BarsChartProps) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<Card className="bg-white rounded-sm shadow-sm mt-2">
-			<CardHeader onClick={() => setIsOpen(!isOpen)} className="cursor-pointer p-2">
+		<Card className="bg-white rounded-sm shadow-sm mt-2 py-1">
+			<CardHeader onClick={() => setIsOpen(!isOpen)} className="cursor-pointer py-1 px-4">
 				<div className="flex items-center justify-between">
 					<div>
 						<CardTitle className="uppercase">{t("BarsChart.title")}</CardTitle>
@@ -34,7 +34,7 @@ export default function BarsChart({ data }: BarsChartProps) {
 			</CardHeader>
 
 			{isOpen && (
-				<CardContent>
+				<CardContent className="px-4">
 					<ChartContainer config={chartConfig} className="min-h-[200px] max-h-[300px] w-full">
 						<BarChart
 							accessibilityLayer
