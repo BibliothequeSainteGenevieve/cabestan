@@ -8,6 +8,7 @@ import { getRCRList } from "@/api";
 import { useSearchParams } from "react-router";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import BarsChart from "@/components/BarsChart";
+import RCRExport from "@/components/RCRExport";
 
 export default function Home() {
 	const { t } = useTranslation();
@@ -35,8 +36,9 @@ export default function Home() {
 			)}
 			{rcrList && (
 				<div>
-					<div className="mt-6 mb-4">
+					<div className="mt-6 mb-4 flex items-center justify-between">
 						<ResultsCount totalItems={rcrList?.pagination.totalResults || 0} />
+						<RCRExport />
 					</div>
 					<div className="flex flex-col md:flex-row">
 						<div className="md:w-[25rem] xl:w-[38rem] min-h-[calc(100vh-23rem)] @container">
