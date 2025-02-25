@@ -6,7 +6,7 @@ export default function Home() {
 	const { t } = useTranslation();
 
 	return (
-		<div className="py-4 flex flex-col">
+		<div className="py-4 flex flex-col bg-background">
 			<div>
 				<h1 className="pb-2">{t("HomePage.title")}</h1>
 				<SearchBar />

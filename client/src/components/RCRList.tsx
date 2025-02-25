@@ -13,7 +13,7 @@ export default function RCRList({ items }: RCRListProps) {
 	return (
 		<div className="flex flex-col gap-4">
 			{items.map((rcr: RCR) => (
-				<Card key={rcr.rcr} className="bg-white shadow-none border-none flex items-center justify-between">
+				<Card key={rcr.rcr} className="bg-white shadow-none border-none">
 					<div>
 						<CardHeader className="pb-3">
 							<CardTitle>{rcr.name}</CardTitle>

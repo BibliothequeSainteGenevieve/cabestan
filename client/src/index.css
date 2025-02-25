@@ -1,11 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+	--color-background: #f5f8fe;
+	--color-foreground: #141316;
+	--color-border: #dbd8df;
+	--color-primary: #9c2d3d;
+	--color-secondary: #615c6d;
+	--color-lightRed: #fbe8e8;
+
+	--font-base: "Noto Sans", "Arial", sans-serif;
+}
 
 @layer base {
+	* {
+		@apply border-border;
+	}
+
 	body {
 		@apply bg-background text-foreground font-base;
+	}
+
+	h1 {
+		@apply text-3xl;
 	}
 }
