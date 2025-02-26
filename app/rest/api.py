@@ -163,7 +163,6 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     else:
         queryset = queryset.order_by("-books_count", "title")
 
-    print("before request")
     if not filters.map_format:
         total = queryset.count()
         start = (filters.page - 1) * filters.per_page
