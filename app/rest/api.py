@@ -38,7 +38,7 @@ class RcrSearchFilters(Schema):
 
 @router.get("/rcr/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
-    queryset = Rcr.objects.all()
+    queryset = Rcr.objects.select_related("city")
     shouldCountBook = False
 
     if filters.string:
@@ -99,19 +99,29 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             rcr_query |= Q(type__label=rcr_type.strip())
         queryset = queryset.filter(rcr_query)
 
-    if filters.languages:
+    if filters.languages and filters.documentsTypes:
+        # Combiner les conditions sur les livres en une seule jointure
+        book_conditions = Q()
+        if filters.languages:
+            book_conditions &= Q(books__lang__iso_code__in=filters.languages.split(","))
+        if filters.documentsTypes:
+            book_conditions &= Q(
+                books__type__label__in=filters.documentsTypes.split(",")
+            )
+        queryset = queryset.filter(book_conditions).distinct()
         shouldCountBook = True
-        lang_query = Q()
-        for lang in filters.languages.split(","):
-            lang_query |= Q(books__lang__iso_code=lang.strip())
-        queryset = queryset.filter(lang_query).distinct()
-
-    if filters.documentsTypes:
-        shouldCountBook = True
-        book_type_query = Q()
-        for b_type in filters.documentsTypes.split(","):
-            book_type_query |= Q(books__type__label=b_type.strip())
-        queryset = queryset.filter(book_type_query).distinct()
+    else:
+        # Appliquer les filtres séparément si un seul est présent
+        if filters.languages:
+            queryset = queryset.filter(
+                books__lang__iso_code__in=filters.languages.split(",")
+            ).distinct()
+            shouldCountBook = True
+        if filters.documentsTypes:
+            queryset = queryset.filter(
+                books__type__label__in=filters.documentsTypes.split(",")
+            ).distinct()
+            shouldCountBook = True
 
     if filters.publishers:
         shouldCountBook = True
@@ -125,7 +135,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         publication_date_start = datetime.fromtimestamp(
             filters.publicationDatesStart / 1000
         )
-        print(publication_date_start)
+
         queryset = queryset.filter(books__publication_date__gte=publication_date_start)
 
     if filters.publicationDatesEnd:
@@ -157,7 +167,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         total = queryset.count()
         start = (filters.page - 1) * filters.per_page
         end = start + filters.per_page
-        queryset = queryset.select_related("city")[start:end]
+        queryset = queryset[start:end]
 
         response = {
             "pagination": {
@@ -169,13 +179,12 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             "items": RcrSerializer(queryset, many=True).data,
         }
     else:
-        queryset = queryset.select_related("city")
         response = RcrSerializer(queryset, many=True).data
     print(queryset.query)
     return response
 
 
-@router.get("/rcr/export")
+@router.get("/rcr/export", auth=None)
 def export_rcr(request, filters: RcrSearchFilters = Query(...)):
     filters.map_format = True
     data = search_rcr(request, filters)

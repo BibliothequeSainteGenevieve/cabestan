@@ -5,6 +5,7 @@ ARG GROUP_ID
 ARG DJANGO_HTTP_PORT
 COPY requirements.txt /requirements.txt
 COPY entrypoint.sh /entrypoint.sh
+ENV PYTHONUNBUFFERED=1
 RUN chmod +x /entrypoint.sh
 RUN python -m pip install -r /requirements.txt
 WORKDIR /home/cabestan/app

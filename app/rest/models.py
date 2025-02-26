@@ -43,6 +43,11 @@ class RcrType(models.Model):
     def __str__(self):
         return self.label
 
+    class Meta:
+        indexes = [
+            HashIndex(fields=["label"]),
+        ]
+
 
 class Rcr(models.Model):
     title = models.CharField(max_length=200)
@@ -118,6 +123,11 @@ class BookType(models.Model):
 
     def __str__(self):
         return self.label
+
+    class Meta:
+        indexes = [
+            HashIndex(fields=["label"]),
+        ]
 
 
 class Book(models.Model):

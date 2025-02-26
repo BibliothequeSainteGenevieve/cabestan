@@ -13,6 +13,7 @@ import codecs
 import re
 from rest.management.commands.book_parser import UnimarcBookParser
 from django.db.models import Q
+import unicodedata
 
 
 class Command(BaseCommand):
@@ -79,20 +80,73 @@ class Command(BaseCommand):
             zipcode = "".join(i for i in zipcode if i.isdigit())
             label = label.lower()
             # use OR with one request
-            city = City.objects.filter(
-                Q(zipcode=zipcode) | Q(label__icontains=label.strip()) | Q(insee=insee)
-            ).first()
+            city = self.find_city_by_code(zipcode, insee)
             if not city:
-                print("search with new label : " + self.sanitize_city_name(label))
-                city = City.objects.filter(
-                    Q(label__icontains=self.sanitize_city_name(label.strip()))
-                ).first()
-                if not city:
-                    print("not found for " + label + " " + zipcode + " " + str(insee))
+                city = self.find_city_by_name_exactly(label)
+            if not city:
+                city = self.find_city_by_name_partially(label)
+            if not city:
+                city = self.find_city_with_sanitized_name(label)
+            if not city:
+                city = self.find_city_with_saint_replaced(label)
+            if not city:
+                print("-----------------------------not found AT ALL for " + label)
             return city
         except Exception as e:
             print(e)
             return None
+
+    def find_city_by_code(self, zipcode: int, insee: int):
+        try:
+            city = City.objects.filter(zipcode=zipcode, insee=insee).first()
+            if not city:
+                print("not found by code for " + str(zipcode) + " " + str(insee))
+            return city
+        except Exception as e:
+            print(e)
+
+    def find_city_by_name_exactly(self, label: str):
+        try:
+            city_strings = label.upper()
+            city_strings = unicodedata.normalize("NFD", city_strings)
+            city_strings = city_strings.encode("ascii", "ignore")
+            city_strings = city_strings.decode("utf-8")
+
+            city = City.objects.filter(label=city_strings).first()
+            if not city:
+                print("not found for exactly " + city_strings)
+            return city
+        except Exception as e:
+            print(e)
+
+    def find_city_by_name_partially(self, label: str):
+        try:
+            city = City.objects.filter(label__icontains=label.strip()).first()
+            if not city:
+                print("not found for partially " + label)
+            return city
+        except Exception as e:
+            print(e)
+
+    def find_city_with_sanitized_name(self, label: str):
+        try:
+            city = self.find_city_by_name_exactly(self.sanitize_city_name(label))
+            if not city:
+                print("not found for sanitized " + self.sanitize_city_name(label))
+            return city
+        except Exception as e:
+            print(e)
+
+    def find_city_with_saint_replaced(self, label: str):
+        try:
+            city_label = self.sanitize_city_name(label)
+            city_label = city_label.replace("saint", "st")
+            city = self.find_city_by_name_exactly(city_label)
+            if not city:
+                print("not found saint_replaced " + city_label)
+            return city
+        except Exception as e:
+            print(e)
 
     def sanitize_city_name(self, label: str):
         label = label.lower()
