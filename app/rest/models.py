@@ -181,27 +181,10 @@ class Book(models.Model):
         ]
 
 
-class RcrBook(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+class RcrBookCount(models.Model):
     rcr = models.ForeignKey(Rcr, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ("book", "rcr")
-
-    def __str__(self):
-        return f"{self.book.title} at {self.rcr.title}"
-
-
-class BookTranslation(models.Model):
-    book = models.ForeignKey(
-        Book, on_delete=models.CASCADE, related_name="original_book"
-    )
-    translate = models.ForeignKey(
-        Book, on_delete=models.CASCADE, related_name="translated_book"
-    )
-
-    class Meta:
-        unique_together = ("book", "translate")
+    count = models.IntegerField(default=0)
+    date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.book.title} -> {self.translate.title}"
+        return f"{self.rcr.title} - {self.count}"
