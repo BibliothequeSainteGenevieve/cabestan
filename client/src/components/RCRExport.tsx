@@ -1,4 +1,4 @@
-import { Download, Printer } from "lucide-react";
+import { Download } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { getRCRExportCSV } from "@/api";
@@ -9,15 +9,7 @@ export default function RCRExport() {
 	const [searchParams] = useSearchParams();
 
 	return (
-		<div className="flex gap-2 no-print">
-			<Button
-				variant="foreground"
-				onClick={() => {
-					window.print();
-				}}>
-				<Printer className="w-4 h-4" />
-				{t("RCRExport.formatOptions.print")}
-			</Button>
+		<div className="flex gap-2 print:hidden">
 			<Button
 				variant="foreground"
 				onClick={() => {

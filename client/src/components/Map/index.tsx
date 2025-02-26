@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "react-leaflet-markercluster/styles";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MapContent from "./MapContent";
 import "./Map.css";
 import L, { LatLngBoundsExpression, LatLngBoundsLiteral } from "leaflet";
@@ -11,16 +11,19 @@ import { getMapData } from "@/api";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useTranslation } from "react-i18next";
 
-const defaultBounds: LatLngBoundsLiteral = [
-	[51.034222, -5.199594],
-	[41.486518, 9.454489],
-];
-
 export default function Map() {
 	const { t } = useTranslation();
 	const [bounds, setBounds] = useState<LatLngBoundsExpression | undefined>();
 
 	const [searchParams] = useSearchParams();
+
+	const defaultBounds = useMemo<LatLngBoundsLiteral>(
+		() => [
+			[51.034222, -5.199594],
+			[41.486518, 9.454489],
+		],
+		[]
+	);
 
 	const {
 		data: mapData,
@@ -46,7 +49,7 @@ export default function Map() {
 		} else if (mapData) {
 			setBounds(defaultBounds);
 		}
-	}, [mapData]);
+	}, [mapData, defaultBounds]);
 
 	return (
 		<div id="map" className="relative z-0 h-full flex-1">
@@ -74,7 +77,7 @@ export default function Map() {
 						subdomains="abcd"
 						noWrap={true}
 					/>
-					<MapContent data={mapData} />
+					<MapContent data={mapData} defaultBounds={defaultBounds} />
 				</MapContainer>
 			)}
 		</div>

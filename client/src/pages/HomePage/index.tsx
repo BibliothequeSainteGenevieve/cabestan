@@ -7,7 +7,7 @@ export default function Home() {
 
 	return (
 		<div className="py-4 flex flex-col bg-background">
-			<div>
+			<div id="searchbar-container">
 				<h1 className="pb-2">{t("HomePage.title")}</h1>
 				<SearchBar />
 			</div>
