@@ -2,7 +2,8 @@ from ninja import NinjaAPI
 from ninja.security import HttpBearer
 from scraper.api import router as scraper_router
 from process.api import router as process_router
-from rest.api import router as rest_router
+from rest.api.rcr import router as rcr_router
+from rest.api.book import router as book_router
 from .config import get_config
 import logging
 
@@ -38,4 +39,5 @@ class RestAuthBearer(HttpBearer):
 
 api.add_router("/scraper/", scraper_router, tags=["scraper"], auth=ScraperAuthBearer())
 api.add_router("/process/", process_router, tags=["process"], auth=ProcessAuthBearer())
-api.add_router("/rest/", rest_router, tags=["rest"], auth=RestAuthBearer())
+api.add_router("/rest/", rcr_router, tags=["rcr"], auth=RestAuthBearer())
+api.add_router("/rest/", book_router, tags=["book"], auth=RestAuthBearer())
