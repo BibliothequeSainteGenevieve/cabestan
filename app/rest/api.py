@@ -38,7 +38,6 @@ class RcrSearchFilters(Schema):
 
 @router.get("/rcr/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
-    print("rcr search")
     queryset = Rcr.objects.select_related("city")
     shouldCountBook = False
 
@@ -136,7 +135,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         publication_date_start = datetime.fromtimestamp(
             filters.publicationDatesStart / 1000
         )
-        print(publication_date_start)
+
         queryset = queryset.filter(books__publication_date__gte=publication_date_start)
 
     if filters.publicationDatesEnd:
