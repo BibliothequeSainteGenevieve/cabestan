@@ -1,11 +1,12 @@
 import { X } from "lucide-react";
 import { Button } from "../ui/button";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useTranslation } from "react-i18next";
 
 export default function ResetFiltersButton() {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { t } = useTranslation();
 
 	return (
@@ -17,7 +18,7 @@ export default function ResetFiltersButton() {
 						className="bg-foreground text-white cursor-pointer"
 						onClick={() => {
 							navigate({
-								pathname: "/",
+								pathname: location.pathname,
 							});
 							navigate(0);
 						}}>

@@ -13,6 +13,7 @@
 	},
 	"CommandSearch": {
 		"placeholder": "Rechercher un titre, une bibliothèque, un auteur, un illustrateur ou un traducteur",
+		"placeholderBook": "Rechercher un titre, un auteur, un illustrateur ou un traducteur",
 		"suggestions": {
 			"empty": "Aucun résultat",
 			"loading": "Chargement des suggestions...",

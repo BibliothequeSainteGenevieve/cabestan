@@ -5,17 +5,29 @@ import { Earth, ExternalLink, Phone } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getRCRDetails } from "@/api";
 import { useTranslation } from "react-i18next";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 export default function RCRDetails() {
 	const { rcr } = useParams();
 	const { t } = useTranslation();
 
-	const { data: rcrDetails } = useQuery({
+	const {
+		data: rcrDetails,
+		isLoading,
+		error,
+	} = useQuery({
 		queryKey: ["rcr-details", rcr],
 		queryFn: () => getRCRDetails(rcr),
 	});
 
-	if (!rcrDetails) return null;
+	if (isLoading || !rcrDetails)
+		return (
+			<div>
+				<LoadingSpinner />
+			</div>
+		);
+
+	if (error) return <div>{t("RCRDetails.error", { error: error })}</div>;
 
 	return (
 		<div>
@@ -42,11 +54,11 @@ export default function RCRDetails() {
 								<Earth /> {t("RCRDetails.language_other", { count: rcrDetails.languages.length })}
 							</Button>
 						</PopoverTrigger>
-						<PopoverContent className="w-80 bg-white rounded-lg p-4">
+						<PopoverContent className="w-80 bg-white rounded-lg p-4 z-200 relative">
 							<div className="flex flex-wrap gap-2">
 								{rcrDetails.languages.map((language, index) => (
-									<p key={language}>
-										{language}
+									<p key={language} className="text-sm">
+										{t(`filters.languages.options.${language}`)}
 										{index < rcrDetails.languages.length - 1 && ", "}
 									</p>
 								))}
@@ -60,20 +72,22 @@ export default function RCRDetails() {
 					<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.address")}</p>
 					<p className="font-light">
 						<a
-							href={`https://maps.google.com/?q=${rcrDetails.name} ${rcrDetails.contact.address.street} ${rcrDetails.contact.address.postalCode} ${rcrDetails.contact.address.city}, ${rcrDetails.contact.address.country}`}
+							href={`https://maps.google.com/?q=${rcrDetails.name} ${rcrDetails.contact.address?.street} ${rcrDetails.contact.address?.postalCode} ${rcrDetails.contact.address?.city}, ${rcrDetails.contact.address?.country}`}
 							target="_blank">
-							{rcrDetails.contact.address.street}, {rcrDetails.contact.address.postalCode}
+							{rcrDetails.contact.address?.street}, {rcrDetails.contact.address?.postalCode}
 							<br />
-							{rcrDetails.contact.address.city}, {rcrDetails.contact.address.country}
+							{rcrDetails.contact.address?.city}, {rcrDetails.contact.address?.country}
 						</a>
 					</p>
 				</div>
-				<div className="flex-1">
-					<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.contact")}</p>
-					<p className="font-light">
-						<a href={`mailto:${rcrDetails.contact.email}`}>{rcrDetails.contact.email}</a>
-					</p>
-				</div>
+				{rcrDetails.contact.email && (
+					<div className="flex-1">
+						<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.contact")}</p>
+						<p className="font-light">
+							<a href={`mailto:${rcrDetails.contact.email}`}>{rcrDetails.contact.email}</a>
+						</p>
+					</div>
+				)}
 			</div>
 		</div>
 	);

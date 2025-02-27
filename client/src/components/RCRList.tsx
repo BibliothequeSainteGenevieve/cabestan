@@ -12,6 +12,8 @@ type RCRListProps = {
 export default function RCRList({ items }: RCRListProps) {
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
+	searchParams.delete("page");
+	searchParams.delete("itemsPerPage");
 
 	return (
 		<div className="flex flex-col gap-4">

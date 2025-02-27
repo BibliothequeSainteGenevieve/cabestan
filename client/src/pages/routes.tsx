@@ -3,7 +3,7 @@ import RCRPage from "./RCRPage";
 
 export const routes = {
 	home: {
-		path: "/search?",
+		path: "/",
 		element: <HomePage />,
 	},
 	rcr: {

@@ -10,7 +10,11 @@ import { getGlobalSuggestions } from "@/api";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 import { useSearchParams } from "react-router";
 
-export function CommandSearch() {
+interface CommandSearchProps {
+	isBookSearch?: boolean;
+}
+
+export function CommandSearch({ isBookSearch }: CommandSearchProps) {
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
 	const setFilterSearchParams = useSetFilterSearchParams();
@@ -51,7 +55,7 @@ export function CommandSearch() {
 			<div className="flex items-center gap-1 py-1 px-2">
 				<Search className="w-5 h-5" />
 				<Input
-					placeholder={t("CommandSearch.placeholder")}
+					placeholder={isBookSearch ? t("CommandSearch.placeholderBook") : t("CommandSearch.placeholder")}
 					value={inputValue}
 					onChange={(event) => handleChange(event.target.value)}
 					className="border-none shadow-none"
@@ -59,6 +63,7 @@ export function CommandSearch() {
 			</div>
 			{isOpen && (
 				<Suggestions
+					isBookSearch={isBookSearch}
 					isLoading={isLoading}
 					error={error}
 					suggestions={suggestions || []}
