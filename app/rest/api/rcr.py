@@ -2,7 +2,7 @@ from ninja import Router, Query, Schema
 from typing import Optional
 from ..models import Book, Editor, City, Rcr, Author
 from ..views import ClientConfigView
-from django.db.models import Q, Count
+from django.db.models import Q, Count, F
 from datetime import datetime
 import csv
 from django.http import HttpResponse
@@ -160,9 +160,12 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     # calculate books count
     if shouldCountBook:
         queryset = queryset.annotate(calculated_books_count=Count("books"))
-        queryset = queryset.order_by("-calculated_books_count", "title")
+        queryset = queryset.order_by(
+            F("calculated_books_count").desc(nulls_last=True), "title"
+        )
+
     else:
-        queryset = queryset.order_by("-books_count", "title")
+        queryset = queryset.order_by(F("books_count").desc(nulls_last=True), "title")
 
     if not filters.map_format:
         total = queryset.count()
