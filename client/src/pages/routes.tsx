@@ -7,7 +7,7 @@ export const routes = {
 		element: <HomePage />,
 	},
 	rcr: {
-		path: "/rcr/:id",
+		path: "/rcr/:rcr",
 		element: <RCRPage />,
 	},
 };

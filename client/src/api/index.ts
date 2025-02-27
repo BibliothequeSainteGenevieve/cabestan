@@ -105,3 +105,34 @@ export const getMapData = async (searchParams: string): Promise<MapRCR[]> => {
 export const getRCRExportCSV = async (searchParams: string): Promise<void> => {
 	window.open(`${getApiUrl("/rcr/export")}?${searchParams}`);
 };
+
+type getRCRDetailsResponse = {
+	website: string;
+	phone: string;
+	email: string;
+	languages: string[];
+	rcr: string;
+	name: string;
+	contact: {
+		website: string | null;
+		phone: string | null;
+		email: string;
+		address: {
+			street: string;
+			postalCode: string;
+			city: string;
+			country: string;
+		};
+	};
+	location: {
+		longitude: number;
+		latitude: number;
+	};
+};
+
+export const getRCRDetails = async (rcr: string | undefined): Promise<getRCRDetailsResponse> => {
+	if (!rcr) throw new Error("RCR is required");
+
+	const response = await fetch(`${getApiUrl(`/rcr/${rcr}/details`)}`, { headers: getApiHeaders() });
+	return response.json();
+};

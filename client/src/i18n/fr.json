@@ -43,6 +43,13 @@
 	"PopoverMoreFilters": {
 		"title": "Filtres avancés"
 	},
+	"RCRDetails": {
+		"language_one": "{{count}} langue",
+		"language_other": "{{count}} langues",
+		"address": "Adresse",
+		"contact": "Contact",
+		"addressTooltip": "Ouvrir dans Google Maps"
+	},
 	"RCRExport": {
 		"button": "Exporter",
 		"title": "Exporter les résultats",
