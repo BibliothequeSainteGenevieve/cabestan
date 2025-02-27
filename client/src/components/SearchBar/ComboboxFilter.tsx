@@ -29,10 +29,7 @@ export default function ComboboxFilter({ options, type }: ComboboxFilterProps) {
 				<Button
 					role="combobox"
 					aria-expanded={open}
-					className={cn(
-						"bg-white hover:bg-white w-auto p-4 justify-between",
-						value.length > 0 ? "bg-lightRed text-primary" : ""
-					)}>
+					className={cn("w-auto p-4 justify-between", value.length > 0 ? "bg-lightRed text-primary" : "")}>
 					{value.length > 0
 						? value
 								.map((item) =>
