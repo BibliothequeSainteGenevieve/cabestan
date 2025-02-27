@@ -9,6 +9,7 @@ import DateRangePicker from "./DateRangePicker";
 import { getClientConfig } from "@/api";
 import ComboboxSearchFilter from "./ComboboxSearchFilter";
 import { FilterTypes } from "@/models/Filters";
+import ResetFiltersButton from "./ResetFiltersButton";
 
 export default function SearchBar() {
 	const { t } = useTranslation();
@@ -50,6 +51,7 @@ export default function SearchBar() {
 					{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
 					{/* {isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />} */}
 					{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
+					{searchParams.size > 0 && <ResetFiltersButton />}
 				</div>
 				<div className="">
 					<PopoverMoreFilters
