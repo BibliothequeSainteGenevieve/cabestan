@@ -130,6 +130,18 @@ class BookType(models.Model):
         ]
 
 
+class BookTags(models.Model):
+    tag = models.TextField(null=True, blank=True, unique=True)
+
+    def __str__(self):
+        return self.tag
+
+    class Meta:
+        indexes = [
+            HashIndex(fields=["tag"]),
+        ]
+
+
 class Book(models.Model):
     ppn = models.CharField(max_length=200, unique=True, default="")
     title = models.TextField(max_length=200, null=True, blank=True)
@@ -168,6 +180,9 @@ class Book(models.Model):
         CountryType, on_delete=models.CASCADE, null=True, blank=True
     )
     misc_book_data = models.JSONField(null=True, blank=True)
+    translated_of = models.TextField(null=True, blank=True)
+    translated_as = models.TextField(null=True, blank=True)
+    tags = models.ManyToManyField(BookTags, blank=True)
     rcr = models.ForeignKey(
         Rcr, on_delete=models.CASCADE, default=None, related_name="books"
     )
@@ -181,27 +196,10 @@ class Book(models.Model):
         ]
 
 
-class RcrBook(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+class RcrBookCount(models.Model):
     rcr = models.ForeignKey(Rcr, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ("book", "rcr")
-
-    def __str__(self):
-        return f"{self.book.title} at {self.rcr.title}"
-
-
-class BookTranslation(models.Model):
-    book = models.ForeignKey(
-        Book, on_delete=models.CASCADE, related_name="original_book"
-    )
-    translate = models.ForeignKey(
-        Book, on_delete=models.CASCADE, related_name="translated_book"
-    )
-
-    class Meta:
-        unique_together = ("book", "translate")
+    count = models.IntegerField(default=0)
+    date = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.book.title} -> {self.translate.title}"
+        return f"{self.rcr.title} - {self.count}"

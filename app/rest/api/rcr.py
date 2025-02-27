@@ -1,12 +1,13 @@
 from ninja import Router, Query, Schema
 from typing import Optional
-from .models import Book, Editor, City, Rcr, Author
-from .views import ClientConfigView
+from ..models import Book, Editor, City, Rcr, Author
+from ..views import ClientConfigView
 from django.db.models import Q, Count
 from datetime import datetime
 import csv
 from django.http import HttpResponse
-from rest.serializers.search import RcrSerializer
+from ..serializers.search import RcrSerializer
+from ..serializers.rcr import RcrDetailsSerializer
 
 router = Router()
 
@@ -36,7 +37,7 @@ class RcrSearchFilters(Schema):
     reeditionDatesEnd: Optional[int] = None
 
 
-@router.get("/rcr/search")
+@router.get("/rcrs/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     queryset = Rcr.objects.select_related("city")
     shouldCountBook = False
@@ -184,7 +185,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     return response
 
 
-@router.get("/rcr/export", auth=None)
+@router.get("/rcrs/export", auth=None)
 def export_rcr(request, filters: RcrSearchFilters = Query(...)):
     filters.map_format = True
     data = search_rcr(request, filters)
@@ -222,7 +223,11 @@ def export_rcr(request, filters: RcrSearchFilters = Query(...)):
 
     return response
 
-    return data
+
+@router.get("/rcr/{rcr_number}/details")
+def get_rcr_details(request, rcr_number: str):
+    rcr = Rcr.objects.prefetch_related("books").get(rcr_number=rcr_number)
+    return RcrDetailsSerializer(rcr).data
 
 
 class EditorSearchFilters(Schema):

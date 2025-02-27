@@ -1,11 +1,5 @@
 from django.core.management.base import BaseCommand
-from rest.models import (
-    RcrType,
-    Rcr,
-    City,
-    Department,
-    CountryType,
-)
+from rest.models import RcrType, Rcr, City, Department, CountryType, RcrBookCount
 import requests as rq
 from cabestan.config import get_config
 import csv
@@ -14,6 +8,7 @@ import re
 from rest.management.commands.book_parser import UnimarcBookParser
 from django.db.models import Q
 import unicodedata
+from datetime import datetime
 
 
 class Command(BaseCommand):
@@ -56,7 +51,7 @@ class Command(BaseCommand):
 
             books_count = self.find_books_count(rcr)
 
-            Rcr.objects.update_or_create(
+            rcr_obj = Rcr.objects.update_or_create(
                 rcr_number=rcr,
                 defaults=dict(
                     title=row["LIBELLE"],
@@ -71,6 +66,11 @@ class Command(BaseCommand):
                     email=row["EMAIL"],
                     books_count=books_count,
                 ),
+            )
+            RcrBookCount.objects.create(
+                rcr=rcr_obj[0],
+                count=books_count,
+                date=datetime.now(),
             )
 
         print("Number of rcr: " + str(reader.line_num))
