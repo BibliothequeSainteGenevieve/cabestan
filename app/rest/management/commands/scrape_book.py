@@ -10,6 +10,7 @@ from rest.models import (
     City,
     AuthorType,
     CountryType,
+    BookTags,
 )
 import requests as rq
 import csv
@@ -304,12 +305,14 @@ class Command(BaseCommand):
                         None,
                     ),
                     misc_book_data=book_data["misc_book_data"],
+                    translated_of=book_data["translated_of"],
+                    translated_as=book_data["translated_as"],
                     rcr=rcr,
                 )
             )
 
         # Insertion en masse des livres
-        Book.objects.bulk_create(
+        created_books = Book.objects.bulk_create(
             books_to_create,
             update_conflicts=True,
             unique_fields=["ppn"],
@@ -328,9 +331,18 @@ class Command(BaseCommand):
                 "publication_address",
                 "publication_country_type_id",
                 "misc_book_data",
+                "translated_of",
+                "translated_as",
                 "rcr_id",
             ],
         )
+
+        for book in created_books:
+            for to_create_book in books_data:
+                if to_create_book["ppn"] == book.ppn:
+                    for tag in to_create_book["tags"]:
+                        tag_obj, created = BookTags.objects.update_or_create(tag=tag)
+                        book.tags.add(tag_obj)
 
         db_time = datetime.datetime.now() - db_start_time
         print(f"Database insertion time: {db_time} for {len(books_to_create)} books")

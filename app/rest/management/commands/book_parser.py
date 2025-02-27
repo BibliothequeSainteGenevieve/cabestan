@@ -101,6 +101,9 @@ class UnimarcBookParser:
             "publication_country_type": self.get_country_type(),
             "misc_book_data": self.get_misc_data(),
             "document_type": self.get_book_type(),
+            "translated_of": self.get_translated_of(),
+            "translated_as": self.get_translated_as(),
+            "tags": self.get_tags(),
         }
 
     def sanitize_string(self, string: str | None) -> str:
@@ -272,3 +275,54 @@ class UnimarcBookParser:
         # This method should return True if the book is an article, False otherwise
         # This is a placeholder and should be implemented based on your specific requirements
         return False
+
+    def get_translated_of(self) -> Optional[Dict]:
+        """Extrait les informations sur l'œuvre originale (454)"""
+        field = self._get_datafields("454")
+        if not field:
+            return None
+
+        return {
+            "title": self.sanitize_string(self._get_subfield_value("454", "t")),
+            "language": self.sanitize_string(self._get_subfield_value("454", "m")),
+            "ppn": self.sanitize_string(self._get_subfield_value("454", "0")),
+        }
+
+    def get_translated_as(self) -> List[Dict]:
+        """Extrait les informations sur les traductions (453)"""
+        translations = []
+        for field in self._get_datafields("453"):
+            translation = {
+                "title": self.sanitize_string(
+                    self._get_subfield_from_field(field, "t")
+                ),
+                "language": self.sanitize_string(
+                    self._get_subfield_from_field(field, "m")
+                ),
+                "ppn": self.sanitize_string(self._get_subfield_from_field(field, "0")),
+            }
+            if any(
+                translation.values()
+            ):  # N'ajoute que si au moins un champ n'est pas nul
+                translations.append(translation)
+        return translations if translations else None
+
+    def get_tags(self) -> List[str]:
+        """Extrait les tags/sujets du livre (zones 600-619)"""
+        tags = []
+
+        # Liste des zones contenant des sujets
+        subject_fields = []
+        for tag in range(600, 620):
+            subject_fields.extend(self._get_datafields(str(tag)))
+
+        for field in subject_fields:
+            # Récupération des différents sous-champs contenant des sujets
+            for code in ["a", "x", "y", "z"]:  # codes UNIMARC pour les sujets
+                value = self._get_subfield_from_field(field, code)
+                if value:
+                    tag = self.sanitize_string(value)
+                    if tag and tag not in tags:  # Évite les doublons
+                        tags.append(tag)
+
+        return tags if tags else []

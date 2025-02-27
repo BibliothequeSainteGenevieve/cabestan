@@ -130,6 +130,18 @@ class BookType(models.Model):
         ]
 
 
+class BookTags(models.Model):
+    tag = models.TextField(null=True, blank=True, unique=True)
+
+    def __str__(self):
+        return self.tag
+
+    class Meta:
+        indexes = [
+            HashIndex(fields=["tag"]),
+        ]
+
+
 class Book(models.Model):
     ppn = models.CharField(max_length=200, unique=True, default="")
     title = models.TextField(max_length=200, null=True, blank=True)
@@ -168,6 +180,9 @@ class Book(models.Model):
         CountryType, on_delete=models.CASCADE, null=True, blank=True
     )
     misc_book_data = models.JSONField(null=True, blank=True)
+    translated_of = models.TextField(null=True, blank=True)
+    translated_as = models.TextField(null=True, blank=True)
+    tags = models.ManyToManyField(BookTags, blank=True)
     rcr = models.ForeignKey(
         Rcr, on_delete=models.CASCADE, default=None, related_name="books"
     )
