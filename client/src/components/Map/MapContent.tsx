@@ -1,11 +1,11 @@
 import { Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "react-leaflet-markercluster/styles";
-import L from "leaflet";
+import L, { LatLngBoundsLiteral } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { MapRCR } from "@/models/RCR";
 import landmark from "@/assets/landmark.svg";
-import { Undo2 } from "lucide-react";
+import { Printer, Undo2 } from "lucide-react";
 
 const customIconCreateFunction = (cluster: any) => {
 	const childMarkers = cluster.getAllChildMarkers();
@@ -47,27 +47,76 @@ const customIconCreateFunction = (cluster: any) => {
 	});
 };
 
-const handleFitBounds = (data: MapRCR[], map: L.Map) => {
-	const markers = data
-		.slice(0, 100)
-		.map((establishment) => L.marker([establishment.location.latitude, establishment.location.longitude]));
-	const group = L.featureGroup(markers);
-
-	map.fitBounds(group.getBounds(), {
-		padding: [50, 50],
-	});
+const handleFitBounds = (data: MapRCR[], map: L.Map, defaultBounds: LatLngBoundsLiteral) => {
+	if (data && data?.length > 0) {
+		const markers = data
+			.slice(0, 100)
+			.map((establishment) => L.marker([establishment.location.latitude, establishment.location.longitude]));
+		const group = L.featureGroup(markers);
+		map.fitBounds(group.getBounds().isValid() ? group.getBounds() : defaultBounds, {
+			padding: [20, 20],
+		});
+	} else {
+		map.fitBounds(defaultBounds, {
+			padding: [20, 20],
+		});
+	}
 };
 
 type MapContentProps = {
 	data: MapRCR[];
+	defaultBounds: LatLngBoundsLiteral;
 };
 
-export default function MapContent({ data }: MapContentProps) {
+export default function MapContent({ data, defaultBounds }: MapContentProps) {
 	const map = useMap();
 
 	const handleResetZoom = () => {
 		if (data && map) {
-			handleFitBounds(data, map);
+			handleFitBounds(data, map, defaultBounds);
+		}
+	};
+
+	const handlePrint = () => {
+		const mapElement = document.getElementById("map");
+		const barsChartElement = document.getElementById("bars-chart");
+		const rcrListElement = document.getElementById("rcr-list");
+		const searchbarContainerElement = document.getElementById("searchbar-container");
+
+		if (mapElement) {
+			mapElement.style.width = "21cm";
+			mapElement.style.height = "29.7cm";
+			mapElement.style.position = "absolute";
+			mapElement.style.top = "0";
+			mapElement.style.left = "0";
+			mapElement.style.zIndex = "1000";
+			if (barsChartElement) {
+				barsChartElement.style.display = "none";
+			}
+			if (rcrListElement) {
+				rcrListElement.style.display = "none";
+			}
+			if (searchbarContainerElement) {
+				searchbarContainerElement.style.display = "none";
+			}
+			map.invalidateSize();
+			window.print();
+			mapElement.style.width = "100%";
+			mapElement.style.height = "100%";
+			mapElement.style.position = "static";
+			mapElement.style.top = "0";
+			mapElement.style.left = "0";
+			mapElement.style.zIndex = "0";
+			if (barsChartElement) {
+				barsChartElement.style.display = "block";
+			}
+			if (rcrListElement) {
+				rcrListElement.style.display = "block";
+			}
+			if (searchbarContainerElement) {
+				searchbarContainerElement.style.display = "block";
+			}
+			map.invalidateSize();
 		}
 	};
 
@@ -94,8 +143,11 @@ export default function MapContent({ data }: MapContentProps) {
 					) : null
 				)}
 			</MarkerClusterGroup>
-			<button onClick={handleResetZoom} className="reset-zoom-button shadow">
+			<button onClick={handleResetZoom} className="reset-zoom-button shadow print:hidden">
 				<Undo2 size={16} />
+			</button>
+			<button onClick={handlePrint} className="print-button shadow print:hidden">
+				<Printer size={16} />
 			</button>
 		</>
 	);

@@ -8,6 +8,7 @@ import { getRCRList } from "@/api";
 import { useSearchParams } from "react-router";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import BarsChart from "@/components/BarsChart";
+import RCRExport from "@/components/RCRExport";
 
 export default function Home() {
 	const { t } = useTranslation();
@@ -35,11 +36,12 @@ export default function Home() {
 			)}
 			{rcrList && (
 				<div>
-					<div className="mt-6 mb-4">
+					<div className="mt-6 mb-4 flex items-center justify-between">
 						<ResultsCount totalItems={rcrList?.pagination.totalResults || 0} />
+						<RCRExport />
 					</div>
 					<div className="flex flex-col md:flex-row">
-						<div className="md:w-[25rem] xl:w-[38rem] min-h-[calc(100vh-23rem)] @container">
+						<div id="rcr-list" className="md:w-[25rem] xl:w-[38rem] min-h-[calc(100vh-23rem)] @container">
 							{rcrList?.items.length === 0 && <p className="text-gray-500 w-full">{t("RCRList.noResults")}</p>}
 							{rcrList?.items.length > 0 && (
 								<>
@@ -53,7 +55,7 @@ export default function Home() {
 								</>
 							)}
 						</div>
-						<div className="hidden md:flex flex-col justify-between flex-1 pl-4">
+						<div className="print:flex hidden md:flex flex-col justify-between flex-1 pl-4">
 							<Map />
 							<div>{rcrList?.items.length > 0 && <BarsChart data={rcrList?.items.slice(0, 10) || []} />}</div>
 						</div>

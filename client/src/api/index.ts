@@ -101,3 +101,7 @@ export const getMapData = async (searchParams: string): Promise<MapRCR[]> => {
 	);
 	return response.json();
 };
+
+export const getRCRExportCSV = async (searchParams: string): Promise<void> => {
+	window.open(`${getApiUrl("/rcr/export")}?${searchParams}`);
+};

@@ -4,7 +4,7 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 import { RCR } from "@/models/RCR";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Printer } from "lucide-react";
 import "./BarsChart.css";
 
 const chartConfig = {
@@ -22,19 +22,63 @@ export default function BarsChart({ data }: BarsChartProps) {
 	const { t } = useTranslation();
 	const [isOpen, setIsOpen] = useState(false);
 
+	const handlePrint = () => {
+		const chartElement = document.getElementById("bars-chart");
+		const mapElement = document.getElementById("map");
+		const rcrListElement = document.getElementById("rcr-list");
+		const searchbarContainerElement = document.getElementById("searchbar-container");
+
+		if (chartElement) {
+			chartElement.style.width = "21cm";
+			chartElement.style.position = "absolute";
+			chartElement.style.top = "0";
+			chartElement.style.left = "0";
+			chartElement.style.zIndex = "1000";
+			if (mapElement) {
+				mapElement.style.display = "none";
+			}
+			if (rcrListElement) {
+				rcrListElement.style.display = "none";
+			}
+			if (searchbarContainerElement) {
+				searchbarContainerElement.style.display = "none";
+			}
+			window.print();
+			chartElement.style.width = "100%";
+			chartElement.style.position = "relative";
+			chartElement.style.top = "0";
+			chartElement.style.left = "0";
+			chartElement.style.zIndex = "0";
+			if (mapElement) {
+				mapElement.style.display = "block";
+			}
+			if (rcrListElement) {
+				rcrListElement.style.display = "block";
+			}
+			if (searchbarContainerElement) {
+				searchbarContainerElement.style.display = "block";
+			}
+		}
+	};
+
 	return (
-		<Card className="bg-white rounded-sm shadow-sm mt-2 py-1">
+		<Card id="bars-chart" className="bg-white rounded-sm shadow-sm mt-2 py-1 relative">
 			<CardHeader onClick={() => setIsOpen(!isOpen)} className="cursor-pointer py-1 px-4">
 				<div className="flex items-center justify-between">
 					<div>
 						<CardTitle className="uppercase">{t("BarsChart.title")}</CardTitle>
 					</div>
-					{isOpen ? <Minus /> : <Plus />}
+					{isOpen ? <Minus className="print:hidden" /> : <Plus className="print:hidden" />}
 				</div>
 			</CardHeader>
 
 			{isOpen && (
 				<CardContent className="px-4">
+					<button
+						onClick={handlePrint}
+						className="print:hidden bg-white shadow absolute top-10 right-4 p-2 z-10 cursor-pointer">
+						<Printer size={16} />
+					</button>
 					<ChartContainer config={chartConfig} className="min-h-[200px] max-h-[300px] w-full">
 						<BarChart
 							accessibilityLayer

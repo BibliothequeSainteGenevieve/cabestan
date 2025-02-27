@@ -43,6 +43,16 @@
 	"PopoverMoreFilters": {
 		"title": "Filtres avancés"
 	},
+	"RCRExport": {
+		"button": "Exporter",
+		"title": "Exporter les résultats",
+		"description": "Exporter les résultats de la recherche en format CSV ou imprimez la page.",
+		"format": "Format",
+		"formatOptions": {
+			"csv": "CSV",
+			"print": "Imprimer"
+		}
+	},
 	"RCRList": {
 		"error": "Erreur lors du chargement des résultats",
 		"results": "Résultats",
