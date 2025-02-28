@@ -10,3 +10,10 @@ export enum FilterTypes {
 	TRANSLATION_DATES = "translationDates",
 	REISSUE_DATES = "reissueDates",
 }
+
+export type OptionalFilter = {
+	type?: "date";
+	filter: FilterTypes;
+	isOpen: boolean;
+	setIsOpen: (isOpen: boolean) => void;
+};

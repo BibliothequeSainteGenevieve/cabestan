@@ -8,6 +8,7 @@ docker/.env
 docker/nginx.conf
 docker/cabestan.conf
 docker/ip_allow.conf
+docker/docker-compose.override.yml
 app/media/*
 
 # For developers who like to have a tmp folder inside project

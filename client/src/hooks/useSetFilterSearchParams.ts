@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router";
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 
 /**
  * @param newValues The new values corresponding to the filter
@@ -8,6 +8,7 @@ import { useNavigate, useSearchParams } from "react-router";
 export function useSetFilterSearchParams() {
 	const [searchParams] = useSearchParams();
 	const navigate = useNavigate();
+	const location = useLocation();
 
 	function setFilterSearchParams(newValues: string[], type: string) {
 		if (newValues.length > 0 && newValues[0] !== undefined) {
@@ -21,7 +22,7 @@ export function useSetFilterSearchParams() {
 		}
 
 		navigate({
-			pathname: "/search",
+			pathname: location.pathname,
 			search: searchParams.toString(),
 		});
 	}

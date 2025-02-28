@@ -16,6 +16,8 @@ export default function Map() {
 	const [bounds, setBounds] = useState<LatLngBoundsExpression | undefined>();
 
 	const [searchParams] = useSearchParams();
+	searchParams.delete("page");
+	searchParams.delete("itemsPerPage");
 
 	const defaultBounds = useMemo<LatLngBoundsLiteral>(
 		() => [

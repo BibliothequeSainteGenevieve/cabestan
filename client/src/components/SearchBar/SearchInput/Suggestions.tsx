@@ -13,19 +13,16 @@ interface SuggestionsProps {
 	error: any;
 	setInputValue: (value: string) => void;
 	setIsOpen: (value: boolean) => void;
+	isBookSearch?: boolean;
 }
 
-function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }: SuggestionsProps) {
+function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen, isBookSearch }: SuggestionsProps) {
 	const ref = useRef<HTMLDivElement>(null);
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
 	useClickOutside(ref as React.RefObject<HTMLElement>, () => setIsOpen(false));
 
 	const suggestionsSections = [
-		{
-			icon: <Landmark className="w-4 h-4" />,
-			type: GlobalSuggestionType.LIBRARY,
-		},
 		{
 			icon: <Book className="w-4 h-4" />,
 			type: GlobalSuggestionType.DOCUMENT,
@@ -43,6 +40,13 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen }
 			type: GlobalSuggestionType.TRANSLATOR,
 		},
 	];
+
+	if (!isBookSearch) {
+		suggestionsSections.push({
+			icon: <Landmark className="w-4 h-4" />,
+			type: GlobalSuggestionType.LIBRARY,
+		});
+	}
 
 	const handleSelect = ({
 		searchString,

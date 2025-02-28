@@ -7,8 +7,10 @@
 	--color-foreground: #141316;
 	--color-border: #dbd8df;
 	--color-primary: #9c2d3d;
-	--color-secondary: #615c6d;
+	--color-secondary: #009ea4;
 	--color-lightRed: #fbe8e8;
+	--color-lightblue: #eefffd;
+	--color-grey: #615c6d;
 
 	--font-base: "Noto Sans", "Arial", sans-serif;
 }
