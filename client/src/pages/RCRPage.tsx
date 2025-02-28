@@ -1,3 +1,4 @@
+import { DocumentsList } from "@/components/DocumentsList";
 import RCRDetails from "@/components/RCRDetails";
 import BookSearchBar from "@/components/SearchBar/BookSearchBar";
 // import { useTranslation } from "react-i18next";
@@ -11,6 +12,7 @@ export default function BooksPage() {
 			<div className="py-6">
 				<BookSearchBar />
 			</div>
+			<DocumentsList />
 		</div>
 	);
 }

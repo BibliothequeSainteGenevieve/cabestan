@@ -94,7 +94,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen, 
 												subTitle: suggestion.subtitle,
 											})
 										}>
-										<span>
+										<span className="capitalize">
 											{suggestion.title} {suggestion.subtitle ? `- ${suggestion?.subtitle}` : ""}
 										</span>
 									</CommandItem>

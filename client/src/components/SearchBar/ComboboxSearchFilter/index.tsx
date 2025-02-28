@@ -56,7 +56,7 @@ export default function ComboboxSearchFilter({ type }: ComboboxSearchFilterProps
 							<ValueLabel key={slug} type={type} slug={slug} isLast={index === value.length - 1} />
 						))
 					) : (
-						<span>{t(`filters.${type}.placeholder`)}</span>
+						<span className="capitalize">{t(`filters.${type}.placeholder`)}</span>
 					)}
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
