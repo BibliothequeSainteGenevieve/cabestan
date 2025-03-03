@@ -130,7 +130,12 @@ export default function MapContent({ data, defaultBounds }: MapContentProps) {
 
 	return (
 		<>
-			<MarkerClusterGroup singleMarkerMode={true} iconCreateFunction={customIconCreateFunction}>
+			<MarkerClusterGroup
+				singleMarkerMode={true}
+				iconCreateFunction={customIconCreateFunction}
+				maxClusterRadius={140}
+				spiderfyOnMaxZoom={true}
+				spiderfyDistanceMultiplier={4}>
 				{data.map((establishment) =>
 					establishment.location?.latitude && establishment.location?.longitude ? (
 						<Marker
