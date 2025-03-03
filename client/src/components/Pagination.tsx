@@ -20,6 +20,8 @@ export default function ListPagination({ totalItems }: PaginationProps) {
 	const { t } = useTranslation();
 	const setFilterSearchParams = useSetFilterSearchParams();
 
+	if (totalItems === 0) return null;
+
 	return (
 		<div className="flex items-center justify-center gap-2 @md:gap-3 text-sm">
 			<div className="flex items-center gap-1 @md:gap-2">

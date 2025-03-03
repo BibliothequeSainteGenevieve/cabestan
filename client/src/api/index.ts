@@ -1,5 +1,6 @@
 import { MapRCR, RCR } from "@/models/RCR";
 import { GlobalSuggestionType } from "@/models/Suggestions";
+import { Document } from "@/models/Document";
 
 const API_HOST = import.meta.env.VITE_API_HOST ?? "localhost";
 const API_PROTOCOL = import.meta.env.VITE_API_PROTOCOL ?? "http";
@@ -134,5 +135,24 @@ export const getRCRDetails = async (rcr: string | undefined): Promise<getRCRDeta
 	if (!rcr) throw new Error("RCR is required");
 
 	const response = await fetch(`${getApiUrl(`/rcr/${rcr}/details`)}`, { headers: getApiHeaders() });
+	return response.json();
+};
+
+type getRCRBooksSearchResponse = {
+	pagination: {
+		totalResults: number;
+		currentPage: number;
+		itemsPerPage: number;
+		remainingItems: number;
+	};
+	items: Document[];
+};
+
+export const getRCRBooksSearch = async (rcr: string | undefined, searchParams: string): Promise<getRCRBooksSearchResponse> => {
+	if (!rcr) throw new Error("RCR is required");
+
+	const response = await fetch(`${getApiUrl(`/rcr/${rcr}/books/search`)}?${searchParams}`, {
+		headers: getApiHeaders(),
+	});
 	return response.json();
 };

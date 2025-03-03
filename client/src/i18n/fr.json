@@ -31,6 +31,19 @@
 		"startDate": "A partir du...",
 		"endDate": "Jusqu'au..."
 	},
+	"DocumentsList": {
+		"noResults": "Aucun résultat",
+		"title": "Titre",
+		"translator": "Traducteur",
+		"tags": "Tags",
+		"publicationDate": "Date de publication",
+		"publicationPlace": "Lieu de publication",
+		"author": "Auteur",
+		"publisher": "Editeur",
+		"type": "Type",
+		"language": "Langue",
+		"unknown": "Non renseigné"
+	},
 	"HomePage": {
 		"title": "Rechercher"
 	},
