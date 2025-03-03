@@ -19,13 +19,12 @@ export default function RCRList({ items }: RCRListProps) {
 		<div className="flex flex-col gap-4">
 			{items.map((rcr: RCR) => (
 				<Link
+					key={rcr.rcr}
 					to={{
 						pathname: routes.rcr.path.replace(":rcr", rcr.rcr),
 						search: searchParams.toString(),
 					}}>
-					<Card
-						key={rcr.rcr}
-						className="bg-white shadow-none border-none flex flex-row justify-between items-center gap-0 cursor-pointer">
+					<Card className="bg-white shadow-none border-none flex flex-row justify-between items-center gap-0 cursor-pointer">
 						<div>
 							<CardHeader className="pb-3">
 								<CardTitle>{rcr.name}</CardTitle>
