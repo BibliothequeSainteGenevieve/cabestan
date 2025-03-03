@@ -17,7 +17,7 @@ export function useSetFilterSearchParams() {
 			searchParams.delete(type);
 		}
 
-		if (type !== "page") {
+		if (type !== "page" && searchParams.get("page")) {
 			searchParams.set("page", "1");
 		}
 
