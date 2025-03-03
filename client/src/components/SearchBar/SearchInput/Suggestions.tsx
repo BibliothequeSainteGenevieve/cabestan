@@ -42,7 +42,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen, 
 	];
 
 	if (!isBookSearch) {
-		suggestionsSections.push({
+		suggestionsSections.unshift({
 			icon: <Landmark className="w-4 h-4" />,
 			type: GlobalSuggestionType.LIBRARY,
 		});
