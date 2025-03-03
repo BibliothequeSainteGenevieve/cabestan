@@ -74,6 +74,13 @@ export default function RCRSearchBar() {
 	if (isLoading || !data) return <div>{t("SearchBar.loading")}</div>;
 	if (error) return <div>{t("SearchBar.error", { error: error })}</div>;
 
+	const isResetButtonVisible =
+		searchParams.size > 0 &&
+		!(
+			(searchParams.size === 1 && (searchParams.get("page") || searchParams.get("itemsPerPage"))) ||
+			(searchParams.size === 2 && searchParams.get("page") && searchParams.get("itemsPerPage"))
+		);
+
 	return (
 		<div className="flex flex-wrap items-center gap-3">
 			<CommandSearch />
@@ -89,7 +96,7 @@ export default function RCRSearchBar() {
 					{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
 					{/* {isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />} */}
 					{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
-					{searchParams.size > 0 && <ResetFiltersButton />}
+					{isResetButtonVisible && <ResetFiltersButton />}
 				</div>
 				<div className="">
 					<PopoverMoreFilters filters={optionalFilters} />
