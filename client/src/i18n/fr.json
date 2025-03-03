@@ -78,7 +78,8 @@
 		"error": "Erreur lors du chargement des résultats",
 		"results": "Résultats",
 		"noResults": "Aucun résultat.",
-		"books": "{{count}} Ouvrages",
+		"books_one": "Ouvrage",
+		"books_other": "Ouvrages",
 		"rcrCode": "Code RCR",
 		"pagination": {
 			"resultsPerPage": "Résultats par page",

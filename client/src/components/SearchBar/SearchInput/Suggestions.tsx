@@ -42,7 +42,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen, 
 	];
 
 	if (!isBookSearch) {
-		suggestionsSections.push({
+		suggestionsSections.unshift({
 			icon: <Landmark className="w-4 h-4" />,
 			type: GlobalSuggestionType.LIBRARY,
 		});
@@ -60,7 +60,9 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen, 
 		setInputValue(`${searchString} - ${subTitle}`);
 		setFilterSearchParams([searchString], "string");
 		setFilterSearchParams([searchType], "type");
-		setFilterSearchParams([subTitle], "subtitle");
+		if (subTitle) {
+			setFilterSearchParams([subTitle], "subtitle");
+		}
 		setIsOpen(false);
 	};
 

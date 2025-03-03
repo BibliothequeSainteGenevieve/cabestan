@@ -21,7 +21,9 @@ export function CommandSearch({ isBookSearch }: CommandSearchProps) {
 
 	const [searchSuggestionsValue, setSearchSuggestionsValue] = useState<string>("");
 	const [inputValue, setInputValue] = useState<string>(
-		searchParams.get("string") ? `${searchParams.get("string")} - ${searchParams.get("subtitle")}` : ""
+		searchParams.get("string") && !(isBookSearch && searchParams.get("type") === "rcr")
+			? `${searchParams.get("string")} ${searchParams.get("subtitle") ? `- ${searchParams.get("subtitle")}` : ""}`
+			: ""
 	);
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -58,7 +60,7 @@ export function CommandSearch({ isBookSearch }: CommandSearchProps) {
 					placeholder={isBookSearch ? t("CommandSearch.placeholderBook") : t("CommandSearch.placeholder")}
 					value={inputValue}
 					onChange={(event) => handleChange(event.target.value)}
-					className="border-none shadow-none capitalize"
+					className={`border-none shadow-none ${inputValue ? "capitalize" : ""}`}
 				/>
 			</div>
 			{isOpen && (
