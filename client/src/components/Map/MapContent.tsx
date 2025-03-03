@@ -5,7 +5,11 @@ import L, { LatLngBoundsLiteral } from "leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import { MapRCR } from "@/models/RCR";
 import landmark from "@/assets/landmark.svg";
-import { Printer, Undo2 } from "lucide-react";
+import { ChevronRight, Printer, Undo2 } from "lucide-react";
+import { Button } from "../ui/button";
+import { Link, useSearchParams } from "react-router";
+import { routes } from "@/pages/routes";
+import { useTranslation } from "react-i18next";
 
 const customIconCreateFunction = (cluster: any) => {
 	const childMarkers = cluster.getAllChildMarkers();
@@ -18,18 +22,18 @@ const customIconCreateFunction = (cluster: any) => {
 	});
 
 	let className = " marker-cluster-";
-	if (totalBooks < 50) {
+	if (totalBooks < 1000) {
 		className += "small";
-	} else if (totalBooks < 100) {
+	} else if (totalBooks < 10000) {
 		className += "medium";
 	} else {
 		className += "large";
 	}
 
 	let size = 150;
-	if (totalBooks < 50) {
+	if (totalBooks < 1000) {
 		size = 60;
-	} else if (totalBooks < 100) {
+	} else if (totalBooks < 10000) {
 		size = 100;
 	}
 
@@ -69,7 +73,11 @@ type MapContentProps = {
 };
 
 export default function MapContent({ data, defaultBounds }: MapContentProps) {
+	const { t } = useTranslation();
 	const map = useMap();
+	const [searchParams] = useSearchParams();
+	searchParams.delete("page");
+	searchParams.delete("itemsPerPage");
 
 	const handleResetZoom = () => {
 		if (data && map) {
@@ -136,8 +144,22 @@ export default function MapContent({ data, defaultBounds }: MapContentProps) {
 									<span style={{ fontStyle: "italic" }}>{establishment.contact.address.street}</span>
 								</p>
 								<p style={{ fontWeight: "bold", textAlign: "center" }}>
-									<span style={{ fontWeight: "bold" }}>{establishment.numberOfDocuments} ouvrages</span>
+									<span style={{ fontWeight: "bold" }}>
+										{establishment.numberOfDocuments?.toLocaleString()}{" "}
+										{t("Map.documents", { count: establishment.numberOfDocuments })}
+									</span>
 								</p>
+								<div className="flex justify-center">
+									<Link
+										to={{
+											pathname: routes.rcr.path.replace(":rcr", establishment.rcr),
+											search: searchParams.toString(),
+										}}>
+										<Button variant="outline" size="sm" className="cursor-pointer">
+											{t("Map.details")} <ChevronRight size={16} />
+										</Button>
+									</Link>
+								</div>
 							</Popup>
 						</Marker>
 					) : null

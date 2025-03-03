@@ -52,7 +52,10 @@
 		"subtitle": "L'outil de recherche"
 	},
 	"Map": {
-		"error": "Erreur lors du chargement des données de la carte"
+		"details": "Détails",
+		"error": "Erreur lors du chargement des données de la carte",
+		"documents_one": "ouvrage",
+		"documents_other": "ouvrages"
 	},
 	"PopoverMoreFilters": {
 		"title": "Filtres avancés"
