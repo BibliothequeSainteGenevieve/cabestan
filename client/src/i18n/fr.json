@@ -629,7 +629,7 @@
 			}
 		},
 		"documentsTypes": {
-			"placeholder": "Type de livre",
+			"placeholder": "Type de document",
 			"options": {
 				"article": "Article",
 				"printed-monograph": "Monographie imprimée",
