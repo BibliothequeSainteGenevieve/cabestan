@@ -60,7 +60,9 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen, 
 		setInputValue(`${searchString} - ${subTitle}`);
 		setFilterSearchParams([searchString], "string");
 		setFilterSearchParams([searchType], "type");
-		setFilterSearchParams([subTitle], "subtitle");
+		if (subTitle) {
+			setFilterSearchParams([subTitle], "subtitle");
+		}
 		setIsOpen(false);
 	};
 
