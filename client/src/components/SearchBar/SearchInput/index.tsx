@@ -21,7 +21,9 @@ export function CommandSearch({ isBookSearch }: CommandSearchProps) {
 
 	const [searchSuggestionsValue, setSearchSuggestionsValue] = useState<string>("");
 	const [inputValue, setInputValue] = useState<string>(
-		searchParams.get("string") ? `${searchParams.get("string")} - ${searchParams.get("subtitle")}` : ""
+		searchParams.get("string") && !(isBookSearch && searchParams.get("type") === "rcr")
+			? `${searchParams.get("string")} - ${searchParams.get("subtitle")}`
+			: ""
 	);
 	const [isOpen, setIsOpen] = useState(false);
 
