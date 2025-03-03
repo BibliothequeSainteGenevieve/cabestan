@@ -39,6 +39,7 @@ export default function RCRList({ items }: RCRListProps) {
 								</p>
 								<p className="flex items-center gap-2 text-sm">
 									<BookOpen className="w-4 h-4" />
+									{rcr.numberOfDocuments.toLocaleString()}{" "}
 									{t("RCRList.books", { count: rcr.numberOfDocuments })}
 								</p>
 							</CardFooter>
