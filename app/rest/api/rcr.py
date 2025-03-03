@@ -2,7 +2,16 @@ from ninja import Router, Query, Schema
 from typing import Optional
 from ..models import Book, Editor, City, Rcr, Author
 from ..views import ClientConfigView
-from django.db.models import Q, Count, F
+from django.db.models import (
+    Q,
+    Count,
+    F,
+    Value,
+    IntegerField,
+    OuterRef,
+    Subquery,
+)
+from django.db.models.functions import Coalesce
 from datetime import datetime
 import csv
 from django.http import HttpResponse
@@ -39,139 +48,128 @@ class RcrSearchFilters(Schema):
 
 @router.get("/rcrs/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
-    queryset = Rcr.objects.select_related("city")
-    shouldCountBook = False
-
-    if filters.string:
-        search_value = filters.string
-        if filters.type == "rcr":
-            queryset = queryset.filter(
-                Q(rcr_number=search_value) | Q(title=search_value)
-            )
-        if filters.type == "editor":
-            shouldCountBook = True
-            queryset = queryset.filter(books__editor__title=search_value).distinct()
-        if filters.type == "author":
-            shouldCountBook = True
-            queryset = queryset.filter(
-                Q(books__author__lastname=search_value)
-                | Q(books__author__firstname=search_value),
-                books__author__type__label="author",
-            ).distinct()
-        if filters.type == "translator":
-            shouldCountBook = True
-            queryset = queryset.filter(
-                Q(books__translator__lastname=search_value)
-                | Q(books__translator__firstname=search_value),
-                books__translator__type__label="translator",
-            ).distinct()
-        if filters.type == "illustrator":
-            shouldCountBook = True
-            queryset = queryset.filter(
-                Q(books__illustrator__lastname=search_value)
-                | Q(books__illustrator__firstname=search_value),
-                books__illustrator__type__label="illustrator",
-            ).distinct()
-        if filters.type == "book":
-            shouldCountBook = True
-            queryset = queryset.filter(books__title=search_value).distinct()
+    # 1. Construction des conditions RCR
+    rcr_conditions = Q()
+    if filters.type == "rcr" and filters.string:
+        rcr_conditions &= Q(rcr_number=filters.string) | Q(title=filters.string)
 
     if filters.regions:
-        region_query = Q()
-        for region_id in filters.regions.split(","):
-            region_query |= Q(city__department__region_id=region_id.strip())
-        queryset = queryset.filter(region_query)
+        rcr_conditions &= Q(city__department__region_id__in=filters.regions.split(","))
 
     if filters.departments:
-        department_query = Q()
-        for department_id in filters.departments.split(","):
-            department_query |= Q(city__department_id=department_id.strip())
-        queryset = queryset.filter(department_query)
+        rcr_conditions &= Q(city__department_id__in=filters.departments.split(","))
 
     if filters.cities:
-        city_query = Q()
-        for city_id in filters.cities.split(","):
-            city_query |= Q(city_id=city_id.strip())
-        queryset = queryset.filter(city_query)
+        rcr_conditions &= Q(city_id__in=filters.cities.split(","))
 
     if filters.establishementsTypes:
-        rcr_query = Q()
-        for rcr_type in filters.establishementsTypes.split(","):
-            rcr_query |= Q(type__label=rcr_type.strip())
-        queryset = queryset.filter(rcr_query)
+        rcr_conditions &= Q(type__label__in=filters.establishementsTypes.split(","))
 
-    if filters.languages and filters.documentsTypes:
-        # Combiner les conditions sur les livres en une seule jointure
-        book_conditions = Q()
-        if filters.languages:
-            book_conditions &= Q(books__lang__iso_code__in=filters.languages.split(","))
-        if filters.documentsTypes:
-            book_conditions &= Q(
-                books__type__label__in=filters.documentsTypes.split(",")
-            )
-        queryset = queryset.filter(book_conditions).distinct()
-        shouldCountBook = True
-    else:
-        # Appliquer les filtres séparément si un seul est présent
-        if filters.languages:
-            queryset = queryset.filter(
-                books__lang__iso_code__in=filters.languages.split(",")
-            ).distinct()
-            shouldCountBook = True
-        if filters.documentsTypes:
-            queryset = queryset.filter(
-                books__type__label__in=filters.documentsTypes.split(",")
-            ).distinct()
-            shouldCountBook = True
+    # 2. Construction des conditions Book
+    book_conditions = Q()
+    if filters.string:
+        if filters.type == "editor":
+            book_conditions &= Q(editor__title=filters.string)
+        elif filters.type == "author":
+            book_conditions &= (
+                Q(author__lastname=filters.string) | Q(author__firstname=filters.string)
+            ) & Q(author__type__label="author")
+        elif filters.type == "translator":
+            book_conditions &= (
+                Q(translator__lastname=filters.string)
+                | Q(translator__firstname=filters.string)
+            ) & Q(translator__type__label="translator")
+        elif filters.type == "illustrator":
+            book_conditions &= (
+                Q(illustrator__lastname=filters.string)
+                | Q(illustrator__firstname=filters.string)
+            ) & Q(illustrator__type__label="illustrator")
+        elif filters.type == "book":
+            book_conditions &= Q(title=filters.string)
+
+    if filters.languages:
+        book_conditions &= Q(lang__iso_code__in=filters.languages.split(","))
+
+    if filters.documentsTypes:
+        book_conditions &= Q(type__label__in=filters.documentsTypes.split(","))
 
     if filters.publishers:
-        shouldCountBook = True
-        publisher_query = Q()
-        for pub in filters.publishers.split(","):
-            publisher_query |= Q(books__editor__id=pub.strip())
-        queryset = queryset.filter(publisher_query).distinct()
+        book_conditions &= Q(editor__id__in=filters.publishers.split(","))
 
     if filters.publicationDatesStart:
-        shouldCountBook = True
-        publication_date_start = datetime.fromtimestamp(
-            filters.publicationDatesStart / 1000
+        book_conditions &= Q(
+            publication_date__gte=datetime.fromtimestamp(
+                filters.publicationDatesStart / 1000
+            )
         )
-
-        queryset = queryset.filter(books__publication_date__gte=publication_date_start)
 
     if filters.publicationDatesEnd:
-        shouldCountBook = True
-        publication_date_end = datetime.fromtimestamp(
-            filters.publicationDatesEnd / 1000
+        book_conditions &= Q(
+            publication_date__lte=datetime.fromtimestamp(
+                filters.publicationDatesEnd / 1000
+            )
         )
-        queryset = queryset.filter(books__publication_date__lte=publication_date_end)
+
     if filters.reeditionDatesStart:
-        shouldCountBook = True
-        reedition_date_start = datetime.fromtimestamp(
-            filters.reeditionDatesStart / 1000
+        book_conditions &= Q(
+            reedition_date__gte=datetime.fromtimestamp(
+                filters.reeditionDatesStart / 1000
+            )
         )
-        queryset = queryset.filter(books__reedition_date__gte=reedition_date_start)
 
     if filters.reeditionDatesEnd:
-        shouldCountBook = True
-        reedition_date_end = datetime.fromtimestamp(filters.reeditionDatesEnd / 1000)
-        queryset = queryset.filter(books__reedition_date__lte=reedition_date_end)
-
-    # calculate books count
-    if shouldCountBook:
-        queryset = queryset.annotate(calculated_books_count=Count("books"))
-        queryset = queryset.order_by(
-            F("calculated_books_count").desc(nulls_last=True), "title"
+        book_conditions &= Q(
+            reedition_date__lte=datetime.fromtimestamp(filters.reeditionDatesEnd / 1000)
         )
 
-    else:
-        queryset = queryset.order_by(F("books_count").desc(nulls_last=True), "title")
+    # 3. Récupération des IDs des RCR filtrés
+    filtered_rcr_ids = (
+        set(Rcr.objects.filter(rcr_conditions).values_list("id", flat=True))
+        if rcr_conditions
+        else set(Rcr.objects.values_list("id", flat=True))
+    )
 
+    # 4. Si des filtres de livres sont présents
+    if book_conditions:
+        # Récupérer les RCR et leur compte de livres en une seule requête
+        book_counts = (
+            Book.objects.filter(book_conditions)
+            .values("rcr_id")
+            .annotate(count=Count("id"))
+            .filter(rcr_id__in=filtered_rcr_ids)
+        )
+
+        # Convertir en dictionnaire pour un accès rapide
+        rcr_book_counts = {item["rcr_id"]: item["count"] for item in book_counts}
+
+        # Mettre à jour filtered_rcr_ids pour ne garder que les RCR avec des livres
+        filtered_rcr_ids &= set(rcr_book_counts.keys())
+
+    # 5. Construction de la requête finale
+    queryset = list(
+        Rcr.objects.filter(id__in=filtered_rcr_ids).select_related(
+            "city", "city__department", "city__department__region"
+        )
+    )
+
+    # 6. Ajout des comptages et tri
+    if book_conditions:
+        # Ajouter le compte de livres à chaque RCR
+        for rcr in queryset:
+            rcr.calculated_books_count = rcr_book_counts.get(rcr.id, 0)
+
+        # Tri en Python
+        queryset.sort(key=lambda x: (-x.calculated_books_count, x.title))
+    else:
+        # Tri par le books_count existant
+        queryset.sort(key=lambda x: (-x.books_count, x.title))
+
+    # 7. Pagination et réponse
     if not filters.map_format:
-        total = queryset.count()
+        total = len(queryset)
         start = (filters.page - 1) * filters.per_page
         end = start + filters.per_page
-        queryset = queryset[start:end]
+        paginated_queryset = queryset[start:end]
 
         response = {
             "pagination": {
@@ -180,11 +178,11 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
                 "itemsPerPage": filters.per_page,
                 "remainingItems": max(0, total - (filters.page * filters.per_page)),
             },
-            "items": RcrSerializer(queryset, many=True).data,
+            "items": RcrSerializer(paginated_queryset, many=True).data,
         }
     else:
         response = RcrSerializer(queryset, many=True).data
-    print(queryset.query)
+
     return response
 
 
