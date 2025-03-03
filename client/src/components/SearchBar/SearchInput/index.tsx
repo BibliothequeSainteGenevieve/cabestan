@@ -58,7 +58,7 @@ export function CommandSearch({ isBookSearch }: CommandSearchProps) {
 					placeholder={isBookSearch ? t("CommandSearch.placeholderBook") : t("CommandSearch.placeholder")}
 					value={inputValue}
 					onChange={(event) => handleChange(event.target.value)}
-					className="border-none shadow-none capitalize"
+					className={`border-none shadow-none ${inputValue ? "capitalize" : ""}`}
 				/>
 			</div>
 			{isOpen && (
