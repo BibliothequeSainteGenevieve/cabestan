@@ -34,7 +34,7 @@ export default function RCRDetails() {
 			<h1 className="pb-4">{rcrDetails.name}</h1>
 			<div className="flex gap-4">
 				{rcrDetails.contact.website && (
-					<a href={rcrDetails.contact.website} target="_blank">
+					<a href={rcrDetails.contact.website} target="_blank" className="underline underline-offset-1">
 						<Button variant="action">
 							<ExternalLink /> {rcrDetails.contact.website}
 						</Button>
@@ -72,6 +72,7 @@ export default function RCRDetails() {
 					<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.address")}</p>
 					<p className="font-light">
 						<a
+							className="underline underline-offset-1"
 							href={`https://maps.google.com/?q=${rcrDetails.name} ${rcrDetails.contact.address?.street} ${rcrDetails.contact.address?.postalCode} ${rcrDetails.contact.address?.city}, ${rcrDetails.contact.address?.country}`}
 							target="_blank">
 							{rcrDetails.contact.address?.street}, {rcrDetails.contact.address?.postalCode}
@@ -84,7 +85,9 @@ export default function RCRDetails() {
 					<div className="flex-1">
 						<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.contact")}</p>
 						<p className="font-light">
-							<a href={`mailto:${rcrDetails.contact.email}`}>{rcrDetails.contact.email}</a>
+							<a className="underline underline-offset-1" href={`mailto:${rcrDetails.contact.email}`}>
+								{rcrDetails.contact.email}
+							</a>
 						</p>
 					</div>
 				)}
