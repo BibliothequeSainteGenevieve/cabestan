@@ -45,7 +45,7 @@ export default function Home() {
 							{rcrList?.items.length === 0 && <p className="text-gray-500 w-full">{t("RCRList.noResults")}</p>}
 							{rcrList?.items.length > 0 && (
 								<>
-									<div className="pr-4  md:h-[calc(100vh-26rem)] lg:h-[calc(100vh-23rem)] overflow-y-auto">
+									<div className="pr-4  md:h-[calc(100vh-26rem)] lg:h-[calc(100vh-24rem)] overflow-y-auto">
 										<RCRList items={rcrList?.items || []} />
 									</div>
 
