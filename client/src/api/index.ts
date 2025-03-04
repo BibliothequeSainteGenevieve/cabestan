@@ -108,6 +108,10 @@ export const getRCRExportCSV = async (searchParams: string): Promise<void> => {
 	window.open(`${getApiUrl("/rcrs/export")}${searchParams ? `?${searchParams}` : ""}`);
 };
 
+export const getDocumentsExportCSV = async (rcr: string, searchParams: string): Promise<void> => {
+	window.open(`${getApiUrl(`/rcr/${rcr}/books/export`)}${searchParams ? `?${searchParams}` : ""}`);
+};
+
 type getRCRDetailsResponse = {
 	website: string;
 	phone: string;
