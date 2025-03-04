@@ -10,6 +10,7 @@ import { getClientConfig } from "@/api";
 import ComboboxSearchFilter from "./ComboboxSearchFilter";
 import { OptionalFilter, FilterTypes } from "@/models/Filters";
 import ResetFiltersButton from "./ResetFiltersButton";
+import SwitchNullValues from "./SwitchNullValues";
 
 export default function RCRSearchBar() {
 	const { t } = useTranslation();
@@ -82,26 +83,29 @@ export default function RCRSearchBar() {
 		);
 
 	return (
-		<div className="flex flex-wrap items-center gap-3">
-			<CommandSearch />
-			<div className="flex flex-wrap lg:flex-nowrap items-center justify-between flex-1 gap-3">
-				<div className="flex flex-wrap items-center gap-2">
-					<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
-					<ComboboxFilter type={FilterTypes.ESTABLISHMENTS_TYPES} options={data.establishementsTypes} />
-					<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.documentsTypes} />
-					{isRegionFilterOpen && <ComboboxFilter type={FilterTypes.REGIONS} options={data.regions} />}
-					{isDepartmentFilterOpen && <ComboboxFilter type={FilterTypes.DEPARTMENTS} options={data.departments} />}
-					{isCityFilterOpen && <ComboboxSearchFilter type={FilterTypes.CITIES} />}
-					{isPublisherFilterOpen && <ComboboxSearchFilter type={FilterTypes.PUBLISHERS} />}
-					{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
-					{/* {isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />} */}
-					{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
-					{isResetButtonVisible && <ResetFiltersButton />}
-				</div>
-				<div className="">
-					<PopoverMoreFilters filters={optionalFilters} />
+		<div>
+			<div className="flex flex-wrap items-center gap-3">
+				<CommandSearch />
+				<div className="flex flex-wrap lg:flex-nowrap items-center justify-between flex-1 gap-3">
+					<div className="flex flex-wrap items-center gap-2">
+						<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
+						<ComboboxFilter type={FilterTypes.ESTABLISHMENTS_TYPES} options={data.establishementsTypes} />
+						<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.documentsTypes} />
+						{isRegionFilterOpen && <ComboboxFilter type={FilterTypes.REGIONS} options={data.regions} />}
+						{isDepartmentFilterOpen && <ComboboxFilter type={FilterTypes.DEPARTMENTS} options={data.departments} />}
+						{isCityFilterOpen && <ComboboxSearchFilter type={FilterTypes.CITIES} />}
+						{isPublisherFilterOpen && <ComboboxSearchFilter type={FilterTypes.PUBLISHERS} />}
+						{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
+						{/* {isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />} */}
+						{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
+						{isResetButtonVisible && <ResetFiltersButton />}
+					</div>
+					<div className="">
+						<PopoverMoreFilters filters={optionalFilters} />
+					</div>
 				</div>
 			</div>
+			<SwitchNullValues />
 		</div>
 	);
 }

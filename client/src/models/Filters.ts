@@ -9,6 +9,7 @@ export enum FilterTypes {
 	PUBLICATION_DATES = "publicationDates",
 	TRANSLATION_DATES = "translationDates",
 	REISSUE_DATES = "reissueDates",
+	NULL_VALUES = "nullValues",
 }
 
 export type OptionalFilter = {

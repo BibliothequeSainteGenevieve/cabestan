@@ -92,7 +92,8 @@
 	"SearchBar": {
 		"loading": "Chargement des filtres...",
 		"error": "Erreur lors du chargement des filtres: {error.message}",
-		"resetFilters": "Supprimer tous les filtres"
+		"resetFilters": "Supprimer tous les filtres",
+		"includeUnknown": "Inclure les valeurs non renseignées"
 	},
 	"filters": {
 		"languages": {
