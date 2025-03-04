@@ -44,6 +44,9 @@
 		"language": "Langue",
 		"unknown": "Non renseigné"
 	},
+	"Export": {
+		"csv": "CSV"
+	},
 	"HomePage": {
 		"title": "Rechercher"
 	},
@@ -66,16 +69,6 @@
 		"address": "Adresse",
 		"contact": "Contact",
 		"addressTooltip": "Ouvrir dans Google Maps"
-	},
-	"RCRExport": {
-		"button": "Exporter",
-		"title": "Exporter les résultats",
-		"description": "Exporter les résultats de la recherche en format CSV ou imprimez la page.",
-		"format": "Format",
-		"formatOptions": {
-			"csv": "CSV",
-			"print": "Imprimer"
-		}
 	},
 	"RCRList": {
 		"error": "Erreur lors du chargement des résultats",
