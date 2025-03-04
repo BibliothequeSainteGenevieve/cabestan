@@ -17,9 +17,12 @@ export default function ResetFiltersButton() {
 						size="sm"
 						className="bg-foreground text-white cursor-pointer"
 						onClick={() => {
-							navigate({
-								pathname: location.pathname,
-							});
+							navigate(
+								{
+									pathname: location.pathname,
+								},
+								{ replace: true }
+							);
 							navigate(0);
 						}}>
 						<X className="w-4 h-4" />
