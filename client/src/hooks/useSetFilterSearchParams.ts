@@ -21,10 +21,13 @@ export function useSetFilterSearchParams() {
 			searchParams.set("page", "1");
 		}
 
-		navigate({
-			pathname: location.pathname,
-			search: searchParams.toString(),
-		});
+		navigate(
+			{
+				pathname: location.pathname,
+				search: searchParams.toString(),
+			},
+			{ replace: true }
+		);
 	}
 
 	return setFilterSearchParams;
