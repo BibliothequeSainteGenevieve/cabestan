@@ -2,6 +2,7 @@ export enum FilterTypes {
 	LANGUAGES = "languages",
 	ESTABLISHMENTS_TYPES = "establishementsTypes",
 	BOOKS_TYPES = "documentsTypes",
+	TERRITORIES = "territories",
 	REGIONS = "regions",
 	DEPARTMENTS = "departments",
 	CITIES = "cities",

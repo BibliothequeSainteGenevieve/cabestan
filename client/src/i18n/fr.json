@@ -658,6 +658,14 @@
 				"abroad": "À l'étranger"
 			}
 		},
+		"territories": {
+			"placeholder": "Territoire",
+			"options": {
+				"metropole": "Métropole",
+				"drom": "DROM",
+				"abroad": "À l'étranger"
+			}
+		},
 		"regions": {
 			"placeholder": "Région",
 			"options": {

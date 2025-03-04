@@ -17,6 +17,7 @@ export default function RCRSearchBar() {
 	const { data, isLoading, error } = useQuery({ queryKey: ["clientConfig"], queryFn: getClientConfig });
 	const [searchParams] = useSearchParams();
 
+	const [isTerritoriesFilterOpen, setIsTerritoriesFilterOpen] = useState(searchParams.get("territories") ? true : false);
 	const [isRegionFilterOpen, setIsRegionFilterOpen] = useState(searchParams.get("regions") ? true : false);
 	const [isDepartmentFilterOpen, setIsDepartmentFilterOpen] = useState(searchParams.get("departments") ? true : false);
 	const [isCityFilterOpen, setIsCityFilterOpen] = useState(searchParams.get("cities") ? true : false);
@@ -32,6 +33,11 @@ export default function RCRSearchBar() {
 	);
 
 	const optionalFilters: OptionalFilter[] = [
+		{
+			filter: FilterTypes.TERRITORIES,
+			isOpen: isTerritoriesFilterOpen,
+			setIsOpen: setIsTerritoriesFilterOpen,
+		},
 		{
 			filter: FilterTypes.REGIONS,
 			isOpen: isRegionFilterOpen,
@@ -91,6 +97,7 @@ export default function RCRSearchBar() {
 						<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
 						<ComboboxFilter type={FilterTypes.ESTABLISHMENTS_TYPES} options={data.establishementsTypes} />
 						<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.documentsTypes} />
+						{isTerritoriesFilterOpen && <ComboboxFilter type={FilterTypes.TERRITORIES} options={data.territories} />}
 						{isRegionFilterOpen && <ComboboxFilter type={FilterTypes.REGIONS} options={data.regions} />}
 						{isDepartmentFilterOpen && <ComboboxFilter type={FilterTypes.DEPARTMENTS} options={data.departments} />}
 						{isCityFilterOpen && <ComboboxSearchFilter type={FilterTypes.CITIES} />}

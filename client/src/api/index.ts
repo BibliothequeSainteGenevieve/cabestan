@@ -20,6 +20,7 @@ type getClientConfigResponse = {
 	documentsTypes: { slug: string }[];
 	regions: { slug: string }[];
 	departments: { slug: string }[];
+	territories: { slug: string }[];
 };
 
 export const getClientConfig = async (): Promise<getClientConfigResponse> => {
