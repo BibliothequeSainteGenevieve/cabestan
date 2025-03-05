@@ -45,7 +45,9 @@ export function BooksListLine({ document }: BooksListLineProps) {
 						<p>
 							<span className="uppercase text-grey text-xs">{t("DocumentsList.translator")} :</span>
 							<br />
-							{document.translator ? document.translator : t("DocumentsList.unknown")}
+							{document.translator
+								? document.translator?.firstname + " " + document.translator?.lastname
+								: t("DocumentsList.unknown")}
 						</p>
 						<p>
 							<span className="uppercase text-grey text-xs">{t("DocumentsList.publicationPlace")} :</span>

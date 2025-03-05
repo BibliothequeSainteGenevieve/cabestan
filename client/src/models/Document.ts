@@ -4,7 +4,10 @@ export type Document = {
 		firstname: string;
 		lastname: string;
 	};
-	translator?: string;
+	translator?: {
+		firstname: string;
+		lastname: string;
+	};
 	publisher?: string;
 	publication_date?: string;
 	publication_city?: string;
