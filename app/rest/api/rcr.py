@@ -39,7 +39,7 @@ class RcrSearchFilters(Schema):
     publishers: Optional[str] = None
     map_format: Optional[bool] = False
     page: int = 1
-    per_page: int = 20
+    itemsPerPage: int = 20
     publicationDatesStart: Optional[int] = None
     publicationDatesEnd: Optional[int] = None
     reeditionDatesStart: Optional[int] = None
@@ -167,16 +167,16 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     # 7. Pagination et réponse
     if not filters.map_format:
         total = len(queryset)
-        start = (filters.page - 1) * filters.per_page
-        end = start + filters.per_page
+        start = (filters.page - 1) * filters.itemsPerPage
+        end = start + filters.itemsPerPage
         paginated_queryset = queryset[start:end]
 
         response = {
             "pagination": {
                 "totalResults": total,
                 "currentPage": filters.page,
-                "itemsPerPage": filters.per_page,
-                "remainingItems": max(0, total - (filters.page * filters.per_page)),
+                "itemsPerPage": filters.itemsPerPage,
+                "remainingItems": max(0, total - (filters.page * filters.itemsPerPage)),
             },
             "items": RcrSerializer(paginated_queryset, many=True).data,
         }
