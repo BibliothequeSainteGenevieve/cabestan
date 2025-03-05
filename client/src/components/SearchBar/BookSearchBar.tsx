@@ -53,21 +53,23 @@ export default function RCRSearchBar() {
 	if (error) return <div>{t("SearchBar.error", { error: error })}</div>;
 
 	return (
-		<div className="flex flex-wrap items-center gap-3">
-			<CommandSearch isBookSearch />
-			<div className="flex flex-wrap lg:flex-nowrap items-center justify-between flex-1 gap-3">
-				<div className="flex flex-wrap items-center gap-2">
-					<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
-					<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.documentsTypes} />
-					<ComboboxSearchFilter type={FilterTypes.PUBLISHERS} />
-					{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
-					{/* {isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />} */}
-					{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
-					{searchParams.size > 0 && <ResetFiltersButton />}
-				</div>
-				<div className="flex items-center gap-2">
-					<PopoverMoreFilters filters={optionalFilters} />
-					<DocumentsExport />
+		<div>
+			<div className="flex flex-wrap items-center gap-3">
+				<CommandSearch isBookSearch />
+				<div className="flex flex-wrap lg:flex-nowrap items-center justify-between flex-1 gap-3">
+					<div className="flex flex-wrap items-center gap-2">
+						<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
+						<ComboboxFilter type={FilterTypes.BOOKS_TYPES} options={data.documentsTypes} />
+						<ComboboxSearchFilter type={FilterTypes.PUBLISHERS} />
+						{isPublicationDateFilterOpen && <DateRangePicker type={FilterTypes.PUBLICATION_DATES} />}
+						{/* {isTranslationDateFilterOpen && <DateRangePicker type={FilterTypes.TRANSLATION_DATES} />} */}
+						{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
+						{searchParams.size > 0 && <ResetFiltersButton />}
+					</div>
+					<div className="flex items-center gap-2">
+						<PopoverMoreFilters filters={optionalFilters} />
+						<DocumentsExport />
+					</div>
 				</div>
 			</div>
 			<SwitchNullValues />
