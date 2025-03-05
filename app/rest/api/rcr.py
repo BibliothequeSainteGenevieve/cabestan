@@ -304,9 +304,12 @@ class SuggestionsSearchFilters(Schema):
 @router.get("/suggestions/search")
 def search_suggestions(request, filters: SuggestionsSearchFilters = Query(...)):
     books = Book.objects.filter(title__icontains=filters.str).values("title")[:3]
-    rcr = Rcr.objects.filter(title__icontains=filters.str).values(
-        "title", "rcr_number"
-    )[:3]
+
+    rcr_conditions = Q(title__icontains=filters.str) | Q(
+        rcr_number__icontains=filters.str
+    )
+
+    rcr = Rcr.objects.filter(rcr_conditions).values("title", "rcr_number")[:3]
     authors = (
         Author.objects.filter(lastname__icontains=filters.str)
         .filter(type__label="author")
