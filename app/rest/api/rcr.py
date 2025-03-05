@@ -38,6 +38,7 @@ class RcrSearchFilters(Schema):
     documentsTypes: Optional[str] = None
     publishers: Optional[str] = None
     map_format: Optional[bool] = False
+    territories: Optional[str] = None
     page: int = 1
     itemsPerPage: int = 20
     publicationDatesStart: Optional[int] = None
@@ -64,6 +65,9 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
 
     if filters.establishementsTypes:
         rcr_conditions &= Q(type__label__in=filters.establishementsTypes.split(","))
+
+    if filters.territories:
+        rcr_conditions &= Q(country_type__label__in=filters.territories.split(","))
 
     # 2. Construction des conditions Book
     book_conditions = Q()
