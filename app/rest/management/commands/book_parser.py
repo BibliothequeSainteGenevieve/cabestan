@@ -281,31 +281,19 @@ class UnimarcBookParser:
         field = self._get_datafields("454")
         if not field:
             return None
+        else:
+            print("found translated of")
 
-        return {
-            "title": self.sanitize_string(self._get_subfield_value("454", "t")),
-            "language": self.sanitize_string(self._get_subfield_value("454", "m")),
-            "ppn": self.sanitize_string(self._get_subfield_value("454", "0")),
-        }
+        return self.sanitize_string(self._get_subfield_value("454", "t"))
 
     def get_translated_as(self) -> List[Dict]:
         """Extrait les informations sur les traductions (453)"""
         translations = []
         for field in self._get_datafields("453"):
-            translation = {
-                "title": self.sanitize_string(
-                    self._get_subfield_from_field(field, "t")
-                ),
-                "language": self.sanitize_string(
-                    self._get_subfield_from_field(field, "m")
-                ),
-                "ppn": self.sanitize_string(self._get_subfield_from_field(field, "0")),
-            }
-            if any(
-                translation.values()
-            ):  # N'ajoute que si au moins un champ n'est pas nul
+            translation = self._get_subfield_from_field(field, "t")
+            if translation:
                 translations.append(translation)
-        return translations if translations else None
+        return ",".join(translations) if translations else None
 
     def get_tags(self) -> List[str]:
         """Extrait les tags/sujets du livre (zones 600-619)"""
