@@ -32,6 +32,9 @@ class BookSearchFilters(Schema):
     documentsTypes: Optional[str] = None
     page: int = 1
     itemsPerPage: int = 20
+    type: Optional[str] = None
+    subtitle: Optional[str] = None
+    string: Optional[str] = None
 
 
 @router.get("/rcr/{rcr_number}/books/search")
@@ -40,8 +43,6 @@ def get_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(.
     conditions = Q(rcr__rcr_number=rcr_number)
 
     # Ajout des filtres conditionnels
-    if filters.title:
-        conditions &= Q(title__icontains=filters.title)
 
     # Filtres commentés conservés pour référence
     # if filters.translated_title:
@@ -49,23 +50,34 @@ def get_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(.
     # if filters.original_title:
     #     conditions &= Q(original_title__icontains=filters.original_title)
 
-    if filters.author_name:
-        conditions &= Q(author__firstname__icontains=filters.author_name) | Q(
-            author__lastname__icontains=filters.author_name
+    if filters.type == "book":
+        conditions &= Q(title=filters.string)
+
+    if filters.type == "author" and filters.string and filters.subtitle:
+        conditions &= Q(author__firstname=filters.string) & Q(
+            author__lastname=filters.subtitle
         )
 
-    if filters.translator_name:
-        conditions &= Q(translator__firstname__icontains=filters.translator_name) | Q(
-            translator__lastname__icontains=filters.translator_name
+    if filters.type == "illustrator" and filters.string and filters.subtitle:
+        conditions &= Q(illustrator__firstname=filters.string) & Q(
+            illustrator__lastname=filters.subtitle
         )
     if filters.documentsTypes:
         conditions &= Q(type__label__in=filters.documentsTypes.split(","))
 
+    if filters.type == "translator" and filters.string and filters.subtitle:
+        conditions &= Q(translator__firstname=filters.string) & Q(
+            translator__lastname=filters.subtitle
+        )
+
+    if filters.documentsTypes:
+        conditions &= Q(type__label__in=filters.documentsTypes.split(","))
+
     if filters.publishers:
-        conditions &= Q(editor__id__in=filters.publishers.split(","))
+        conditions &= Q(editor__in=filters.publishers.split(","))
 
     if filters.publication_city:
-        conditions &= Q(publication_city__icontains=filters.publication_city)
+        conditions &= Q(publication_city=filters.publication_city)
 
     if filters.languages:
         conditions &= Q(lang__iso_code__in=filters.languages.split(","))
@@ -114,7 +126,6 @@ def get_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(.
         },
         "items": BookSerializer(queryset, many=True).data,
     }
-
     return response
 
 
