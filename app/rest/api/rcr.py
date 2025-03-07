@@ -227,7 +227,7 @@ def export_rcr(request, filters: RcrSearchFilters = Query(...)):
 
 @router.get("/rcr/{rcr_number}/details")
 def get_rcr_details(request, rcr_number: str):
-    rcr = Rcr.objects.prefetch_related("books").get(rcr_number=rcr_number)
+    rcr = Rcr.objects.get(rcr_number=rcr_number)
     return RcrDetailsSerializer(rcr).data
 
 
