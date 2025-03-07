@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Lang, RcrType, BookType, Department, Region
+from ..models import Lang, RcrType, BookType, Department, Region, CountryType
 
 
 class ConfigLangSerializer(serializers.ModelSerializer):
@@ -55,3 +55,14 @@ class ConfigRegionSerializer(serializers.ModelSerializer):
 
     def get_slug(self, obj):
         return str(obj.id).zfill(2)  # Pour avoir "01" au lieu de "1"
+
+
+class ConfigTerritorySerializer(serializers.ModelSerializer):
+    slug = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CountryType
+        fields = ["slug", "label"]
+
+    def get_slug(self, obj):
+        return obj.label
