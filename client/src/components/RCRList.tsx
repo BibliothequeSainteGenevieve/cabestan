@@ -25,25 +25,25 @@ export default function RCRList({ items }: RCRListProps) {
 						search: searchParams.toString(),
 					}}>
 					<Card className="bg-white shadow-none border-none flex flex-row justify-between items-center gap-0 cursor-pointer">
-						<div>
+						<div className="flex-1">
 							<CardHeader className="pb-3">
 								<CardTitle>{rcr.name}</CardTitle>
 								<CardDescription className="text-sm">
 									{rcr.contact.address.street}, {rcr.contact.address.postalCode} {rcr.contact.address.city}
 								</CardDescription>
 							</CardHeader>
-							<CardFooter className="flex gap-5 text-primary">
-								<p className="text-sm">
+							<CardFooter className="w-full flex gap-3 text-primary">
+								<p className="flex-1 text-sm">
 									<span className="font-bold">{t("RCRList.rcrCode")}</span> {rcr.rcr}
 								</p>
-								<p className="flex items-center gap-2 text-sm">
+								<p className="flex-1 flex items-center gap-2 text-sm">
 									<BookOpen className="w-4 h-4" />
 									{rcr.numberOfDocuments.toLocaleString()}{" "}
 									{t("RCRList.books", { count: rcr.numberOfDocuments })}
 								</p>
 							</CardFooter>
 						</div>
-						<div className="p-6">
+						<div className="pr-6 pl-4">
 							<ChevronRight className="w-4 h-4" />
 						</div>
 					</Card>
