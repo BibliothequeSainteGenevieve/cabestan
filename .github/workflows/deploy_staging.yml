@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-      - "fix/nginx-redirection"
+      - "feat/non-unique-ppn"
 env:
   COMPOSE_PROJECT_NAME: ${{vars.COMPOSE_PROJECT_NAME}}
   DJANGO_SUPERUSER_USERNAME: ${{vars.DJANGO_SUPERUSER_USERNAME}}
@@ -32,8 +32,8 @@ env:
 
 jobs:
   deploy_staging:
-    environment: staging
-    runs-on: [self-hosted, staging, cabestan]
+    environment: new-staging
+    runs-on: [self-hosted, new-staging, new-cabestan]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4

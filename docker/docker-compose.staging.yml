@@ -62,8 +62,8 @@ services:
       context: .
       dockerfile: nginx/nginx_dockerfile
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:80"
+      - "8443:443"
     depends_on:
       - cabestan
     restart: always
