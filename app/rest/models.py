@@ -143,7 +143,8 @@ class BookTags(models.Model):
 
 
 class Book(models.Model):
-    ppn = models.CharField(max_length=200, unique=True, default="")
+    unique_identifier = models.CharField(max_length=200, unique=True, default="")
+    ppn = models.CharField(max_length=200, unique=False, default="")
     title = models.TextField(max_length=200, null=True, blank=True)
     lang = models.ForeignKey(Lang, on_delete=models.CASCADE, null=True, blank=True)
     type = models.ForeignKey(BookType, on_delete=models.CASCADE, null=True, blank=True)

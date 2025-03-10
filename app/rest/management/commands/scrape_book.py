@@ -21,6 +21,7 @@ import datetime
 from cabestan.config import get_config
 import pytz
 from typing import Dict
+import traceback
 
 
 class Command(BaseCommand):
@@ -40,12 +41,18 @@ class Command(BaseCommand):
         self.cities = list(City.objects.all())
         self.authorTypes = list(AuthorType.objects.all())
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--rcr_number",
+            type=int,
+        )
+
     def handle(self, *args, **options):
         self.url = get_config("URL_SUDOC")
         print("Importing book data")
         self.get_initial_data()
-        if args:
-            rcrs = Rcr.objects.filter(id__in=args)
+        if options["rcr_number"]:
+            rcrs = Rcr.objects.filter(rcr_number=options["rcr_number"])
         else:
             rcrs = Rcr.objects.filter(
                 Q(
@@ -60,6 +67,7 @@ class Command(BaseCommand):
                 rcr.last_scraped_date = datetime.datetime.now(tz=pytz.UTC)
                 rcr.save()
             except Exception as e:
+                print(traceback.format_exc())
                 print(f"Error parsing rcr {rcr.rcr_number}: {e}")
             print(" ")
 
@@ -256,6 +264,7 @@ class Command(BaseCommand):
 
             books_to_create.append(
                 Book(
+                    unique_identifier=book_data["physical_copy_id"],
                     ppn=book_data["ppn"],
                     title=book_data["title"],
                     lang_id=next(
@@ -315,8 +324,9 @@ class Command(BaseCommand):
         created_books = Book.objects.bulk_create(
             books_to_create,
             update_conflicts=True,
-            unique_fields=["ppn"],
+            unique_fields=["unique_identifier"],
             update_fields=[
+                "ppn",
                 "title",
                 "lang_id",
                 "type_id",
@@ -337,9 +347,11 @@ class Command(BaseCommand):
             ],
         )
 
+        print(f"Created {len(created_books)} books")
+
         for book in created_books:
             for to_create_book in books_data:
-                if to_create_book["ppn"] == book.ppn:
+                if to_create_book["physical_copy_id"] == book.unique_identifier:
                     for tag in to_create_book["tags"]:
                         tag_obj, created = BookTags.objects.update_or_create(tag=tag)
                         book.tags.add(tag_obj)

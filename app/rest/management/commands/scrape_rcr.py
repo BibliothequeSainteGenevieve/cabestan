@@ -50,6 +50,8 @@ class Command(BaseCommand):
             )
 
             books_count = self.find_books_count(rcr)
+            if not books_count:
+                books_count = 0
 
             rcr_obj = Rcr.objects.update_or_create(
                 rcr_number=rcr,

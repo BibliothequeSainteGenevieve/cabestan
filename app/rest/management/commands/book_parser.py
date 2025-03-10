@@ -1,6 +1,9 @@
 from typing import Dict, Optional, List
 import xml.etree.ElementTree as ET
 import datetime
+import re
+import hashlib
+import uuid
 
 
 class UnimarcBookParser:
@@ -104,6 +107,7 @@ class UnimarcBookParser:
             "translated_of": self.get_translated_of(),
             "translated_as": self.get_translated_as(),
             "tags": self.get_tags(),
+            "physical_copy_id": self.get_physical_copy_id(),
         }
 
     def sanitize_string(self, string: str | None) -> str:
@@ -314,3 +318,66 @@ class UnimarcBookParser:
                         tags.append(tag)
 
         return tags if tags else []
+
+    def get_physical_copy_id(self) -> str:
+        """Génère un identifiant unique pour l'exemplaire physique spécifique"""
+        # Récupération du PPN comme base
+        ppn = self.get_ppn() or ""
+
+        # Collecte des données d'exemplaire
+        exemplaire_data = {}
+
+        # Recherche des champs d'exemplaires (E01-E99)
+        holding_fields = []
+        for i in range(1, 100):
+            tag = f"E{i:02d}"
+            holding_fields.extend(self._get_datafields(tag))
+
+        if holding_fields:
+            # On a trouvé des informations d'exemplaire
+            field = holding_fields[0]  # Premier exemplaire
+
+            # Récupération de toutes les données d'exemplaire disponibles
+            for code in ["5", "f", "j", "c", "e", "k", "d", "o", "x", "z"]:
+                value = self._get_subfield_from_field(field, code) or ""
+                if value:
+                    exemplaire_data[f"e_{code}"] = value
+
+        # Si aucune donnée d'exemplaire n'est trouvée, on cherche d'autres identifiants locaux
+        if not exemplaire_data:
+            # Champs A98 (informations locales)
+            local_fields = self._get_datafields("A98")
+            if local_fields:
+                for field in local_fields:
+                    for code in ["a", "b", "c", "d", "e"]:
+                        value = self._get_subfield_from_field(field, code) or ""
+                        if value:
+                            exemplaire_data[f"a98_{code}"] = value
+
+        # Si toujours rien, on utilise les champs 930 (données locales françaises)
+        if not exemplaire_data:
+            local_fields = self._get_datafields("930")
+            if local_fields:
+                for field in local_fields:
+                    for code in ["5", "a", "b", "c", "d", "e", "z"]:
+                        value = self._get_subfield_from_field(field, code) or ""
+                        if value:
+                            exemplaire_data[f"930_{code}"] = value
+
+        # Si on a des données d'exemplaire, on génère un hash
+        if exemplaire_data:
+            # Création d'une chaîne de caractères à partir des données d'exemplaire
+            hash_string = "|".join(
+                [f"{k}:{v}" for k, v in sorted(exemplaire_data.items())]
+            )
+
+            # Génération du hash MD5
+            md5_hash = hashlib.md5(hash_string.encode("utf-8")).hexdigest()
+
+            # Retourne le PPN suivi du hash pour garantir l'unicité
+            return f"{ppn}_{md5_hash}"
+
+        # Si aucune donnée d'exemplaire n'est trouvée, on ajoute un identifiant aléatoire
+        random_id = str(uuid.uuid4())[:8]  # 8 premiers caractères d'un UUID
+
+        return f"{ppn}_generic_{random_id}"

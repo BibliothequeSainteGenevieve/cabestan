@@ -307,7 +307,11 @@ class SuggestionsSearchFilters(Schema):
 
 @router.get("/suggestions/search")
 def search_suggestions(request, filters: SuggestionsSearchFilters = Query(...)):
-    books = Book.objects.filter(title__icontains=filters.str).values("title")[:3]
+    books = (
+        Book.objects.filter(title__icontains=filters.str)
+        .distinct("ppn")
+        .values("title")[:3]
+    )
 
     rcr_conditions = Q(title__icontains=filters.str) | Q(
         rcr_number__icontains=filters.str
