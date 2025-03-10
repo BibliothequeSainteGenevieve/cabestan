@@ -25,7 +25,7 @@ export function DocumentsList() {
 			<Table className="border-separate border-spacing-y-2 border-spacing-x-0">
 				<TableHeader>
 					<TableRow>
-						<TableHead className="w-[20%]">{t("DocumentsList.title")}</TableHead>
+						<TableHead className="w-[30%]">{t("DocumentsList.title")}</TableHead>
 						<TableHead>{t("DocumentsList.author")}</TableHead>
 						<TableHead className="w-[20%]">{t("DocumentsList.publisher")}</TableHead>
 						<TableHead>{t("DocumentsList.publicationDate")}</TableHead>
@@ -47,7 +47,9 @@ export function DocumentsList() {
 					))}
 				</TableBody>
 			</Table>
-			<Pagination totalItems={data?.pagination.totalResults || 0} />
+			<div className="mt-4 w-full @container">
+				<Pagination totalItems={data?.pagination.totalResults || 0} />
+			</div>
 		</>
 	);
 }
