@@ -198,6 +198,7 @@ def export_rcr(request, filters: RcrSearchFilters = Query(...)):
     response = HttpResponse(
         content_type="text/csv",
         headers={"Content-Disposition": 'attachment; filename="export_rcr.csv"'},
+        charset="utf-8",
     )
 
     writer = csv.writer(response)

@@ -136,9 +136,11 @@ def export_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Quer
     response = HttpResponse(
         content_type="text/csv",
         headers={"Content-Disposition": 'attachment; filename="export_books.csv"'},
+        charset="utf-8",
     )
 
     writer = csv.writer(response)
+
     writer.writerow(
         [
             "Titre",
