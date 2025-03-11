@@ -120,7 +120,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://cabestan_redis:6379",
+        "LOCATION": "redis://" + os.environ["REDIS_HOST"] + ":6379",
         "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
         "KEY_PREFIX": "config",
     }

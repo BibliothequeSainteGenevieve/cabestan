@@ -22,6 +22,7 @@ services:
       - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
       - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
       - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
     volumes:
       - ../app:/home/cabestan/app/
     ports:
@@ -94,6 +95,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
       - WORK_DIR=/home/cabestan/
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - SECRET_KEY=${SECRET_KEY}
@@ -121,6 +123,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
       - WORK_DIR=/home/cabestan/
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - SECRET_KEY=${SECRET_KEY}
