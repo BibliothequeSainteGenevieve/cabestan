@@ -45,6 +45,7 @@ class RcrSearchFilters(Schema):
     publicationDatesEnd: Optional[int] = None
     reeditionDatesStart: Optional[int] = None
     reeditionDatesEnd: Optional[int] = None
+    nullValues: Optional[bool] = True
 
 
 @router.get("/rcrs/search")
@@ -53,52 +54,79 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
     rcr_conditions = Q()
     if filters.type == "rcr" and filters.string:
         rcr_conditions &= Q(rcr_number=filters.string) | Q(title=filters.string)
+        if filters.nullValues:
+            rcr_conditions |= Q(rcr_number__isnull=True)
+            rcr_conditions |= Q(title__isnull=True)
 
     if filters.regions:
         rcr_conditions &= Q(city__department__region_id__in=filters.regions.split(","))
+        if filters.nullValues:
+            rcr_conditions |= Q(city__department__region_id__isnull=True)
 
     if filters.departments:
         rcr_conditions &= Q(city__department_id__in=filters.departments.split(","))
+        if filters.nullValues:
+            rcr_conditions |= Q(city__department_id__isnull=True)
 
     if filters.cities:
         rcr_conditions &= Q(city_id__in=filters.cities.split(","))
+        if filters.nullValues:
+            rcr_conditions |= Q(city_id__isnull=True)
 
     if filters.establishementsTypes:
         rcr_conditions &= Q(type__label__in=filters.establishementsTypes.split(","))
+        if filters.nullValues:
+            rcr_conditions |= Q(type__label__isnull=True)
 
     if filters.territories:
         rcr_conditions &= Q(country_type__label__in=filters.territories.split(","))
+        if filters.nullValues:
+            rcr_conditions |= Q(country_type__label__isnull=True)
 
     # 2. Construction des conditions Book
     book_conditions = Q()
     if filters.string:
         if filters.type == "editor":
             book_conditions &= Q(editor__title=filters.string)
+            if filters.nullValues:
+                book_conditions |= Q(editor__isnull=True)
         elif filters.type == "author":
             book_conditions &= (
                 Q(author__lastname=filters.string) | Q(author__firstname=filters.string)
             ) & Q(author__type__label="author")
+            if filters.nullValues:
+                book_conditions |= Q(author__isnull=True)
         elif filters.type == "translator":
             book_conditions &= (
                 Q(translator__lastname=filters.string)
                 | Q(translator__firstname=filters.string)
             ) & Q(translator__type__label="translator")
+            if filters.nullValues:
+                book_conditions |= Q(translator__isnull=True)
         elif filters.type == "illustrator":
             book_conditions &= (
                 Q(illustrator__lastname=filters.string)
                 | Q(illustrator__firstname=filters.string)
             ) & Q(illustrator__type__label="illustrator")
+            if filters.nullValues:
+                book_conditions |= Q(illustrator__isnull=True)
         elif filters.type == "book":
             book_conditions &= Q(title=filters.string)
 
     if filters.languages:
         book_conditions &= Q(lang__iso_code__in=filters.languages.split(","))
+        if filters.nullValues:
+            book_conditions |= Q(lang__isnull=True)
 
     if filters.documentsTypes:
         book_conditions &= Q(type__label__in=filters.documentsTypes.split(","))
+        if filters.nullValues:
+            book_conditions |= Q(type__label__isnull=True)
 
     if filters.publishers:
         book_conditions &= Q(editor__id__in=filters.publishers.split(","))
+        if filters.nullValues:
+            book_conditions |= Q(editor__isnull=True)
 
     if filters.publicationDatesStart:
         book_conditions &= Q(
@@ -106,6 +134,8 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
                 filters.publicationDatesStart / 1000
             )
         )
+        if filters.nullValues:
+            book_conditions |= Q(publication_date__isnull=True)
 
     if filters.publicationDatesEnd:
         book_conditions &= Q(
@@ -113,6 +143,8 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
                 filters.publicationDatesEnd / 1000
             )
         )
+        if filters.nullValues:
+            book_conditions |= Q(publication_date__isnull=True)
 
     if filters.reeditionDatesStart:
         book_conditions &= Q(
@@ -120,11 +152,15 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
                 filters.reeditionDatesStart / 1000
             )
         )
+        if filters.nullValues:
+            book_conditions |= Q(reedition_date__isnull=True)
 
     if filters.reeditionDatesEnd:
         book_conditions &= Q(
             reedition_date__lte=datetime.fromtimestamp(filters.reeditionDatesEnd / 1000)
         )
+        if filters.nullValues:
+            book_conditions |= Q(reedition_date__isnull=True)
 
     # 3. Récupération des IDs des RCR filtrés
     filtered_rcr_ids = (
