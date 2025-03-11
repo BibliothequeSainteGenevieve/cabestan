@@ -75,6 +75,7 @@ services:
       - ${CERTIFICATES_PATH}:/etc/nginx/ssl/:ro
       - ./nginx/cabestan.conf.staging.model:/cabestan.conf.template
       - ./nginx/client-dist:/var/www/html
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
 
   cabestan-scraper-rcr:
     restart: always

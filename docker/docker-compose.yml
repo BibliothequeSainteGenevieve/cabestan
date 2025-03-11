@@ -72,6 +72,7 @@ services:
       - HOST=${HOST}
     volumes:
       - ./nginx/cabestan.conf.model:/cabestan.conf.template
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
 
   client:
     build:
@@ -88,6 +89,7 @@ services:
       - VITE_API_HOST=${HOST}
       - VITE_API_PATH=/api/rest
       - VITE_CACHE_TTL=1000
+    container_name: ${COMPOSE_PROJECT_NAME}_client
 
   wiremock:
     image: "wiremock/wiremock:latest"
@@ -106,3 +108,4 @@ services:
       ]
     ports:
       - "8082:8082"
+    container_name: ${COMPOSE_PROJECT_NAME}_wiremock
