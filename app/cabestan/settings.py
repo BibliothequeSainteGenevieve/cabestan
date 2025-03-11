@@ -112,7 +112,7 @@ DATABASES = {
         "NAME": os.environ["DB_NAME"],
         "USER": os.environ["DB_USER"],
         "PASSWORD": os.environ["DB_PASSWORD"],
-        "HOST": "cabestan_db",  # Or an IP Address that your DB is hosted on
+        "HOST": os.environ["DB_HOST"],  # Or an IP Address that your DB is hosted on
         "PORT": "5432",
     }
 }
