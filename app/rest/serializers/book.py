@@ -17,6 +17,9 @@ class BookSerializer(serializers.ModelSerializer):
     publisher = serializers.CharField(source="editor.title", allow_null=True)
     original_language = serializers.CharField(source="lang.iso_code", allow_null=True)
     type = serializers.CharField(source="type.label", allow_null=True)
+    publication_city = serializers.CharField(
+        source="publication_city.label", allow_null=True
+    )
 
     class Meta:
         model = Book
@@ -29,6 +32,7 @@ class BookSerializer(serializers.ModelSerializer):
             "publisher",
             "publication_date",
             "publication_city",
+            "publication_address",
             "original_language",
             "type",
         ]
