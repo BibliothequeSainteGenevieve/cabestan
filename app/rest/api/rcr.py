@@ -1,6 +1,18 @@
 from ninja import Router, Query, Schema
 from typing import Optional
-from ..models import Book, Editor, City, Rcr, Author
+from ..models import (
+    Book,
+    Editor,
+    City,
+    Rcr,
+    Author,
+    Region,
+    Department,
+    Lang,
+    BookType,
+    CountryType,
+    RcrType,
+)
 from ..views import ClientConfigView
 from django.db.models import (
     Q,
@@ -17,6 +29,7 @@ import csv
 from django.http import HttpResponse
 from ..serializers.search import RcrSerializer
 from ..serializers.rcr import RcrDetailsSerializer
+from django.core.cache import cache
 
 router = Router()
 
@@ -48,8 +61,50 @@ class RcrSearchFilters(Schema):
     nullValues: Optional[bool] = True
 
 
+# Cache des tables de référence
+CACHE_TIMEOUT = 3600  # 1 heure en secondes
+
+
+def get_cached_reference_data():
+    """Récupère ou met en cache les données de référence"""
+    cache_key = "reference_data_cache"
+    reference_data = cache.get(cache_key)
+
+    if reference_data is None:
+        # Charger toutes les données de référence en une fois
+        reference_data = {
+            "regions": {r.id: r for r in Region.objects.all()},
+            "departments": {
+                d.id: d for d in Department.objects.select_related("region").all()
+            },
+            "cities": {
+                c.id: c
+                for c in City.objects.select_related(
+                    "department", "department__region"
+                ).all()
+            },
+            "languages": {l.iso_code: l.id for l in Lang.objects.all()},
+            "document_types": {dt.label: dt.id for dt in BookType.objects.all()},
+            "country_types": {ct.label: ct.id for ct in CountryType.objects.all()},
+            "establishment_types": {et.label: et.id for et in RcrType.objects.all()},
+            # Mappings inversés pour les recherches rapides
+            "city_to_department": {c.id: c.department_id for c in City.objects.all()},
+            "department_to_region": {
+                d.id: d.region_id for d in Department.objects.all()
+            },
+        }
+
+        # Mettre en cache pour une utilisation future
+        cache.set(cache_key, reference_data, CACHE_TIMEOUT)
+
+    return reference_data
+
+
 @router.get("/rcrs/search")
 def search_rcr(request, filters: RcrSearchFilters = Query(...)):
+    # Récupérer les données de référence mises en cache
+    ref_data = get_cached_reference_data()
+
     # 1. Construction des conditions RCR
     rcr_conditions = Q()
     if filters.type == "rcr" and filters.string:
@@ -59,29 +114,56 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             rcr_conditions |= Q(title__isnull=True)
 
     if filters.regions:
-        rcr_conditions &= Q(city__department__region_id__in=filters.regions.split(","))
+        region_ids = [int(region_id) for region_id in filters.regions.split(",")]
+        # Trouver toutes les villes qui appartiennent à ces régions
+        cities_in_regions = [
+            city_id
+            for city_id, city in ref_data["cities"].items()
+            if city.department and city.department.region_id in region_ids
+        ]
+        rcr_conditions &= Q(city_id__in=cities_in_regions)
         if filters.nullValues:
-            rcr_conditions |= Q(city__department__region_id__isnull=True)
+            rcr_conditions |= Q(city_id__isnull=True)
 
     if filters.departments:
-        rcr_conditions &= Q(city__department_id__in=filters.departments.split(","))
+        department_ids = [int(dept_id) for dept_id in filters.departments.split(",")]
+        # Trouver toutes les villes qui appartiennent à ces départements
+        cities_in_departments = [
+            city_id
+            for city_id, city in ref_data["cities"].items()
+            if city.department_id in department_ids
+        ]
+        rcr_conditions &= Q(city_id__in=cities_in_departments)
         if filters.nullValues:
-            rcr_conditions |= Q(city__department_id__isnull=True)
+            rcr_conditions |= Q(city_id__isnull=True)
 
     if filters.cities:
-        rcr_conditions &= Q(city_id__in=filters.cities.split(","))
+        city_ids = [int(city_id) for city_id in filters.cities.split(",")]
+        rcr_conditions &= Q(city_id__in=city_ids)
         if filters.nullValues:
             rcr_conditions |= Q(city_id__isnull=True)
 
     if filters.establishementsTypes:
-        rcr_conditions &= Q(type__label__in=filters.establishementsTypes.split(","))
+        # Utiliser les IDs au lieu des labels
+        establishment_type_ids = [
+            ref_data["establishment_types"][label]
+            for label in filters.establishementsTypes.split(",")
+            if label in ref_data["establishment_types"]
+        ]
+        rcr_conditions &= Q(type_id__in=establishment_type_ids)
         if filters.nullValues:
-            rcr_conditions |= Q(type__label__isnull=True)
+            rcr_conditions |= Q(type_id__isnull=True)
 
     if filters.territories:
-        rcr_conditions &= Q(country_type__label__in=filters.territories.split(","))
+        # Utiliser les IDs au lieu des labels
+        country_type_ids = [
+            ref_data["country_types"][label]
+            for label in filters.territories.split(",")
+            if label in ref_data["country_types"]
+        ]
+        rcr_conditions &= Q(country_type_id__in=country_type_ids)
         if filters.nullValues:
-            rcr_conditions |= Q(country_type__label__isnull=True)
+            rcr_conditions |= Q(country_type_id__isnull=True)
 
     # 2. Construction des conditions Book
     book_conditions = Q()
@@ -114,14 +196,26 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
             book_conditions &= Q(title=filters.string)
 
     if filters.languages:
-        book_conditions &= Q(lang__iso_code__in=filters.languages.split(","))
+        # Convertir les codes ISO en IDs de langue
+        lang_ids = [
+            ref_data["languages"][iso_code]
+            for iso_code in filters.languages.split(",")
+            if iso_code in ref_data["languages"]
+        ]
+        book_conditions &= Q(lang_id__in=lang_ids)
         if filters.nullValues:
-            book_conditions |= Q(lang__isnull=True)
+            book_conditions |= Q(lang_id__isnull=True)
 
     if filters.documentsTypes:
-        book_conditions &= Q(type__label__in=filters.documentsTypes.split(","))
+        # Convertir les labels en IDs de type de document
+        doc_type_ids = [
+            ref_data["document_types"][label]
+            for label in filters.documentsTypes.split(",")
+            if label in ref_data["document_types"]
+        ]
+        book_conditions &= Q(type_id__in=doc_type_ids)
         if filters.nullValues:
-            book_conditions |= Q(type__label__isnull=True)
+            book_conditions |= Q(type_id__isnull=True)
 
     if filters.publishers:
         book_conditions &= Q(editor__id__in=filters.publishers.split(","))
@@ -185,14 +279,25 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         # Mettre à jour filtered_rcr_ids pour ne garder que les RCR avec des livres
         filtered_rcr_ids &= set(rcr_book_counts.keys())
 
-    # 5. Construction de la requête finale
-    queryset = list(
-        Rcr.objects.filter(id__in=filtered_rcr_ids).select_related(
-            "city", "city__department", "city__department__region"
-        )
-    )
+    # 5. Construction de la requête finale avec préchargement des relations
+    queryset = list(Rcr.objects.filter(id__in=filtered_rcr_ids))
 
-    # 6. Ajout des comptages et tri
+    # 6. Enrichir les objets RCR avec les données en cache
+    for rcr in queryset:
+        # Ajouter les relations à partir du cache
+        if rcr.city_id and rcr.city_id in ref_data["cities"]:
+            rcr.city = ref_data["cities"][rcr.city_id]
+
+            # Ajouter le département et la région
+            dept_id = ref_data["city_to_department"].get(rcr.city_id)
+            if dept_id and dept_id in ref_data["departments"]:
+                rcr.city.department = ref_data["departments"][dept_id]
+
+                region_id = ref_data["department_to_region"].get(dept_id)
+                if region_id and region_id in ref_data["regions"]:
+                    rcr.city.department.region = ref_data["regions"][region_id]
+
+    # 7. Ajout des comptages et tri
     if book_conditions:
         # Ajouter le compte de livres à chaque RCR
         for rcr in queryset:
@@ -204,7 +309,7 @@ def search_rcr(request, filters: RcrSearchFilters = Query(...)):
         # Tri par le books_count existant
         queryset.sort(key=lambda x: (-x.books_count, x.title))
 
-    # 7. Pagination et réponse
+    # 8. Pagination et réponse
     if not filters.map_format:
         total = len(queryset)
         start = (filters.page - 1) * filters.itemsPerPage
