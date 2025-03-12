@@ -33,7 +33,7 @@ env:
 
 jobs:
   deploy_staging:
-    environment: new-staging
+    environment: staging
     runs-on: [self-hosted, staging, cabestan]
     steps:
       - name: Check out repository code
