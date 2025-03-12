@@ -35,6 +35,7 @@ class BookSearchFilters(Schema):
     type: Optional[str] = None
     subtitle: Optional[str] = None
     string: Optional[str] = None
+    nullValues: Optional[bool] = True
 
 
 @router.get("/rcr/{rcr_number}/books/search")
@@ -72,35 +73,51 @@ def get_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(.
 
     if filters.documentsTypes:
         conditions &= Q(type__label__in=filters.documentsTypes.split(","))
+        if filters.nullValues:
+            conditions |= Q(type__isnull=True)
 
     if filters.publishers:
         conditions &= Q(editor__in=filters.publishers.split(","))
+        if filters.nullValues:
+            conditions |= Q(editor__isnull=True)
 
     if filters.publication_city:
         conditions &= Q(publication_city=filters.publication_city)
+        if filters.nullValues:
+            conditions |= Q(publication_city__isnull=True)
 
     if filters.languages:
         conditions &= Q(lang__iso_code__in=filters.languages.split(","))
+        if filters.nullValues:
+            conditions |= Q(lang__isnull=True)
 
     if filters.publicationDatesStart:
         publication_date_start = datetime.fromtimestamp(
             filters.publicationDatesStart / 1000
         )
         conditions &= Q(publication_date__gte=publication_date_start)
+        if filters.nullValues:
+            conditions |= Q(publication_date__isnull=True)
 
     if filters.publicationDatesEnd:
         publication_date_end = datetime.fromtimestamp(
             filters.publicationDatesEnd / 1000
         )
         conditions &= Q(publication_date__lte=publication_date_end)
+        if filters.nullValues:
+            conditions |= Q(publication_date__isnull=True)
 
     if filters.reissueDatesStart:
         reissue_date_start = datetime.fromtimestamp(filters.reissueDatesStart / 1000)
         conditions &= Q(reedition_date__gte=reissue_date_start)
+        if filters.nullValues:
+            conditions |= Q(reedition_date__isnull=True)
 
     if filters.reissueDatesEnd:
         reissue_date_end = datetime.fromtimestamp(filters.reissueDatesEnd / 1000)
         conditions &= Q(reedition_date__lte=reissue_date_end)
+        if filters.nullValues:
+            conditions |= Q(reedition_date__isnull=True)
 
     if filters.tags:
         tag_conditions = Q()
