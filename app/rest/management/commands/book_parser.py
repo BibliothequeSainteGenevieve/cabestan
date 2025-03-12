@@ -137,29 +137,107 @@ class UnimarcBookParser:
         carrier_type = self._get_subfield_value("012V", "c")
 
         if general_type:
-            # Mapping vers les types de BookType
-            if general_type.startswith("Ad"):
-                return "periodical"
-            elif general_type.startswith("Aa"):
+            # Mapping complet des codes UNIMARC vers les types de BookType
+
+            # Monographies
+            if general_type.startswith("Aa"):
                 return "printed-monograph"
             elif general_type.startswith("Ab"):
                 return "manuscript"
-            elif general_type.startswith("Og"):
-                return "musical-recording"
+            elif general_type.startswith("Ac"):
+                return "printed-music"
+            elif general_type.startswith("Ad"):
+                return "periodical"
+            elif general_type.startswith("Ae"):
+                return "electronic-resource"
+            elif general_type.startswith("Af"):
+                return "cartographic-material"
+            elif general_type.startswith("Ag"):
+                return "projected-medium"
+            elif general_type.startswith("Ah"):
+                return "sound-recording"
+            elif general_type.startswith("Ai"):
+                return "graphic-material"
+            elif general_type.startswith("Aj"):
+                return "three-dimensional-object"
+            elif general_type.startswith("Ak"):
+                return "kit"
+            elif general_type.startswith("Al"):
+                return "microform"
+            elif general_type.startswith("Am"):
+                return "mixed-material"
+            elif general_type.startswith("An"):
+                return "tactile-material"
+            elif general_type.startswith("Ao"):
+                return "computer-file"
+            elif general_type.startswith("Ap"):
+                return "braille"
+            elif general_type.startswith("Ar"):
+                return "remote-sensing-image"
+            elif general_type.startswith("As"):
+                return "unmediated-text"
+            elif general_type.startswith("At"):
+                return "manuscript-music"
+            elif general_type.startswith("Au"):
+                return "legal-deposit"
+            elif general_type.startswith("Av"):
+                return "audiovisual"
+            elif general_type.startswith("Ax") or carrier_type == "cz":
+                return "electronic-monograph"
+
+            # Ressources continues
+            elif general_type.startswith("Ba"):
+                return "serial"
+            elif general_type.startswith("Bb"):
+                return "musical-score"
+            elif general_type.startswith("Bc"):
+                return "newspaper"
+            elif general_type.startswith("Bd"):
+                return "website"
+            elif general_type.startswith("Be"):
+                return "database"
+            elif general_type.startswith("Bf"):
+                return "blog"
+
+            # Enregistrements sonores
+            elif general_type.startswith("Oa"):
+                return "sound-disc"
             elif general_type.startswith("Ob"):
                 return "still-image"
             elif general_type.startswith("Oc"):
                 return "map"
-            elif general_type.startswith("Bb"):
-                return "musical-score"
+            elif general_type.startswith("Od"):
+                return "sound-cassette"
+            elif general_type.startswith("Oe"):
+                return "sound-tape"
             elif general_type.startswith("Of"):
                 return "non-musical-recording"
-            elif general_type.startswith("Ax") or carrier_type == "cz":
-                return "electronic-monograph"
-            elif general_type.startswith("Av"):
-                return "audiovisual"
+            elif general_type.startswith("Og"):
+                return "musical-recording"
             elif general_type.startswith("Oh"):
                 return "multimedia"
+            elif general_type.startswith("Oi"):
+                return "online-resource"
+
+            # Ressources électroniques
+            elif general_type.startswith("La"):
+                return "electronic-legal-deposit"
+            elif general_type.startswith("Lb"):
+                return "electronic-book"
+            elif general_type.startswith("Lc"):
+                return "electronic-periodical"
+            elif general_type.startswith("Ld"):
+                return "electronic-thesis"
+
+            # Thèses et documents académiques
+            elif general_type.startswith("Ta"):
+                return "thesis"
+            elif general_type.startswith("Tb"):
+                return "dissertation"
+            elif general_type.startswith("Tc"):
+                return "research-report"
+
+            # Par défaut
             else:
                 return "printed-monograph"
         elif content_type:
