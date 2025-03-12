@@ -26,14 +26,20 @@ const customIconCreateFunction = (cluster: any) => {
 		className += "small";
 	} else if (totalBooks < 10000) {
 		className += "medium";
-	} else {
+	} else if (totalBooks < 100000) {
 		className += "large";
+	} else if (totalBooks < 1000000) {
+		className += "xlarge";
+	} else {
+		className += "xxlarge";
 	}
 
-	let size = 150;
+	let size = 120;
 	if (totalBooks < 1000) {
 		size = 60;
 	} else if (totalBooks < 10000) {
+		size = 80;
+	} else if (totalBooks < 100000) {
 		size = 100;
 	}
 
@@ -47,7 +53,7 @@ const customIconCreateFunction = (cluster: any) => {
 	return new L.DivIcon({
 		html: html,
 		className: "marker-cluster" + className,
-		iconSize: new L.Point(size, size),
+		iconSize: new L.Point(size + totalBooks * 0.000003, size + totalBooks * 0.000003),
 	});
 };
 

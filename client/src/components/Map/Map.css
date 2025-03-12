@@ -29,15 +29,29 @@
 .leaflet-marker-icon.marker-cluster-small,
 .leaflet-marker-icon.marker-cluster-small div {
 	background-color: rgba(247, 178, 178, 0.6);
+	color: rgb(58, 5, 5);
 }
 
 .leaflet-marker-icon.marker-cluster-medium,
 .leaflet-marker-icon.marker-cluster-medium div {
-	background-color: rgba(229, 126, 126, 0.6);
+	background-color: rgba(223, 137, 137, 0.6);
+	color: rgb(58, 5, 5);
 }
 
 .leaflet-marker-icon.marker-cluster-large,
 .leaflet-marker-icon.marker-cluster-large div {
+	background-color: rgba(200, 96, 96, 0.6);
+	color: white;
+}
+
+.leaflet-marker-icon.marker-cluster-xlarge,
+.leaflet-marker-icon.marker-cluster-xlarge div {
+	background-color: rgba(176, 56, 56, 0.6);
+	color: white;
+}
+
+.leaflet-marker-icon.marker-cluster-xxlarge,
+.leaflet-marker-icon.marker-cluster-xxlarge div {
 	background-color: rgba(153, 15, 15, 0.6);
 	color: white;
 }
