@@ -89,5 +89,236 @@
     "fields": {
       "label": "thesis"
     }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 14,
+    "fields": {
+      "label": "printed-music"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 15,
+    "fields": {
+      "label": "electronic-resource"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 16,
+    "fields": {
+      "label": "cartographic-material"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 17,
+    "fields": {
+      "label": "projected-medium"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 18,
+    "fields": {
+      "label": "sound-recording"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 19,
+    "fields": {
+      "label": "graphic-material"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 20,
+    "fields": {
+      "label": "three-dimensional-object"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 21,
+    "fields": {
+      "label": "kit"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 22,
+    "fields": {
+      "label": "microform"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 23,
+    "fields": {
+      "label": "mixed-material"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 24,
+    "fields": {
+      "label": "tactile-material"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 25,
+    "fields": {
+      "label": "computer-file"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 26,
+    "fields": {
+      "label": "braille"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 27,
+    "fields": {
+      "label": "remote-sensing-image"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 28,
+    "fields": {
+      "label": "unmediated-text"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 29,
+    "fields": {
+      "label": "manuscript-music"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 30,
+    "fields": {
+      "label": "legal-deposit"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 31,
+    "fields": {
+      "label": "serial"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 32,
+    "fields": {
+      "label": "newspaper"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 33,
+    "fields": {
+      "label": "website"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 34,
+    "fields": {
+      "label": "database"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 35,
+    "fields": {
+      "label": "blog"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 36,
+    "fields": {
+      "label": "sound-disc"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 37,
+    "fields": {
+      "label": "sound-cassette"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 38,
+    "fields": {
+      "label": "sound-tape"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 39,
+    "fields": {
+      "label": "online-resource"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 40,
+    "fields": {
+      "label": "electronic-legal-deposit"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 41,
+    "fields": {
+      "label": "electronic-book"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 42,
+    "fields": {
+      "label": "electronic-periodical"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 43,
+    "fields": {
+      "label": "electronic-thesis"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 44,
+    "fields": {
+      "label": "dissertation"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 45,
+    "fields": {
+      "label": "research-report"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 46,
+    "fields": {
+      "label": "unknown"
+    }
   }
 ]

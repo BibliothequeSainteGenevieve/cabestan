@@ -60,6 +60,10 @@
 		"documents_one": "ouvrage",
 		"documents_other": "ouvrages"
 	},
+	"Pagination": {
+		"of": "sur {{totalPages}} pages",
+		"resultsPerPage": "Résultats par page"
+	},
 	"PopoverMoreFilters": {
 		"title": "Filtres avancés"
 	},
@@ -76,11 +80,7 @@
 		"noResults": "Aucun résultat.",
 		"books_one": "Ouvrage",
 		"books_other": "Ouvrages",
-		"rcrCode": "Code RCR",
-		"pagination": {
-			"resultsPerPage": "Résultats par page",
-			"page": "Page"
-		}
+		"rcrCode": "Code RCR"
 	},
 	"SearchBar": {
 		"loading": "Chargement des filtres...",
