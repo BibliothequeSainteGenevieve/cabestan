@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - "feat/non-unique-ppn"
 env:
   COMPOSE_PROJECT_NAME: ${{vars.COMPOSE_PROJECT_NAME}}
   DJANGO_SUPERUSER_USERNAME: ${{vars.DJANGO_SUPERUSER_USERNAME}}
@@ -35,7 +34,7 @@ env:
 jobs:
   deploy_staging:
     environment: new-staging
-    runs-on: [self-hosted, new-staging, new-cabestan]
+    runs-on: [self-hosted, staging, cabestan]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4

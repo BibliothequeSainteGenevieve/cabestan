@@ -6,13 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rest', '0027_alter_book_ppn_alter_book_tags'),
+        ("rest", "0027_alter_book_ppn_alter_book_tags"),
     ]
+
+    def insert_unique_identifier(apps, schema_editor):
+        Book = apps.get_model("rest", "Book")
+        # Mise à jour en masse de tous les livres en une seule requête
+        Book.objects.all().update(unique_identifier=models.F("ppn"))
 
     operations = [
         migrations.AddField(
-            model_name='book',
-            name='unique_identifier',
-            field=models.CharField(default='', max_length=200, unique=True),
+            model_name="book",
+            name="unique_identifier",
+            field=models.CharField(default="", max_length=200, unique=False),
+        ),
+        migrations.RunPython(insert_unique_identifier, migrations.RunPython.noop),
+        migrations.AlterField(
+            model_name="book",
+            name="unique_identifier",
+            field=models.CharField(default="", max_length=200, unique=True),
         ),
     ]
