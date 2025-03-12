@@ -83,7 +83,7 @@ def get_cached_reference_data():
                     "department", "department__region"
                 ).all()
             },
-            "languages": {l.iso_code: l.id for l in Lang.objects.all()},
+            "languages": {lang.iso_code: lang.id for lang in Lang.objects.all()},
             "document_types": {dt.label: dt.id for dt in BookType.objects.all()},
             "country_types": {ct.label: ct.id for ct in CountryType.objects.all()},
             "establishment_types": {et.label: et.id for et in RcrType.objects.all()},
