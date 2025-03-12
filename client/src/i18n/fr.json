@@ -640,7 +640,40 @@
 				"periodical": "Périodique",
 				"audiovisual": "Audiovisuel",
 				"multimedia": "Multimédia",
-				"thesis": "Thèse"
+				"thesis": "Thèse",
+				"printed-music": "Musique imprimée",
+				"electronic-resource": "Ressource électronique",
+				"cartographic-material": "Document cartographique",
+				"projected-medium": "Support projeté",
+				"sound-recording": "Enregistrement sonore",
+				"graphic-material": "Document graphique",
+				"three-dimensional-object": "Objet tridimensionnel",
+				"kit": "Kit",
+				"microform": "Microforme",
+				"mixed-material": "Document mixte",
+				"tactile-material": "Document tactile",
+				"computer-file": "Fichier informatique",
+				"braille": "Braille",
+				"remote-sensing-image": "Image de télédétection",
+				"unmediated-text": "Texte non médiatisé",
+				"manuscript-music": "Musique manuscrite",
+				"legal-deposit": "Dépôt légal",
+				"serial": "Publication en série",
+				"newspaper": "Journal",
+				"website": "Site web",
+				"database": "Base de données",
+				"blog": "Blog",
+				"sound-disc": "Disque sonore",
+				"sound-cassette": "Cassette audio",
+				"sound-tape": "Bande sonore",
+				"online-resource": "Ressource en ligne",
+				"electronic-legal-deposit": "Dépôt légal électronique",
+				"electronic-book": "Livre électronique",
+				"electronic-periodical": "Périodique électronique",
+				"electronic-thesis": "Thèse électronique",
+				"dissertation": "Mémoire",
+				"research-report": "Rapport de recherche",
+				"unknown": "Inconnu"
 			}
 		},
 		"locationTypes": {
@@ -654,9 +687,10 @@
 		"territories": {
 			"placeholder": "Territoire",
 			"options": {
-				"metropole": "Métropole",
+				"metropolitan": "Métropole",
 				"drom": "DROM",
-				"abroad": "À l'étranger"
+				"com": "COM",
+				"foreign": "À l'étranger"
 			}
 		},
 		"regions": {
