@@ -129,7 +129,7 @@ def get_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(.
     return response
 
 
-@router.get("/rcr/{rcr_number}/books/export")
+@router.get("/rcr/{rcr_number}/books/export", auth=None)
 def export_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(...)):
     data = get_rcr_books(request, rcr_number=rcr_number, filters=filters)
 
