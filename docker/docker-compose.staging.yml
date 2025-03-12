@@ -21,6 +21,8 @@ services:
       - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
       - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
       - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
     volumes:
       - ../app:/home/cabestan/app/
     ports:
@@ -75,6 +77,7 @@ services:
       - ${CERTIFICATES_PATH}:/etc/nginx/ssl/:ro
       - ./nginx/cabestan.conf.staging.model:/cabestan.conf.template
       - ./nginx/client-dist:/var/www/html
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
 
   cabestan-scraper-rcr:
     restart: always
@@ -91,6 +94,8 @@ services:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
       - WORK_DIR=/home/cabestan/
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - SECRET_KEY=${SECRET_KEY}
@@ -117,6 +122,8 @@ services:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
       - WORK_DIR=/home/cabestan/
       - ALLOWED_HOSTS=${ALLOWED_HOSTS}
       - SECRET_KEY=${SECRET_KEY}
