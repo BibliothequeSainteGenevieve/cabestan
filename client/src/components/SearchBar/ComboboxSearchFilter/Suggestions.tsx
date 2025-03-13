@@ -63,7 +63,7 @@ export default function Suggestions({
 								setValue(newValues);
 								setFilterSearchParams(newValues, type);
 							}}>
-							{suggestion.name}
+							<span className="capitalize">{suggestion.name}</span>
 							<Check className={cn("ml-auto", value.includes(suggestion.id) ? "opacity-100" : "opacity-0")} />
 						</CommandItem>
 					))}
