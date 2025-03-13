@@ -20,7 +20,7 @@ export default function SwitchNullValues() {
 	};
 
 	return (
-		<div className="flex items-center space-x-2 mt-2">
+		<div className="flex items-center space-x-2">
 			<Switch id="include-null-values" checked={nullValues} onCheckedChange={handleChange} />
 			<Label htmlFor="include-null-values" className="text-sm">
 				{t("SearchBar.includeUnknown")}

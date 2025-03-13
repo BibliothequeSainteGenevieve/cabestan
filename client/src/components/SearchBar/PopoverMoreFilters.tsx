@@ -18,7 +18,7 @@ export default function PopoverMoreFilters({ filters }: PopoverMoreFiltersProps)
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button className="bg-white">
+				<Button variant="foreground">
 					<SlidersHorizontal className="w-4 h-4" />
 					<span>{t("PopoverMoreFilters.title")}</span>
 				</Button>
