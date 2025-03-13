@@ -8,7 +8,6 @@ import { useTranslation } from "react-i18next";
 import { useSetFilterSearchParams } from "@/hooks/useSetFilterSearchParams";
 import { useSearchParams } from "react-router";
 import { FilterTypes } from "@/models/Filters";
-import { FixedSizeList } from "react-window";
 
 interface ComboboxFilterProps {
 	options: { slug: string }[];
@@ -43,59 +42,44 @@ export default function ComboboxFilter({ options, type }: ComboboxFilterProps) {
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-[400px] p-0 bg-white">
+			<PopoverContent className="w-[200px] p-0 bg-white">
 				<Command>
 					<CommandInput placeholder={t("ComboboxFilter.searchPlaceholder")} />
-					<CommandList className="overflow-y-hidden">
+					<CommandList>
 						<CommandEmpty>{t("ComboboxFilter.empty")}</CommandEmpty>
-						<CommandGroup className="p-0">
-							<FixedSizeList width={"100%"} height={300} itemCount={options.length} itemSize={35}>
-								{({ index, style }) => {
-									if (index === 0 && value.length > 0) {
-										return (
-											<CommandItem
-												style={style}
-												className="uppercase bg-background"
-												onSelect={() => {
-													setValue([]);
-													setOpen(false);
-													setFilterSearchParams([], type);
-												}}>
-												{t("ComboboxFilter.reset")}
-												<X className={cn("ml-auto", "opacity-100")} />
-											</CommandItem>
-										);
-									}
-
-									const option = options[value.length > 0 ? index - 1 : index];
-									return (
-										<CommandItem
-											style={style}
-											key={option.slug}
-											value={t(`filters.${type}.options.${option.slug}`) + "/" + option.slug}
-											onSelect={(currentValue) => {
-												const slug = currentValue.split("/")[1];
-												let newValues = [];
-												if (value.includes(slug)) {
-													newValues = value.filter((item) => item !== slug);
-												} else {
-													newValues = [...value, slug];
-												}
-												setValue(newValues);
-												setFilterSearchParams(newValues, type);
-											}}>
-											{t(`filters.${type}.options.${option.slug}`)}
-											{type === FilterTypes.LANGUAGES && " (" + option.slug + ")"}
-											<Check
-												className={cn(
-													"ml-auto",
-													value.includes(option.slug) ? "opacity-100" : "opacity-0"
-												)}
-											/>
-										</CommandItem>
-									);
-								}}
-							</FixedSizeList>
+						<CommandGroup>
+							{value.length > 0 && (
+								<CommandItem
+									className="uppercase bg-background"
+									onSelect={() => {
+										setValue([]);
+										setOpen(false);
+										setFilterSearchParams([], type);
+									}}>
+									{t("ComboboxFilter.reset")}
+									<X className={cn("ml-auto", "opacity-100")} />
+								</CommandItem>
+							)}
+							{options.map((option) => (
+								<CommandItem
+									key={option.slug}
+									value={t(`filters.${type}.options.${option.slug}`) + "/" + option.slug}
+									onSelect={(currentValue) => {
+										const slug = currentValue.split("/")[1];
+										let newValues = [];
+										if (value.includes(slug)) {
+											newValues = value.filter((item) => item !== slug);
+										} else {
+											newValues = [...value, slug];
+										}
+										setValue(newValues);
+										setFilterSearchParams(newValues, type);
+									}}>
+									{t(`filters.${type}.options.${option.slug}`)}
+									{type === FilterTypes.LANGUAGES && " (" + option.slug + ")"}
+									<Check className={cn("ml-auto", value.includes(option.slug) ? "opacity-100" : "opacity-0")} />
+								</CommandItem>
+							))}
 						</CommandGroup>
 					</CommandList>
 				</Command>
