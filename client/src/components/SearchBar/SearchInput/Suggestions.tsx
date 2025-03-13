@@ -70,7 +70,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen, 
 	if (error) return <span className="p-4 text-red-500">{t("CommandSearch.suggestions.error", { error: error.message })}</span>;
 
 	return (
-		<CommandList ref={ref} className="absolute bg-white top-11 w-full z-50 shadow-md">
+		<CommandList ref={ref} className="absolute bg-white top-10 w-full z-50 shadow-md">
 			<CommandEmpty>
 				<span>{t("CommandSearch.suggestions.empty")}</span>
 			</CommandEmpty>

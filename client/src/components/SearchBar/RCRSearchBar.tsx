@@ -89,10 +89,12 @@ export default function RCRSearchBar() {
 		);
 
 	return (
-		<div>
-			<div className="flex flex-wrap items-center gap-3">
-				<CommandSearch />
-				<div className="flex flex-wrap lg:flex-nowrap items-center justify-between flex-1 gap-3">
+		<div className="flex flex-col gap-y-3">
+			<div className="flex flex-wrap items-start gap-x-3 gap-y-2">
+				<div className="flex-1 md:min-w-[30rem]">
+					<CommandSearch />
+				</div>
+				<div className="flex flex-grow flex-wrap items-start justify-between gap-x-4 gap-y-2">
 					<div className="flex flex-wrap items-center gap-2">
 						<ComboboxFilter type={FilterTypes.LANGUAGES} options={data.languages} />
 						<ComboboxFilter type={FilterTypes.ESTABLISHMENTS_TYPES} options={data.establishementsTypes} />
