@@ -32,7 +32,7 @@ export default function RCRDetails() {
 	return (
 		<div>
 			<h1 className="pb-4">{rcrDetails.name}</h1>
-			<div className="flex gap-4">
+			<div className="flex flex-wrap gap-4">
 				{rcrDetails.contact.website && (
 					<a href={rcrDetails.contact.website} target="_blank" className="underline underline-offset-1">
 						<Button variant="action">
@@ -54,7 +54,7 @@ export default function RCRDetails() {
 								<Earth /> {t("RCRDetails.language_other", { count: rcrDetails.languages.length })}
 							</Button>
 						</PopoverTrigger>
-						<PopoverContent className="w-80 bg-white rounded-lg p-4 z-200 relative">
+						<PopoverContent className="w-100 bg-white border-1 shadow-sm rounded-lg p-4 z-200 relative">
 							<div className="flex flex-wrap gap-2">
 								{rcrDetails.languages.map((language, index) => (
 									<p key={language} className="text-sm">
@@ -67,22 +67,22 @@ export default function RCRDetails() {
 					</Popover>
 				)}
 			</div>
-			<div className="flex pt-4">
-				<div className="flex-1">
+			<div className="flex flex-wrap gap-x-10 gap-y-4 pt-4">
+				<div className="md:flex-1">
 					<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.address")}</p>
 					<p className="font-light">
 						<a
 							className="underline underline-offset-1"
 							href={`https://maps.google.com/?q=${rcrDetails.name} ${rcrDetails.contact.address?.street} ${rcrDetails.contact.address?.postalCode} ${rcrDetails.contact.address?.city}, ${rcrDetails.contact.address?.country}`}
 							target="_blank">
-							{rcrDetails.contact.address?.street}, {rcrDetails.contact.address?.postalCode}
-							<br />
-							{rcrDetails.contact.address?.city}, {rcrDetails.contact.address?.country}
+							{rcrDetails.contact.address?.street}, <br />
+							{rcrDetails.contact.address?.postalCode} {rcrDetails.contact.address?.city},{" "}
+							{rcrDetails.contact.address?.country}
 						</a>
 					</p>
 				</div>
 				{rcrDetails.contact.email && (
-					<div className="flex-1">
+					<div className="md:flex-1">
 						<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.contact")}</p>
 						<p className="font-light">
 							<a className="underline underline-offset-1" href={`mailto:${rcrDetails.contact.email}`}>

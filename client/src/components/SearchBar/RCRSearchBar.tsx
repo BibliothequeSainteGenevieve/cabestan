@@ -90,7 +90,7 @@ export default function RCRSearchBar() {
 
 	return (
 		<div className="flex flex-col gap-y-3">
-			<div className="flex flex-wrap items-start gap-x-3 gap-y-2">
+			<div className="flex flex-wrap items-start gap-3">
 				<div className="flex-1 md:min-w-[30rem]">
 					<CommandSearch />
 				</div>
@@ -109,9 +109,7 @@ export default function RCRSearchBar() {
 						{isReissueDateFilterOpen && <DateRangePicker type={FilterTypes.REISSUE_DATES} />}
 						{isResetButtonVisible && <ResetFiltersButton />}
 					</div>
-					<div className="">
-						<PopoverMoreFilters filters={optionalFilters} />
-					</div>
+					<PopoverMoreFilters filters={optionalFilters} />
 				</div>
 			</div>
 			<SwitchNullValues />
