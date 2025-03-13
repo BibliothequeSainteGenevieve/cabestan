@@ -61,7 +61,7 @@ export default function ComboboxSearchFilter({ type }: ComboboxSearchFilterProps
 					<ChevronsUpDown className="opacity-50" />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className="w-[400px] p-0 bg-white">
+			<PopoverContent className="w-[200px] p-0 bg-white">
 				<Command shouldFilter={false}>
 					<CommandInput placeholder={t("ComboboxFilter.searchPlaceholder")} onValueChange={handleInputChange} />
 					<Suggestions
