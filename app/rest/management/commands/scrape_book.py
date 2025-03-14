@@ -16,6 +16,7 @@ import requests as rq
 import csv
 import codecs
 from rest.management.commands.book_parser import UnimarcBookParser
+from rest.management.commands.utils.author_utils import AuthorUtils
 from typing import List
 import datetime
 from cabestan.config import get_config
@@ -73,7 +74,7 @@ class Command(BaseCommand):
 
     def parse_one_rcr(self, rcr: Rcr, start_record: int = 1):
         start_time = datetime.datetime.now()
-        url = f"{self.url}/?operation=searchRetrieve&version=1.1&query=rbc%3D{rcr.rcr_number}&maximumRecords=1&startRecord=1"
+        url = f"{self.url}?operation=searchRetrieve&version=1.1&query=rbc%3D{rcr.rcr_number}&maximumRecords=1&startRecord=1"
         rcr_csv: str = rq.get(url)
         reader = csv.DictReader(
             codecs.iterdecode(rcr_csv.iter_lines(), "utf-8"),
@@ -103,7 +104,7 @@ class Command(BaseCommand):
 
     def parse_one_record(self, index: str, rcr: Rcr):
         url = (
-            f"{self.url}/?operation=searchRetrieve&version=1.1"
+            f"{self.url}?operation=searchRetrieve&version=1.1"
             f"&query=rbc%3D{rcr.rcr_number}&maximumRecords={self.NUMBER_OF_RECORDS_PER_CALL}"
             f"&startRecord={index}"
         )
@@ -125,7 +126,6 @@ class Command(BaseCommand):
         db_start_time = datetime.datetime.now()
 
         editors_to_create = []
-        authors_to_create = []
         books_to_create = []
 
         # Collecte des éditeurs uniques
@@ -145,66 +145,10 @@ class Command(BaseCommand):
             for editor in existing_editors:
                 editor_mapping[editor.title] = editor.id
 
-        # Collecte des auteurs uniques
-        author_mapping = {}
-        for book_data in books_data:
-            # Auteur principal
-            if book_data["author"]["firstname"]:
-                key = (
-                    book_data["author"]["firstname"],
-                    book_data["author"]["lastname"],
-                    "author",
-                )
-                author_mapping[key] = None
-
-            # Illustrateur
-            if book_data["illustrator"] and book_data["illustrator"]["lastname"]:
-                key = (
-                    book_data["illustrator"]["firstname"],
-                    book_data["illustrator"]["lastname"],
-                    "illustrator",
-                )
-                author_mapping[key] = None
-
-            # Traducteur
-            if book_data["translator"] and book_data["translator"]["lastname"]:
-                key = (
-                    book_data["translator"]["firstname"],
-                    book_data["translator"]["lastname"],
-                    "translator",
-                )
-                author_mapping[key] = None
-
-        # Création des auteurs en masse
-        if author_mapping:
-            author_type_ids = {at.label: at.id for at in self.authorTypes}
-
-            authors_to_create = [
-                Author(
-                    firstname=firstname,
-                    lastname=lastname,
-                    type_id=author_type_ids[role],
-                )
-                for (firstname, lastname, role) in author_mapping.keys()
-            ]
-
-            Author.objects.bulk_create(
-                self.remove_duplicates_authors(authors_to_create),
-                ignore_conflicts=True,
-            )
-            # Mise à jour du mapping avec les auteurs créés
-            existing_authors = Author.objects.filter(
-                firstname__in=[a[0] for a in author_mapping.keys()],
-                lastname__in=[a[1] for a in author_mapping.keys()],
-            )
-            for author in existing_authors:
-                for key in author_mapping.keys():
-                    if (
-                        author.firstname == key[0]
-                        and author.lastname == key[1]
-                        and author.type.label == key[2]
-                    ):
-                        author_mapping[key] = author.id
+        # Utilisation de AuthorUtils pour gérer les auteurs
+        author_utils = AuthorUtils(books_data)
+        author_utils.insert_or_update_authors()
+        # Les books_data sont maintenant mis à jour avec les IDs des auteurs
 
         # Préparation des livres
         for book_data in books_data:
@@ -228,39 +172,6 @@ class Command(BaseCommand):
                 if book_data["editor"]["title"]
                 else None
             )
-
-            author_key = (
-                (
-                    book_data["author"]["firstname"],
-                    book_data["author"]["lastname"],
-                    "author",
-                )
-                if book_data["author"]["firstname"]
-                else None
-            )
-            author_id = author_mapping.get(author_key)
-
-            illustrator_key = (
-                (
-                    book_data["illustrator"]["firstname"],
-                    book_data["illustrator"]["lastname"],
-                    "illustrator",
-                )
-                if book_data["illustrator"] and book_data["illustrator"]["lastname"]
-                else None
-            )
-            illustrator_id = author_mapping.get(illustrator_key)
-
-            translator_key = (
-                (
-                    book_data["translator"]["firstname"],
-                    book_data["translator"]["lastname"],
-                    "translator",
-                )
-                if book_data["translator"] and book_data["translator"]["lastname"]
-                else None
-            )
-            translator_id = author_mapping.get(translator_key)
 
             books_to_create.append(
                 Book(
@@ -287,9 +198,9 @@ class Command(BaseCommand):
                     publication_date=publication_date,
                     is_reedition=book_data["is_reedition"],
                     reedition_date=reedition_date,
-                    author_id=author_id,
-                    illustrator_id=illustrator_id,
-                    translator_id=translator_id,
+                    author_id=book_data.get("author_id"),
+                    illustrator_id=book_data.get("illustrator_id"),
+                    translator_id=book_data.get("translator_id"),
                     publication_city_id=(
                         next(
                             (
@@ -358,17 +269,6 @@ class Command(BaseCommand):
 
         db_time = datetime.datetime.now() - db_start_time
         print(f"Database insertion time: {db_time} for {len(books_to_create)} books")
-
-    def remove_duplicates_authors(self, authors_data: list[Dict]):
-        # remove authors with same lastname and firstname
-        final_authors = []
-        for author in authors_data:
-            if not any(
-                a.lastname == author.lastname and a.firstname == author.firstname
-                for a in final_authors
-            ):
-                final_authors.append(author)
-        return final_authors
 
     def remove_duplicates_editors(self, editors_data: list[Dict]):
         # remove editors with same title

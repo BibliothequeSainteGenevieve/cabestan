@@ -268,11 +268,22 @@ class UnimarcBookParser:
 
     def get_main_author(self) -> Dict:
         """Extrait l'auteur principal (028A)"""
-        return {
-            "firstname": self.sanitize_string(self._extract_firstname("028A")),
-            "lastname": self.sanitize_string(self._extract_lastname("028A")),
-            "type": {"label": "author"},
-        }
+        firstname = None
+        lastname = None
+
+        # Chercher le champ 028A
+        author_fields = self._get_datafields("028A")
+        if author_fields:
+            for field in author_fields:
+                firstname, lastname = self._extract_author_from_field(field)
+                if firstname or lastname:
+                    break
+            return {
+                "firstname": self.sanitize_string(firstname),
+                "lastname": self.sanitize_string(lastname),
+                "type": {"label": "author"},
+            }
+        return None
 
     def get_illustrator(self) -> Optional[Dict]:
         """Extrait l'illustrateur (028C avec code spécifique)"""
@@ -281,15 +292,14 @@ class UnimarcBookParser:
             for f in self._get_datafields("028C")
             if self._get_subfield_from_field(f, "B") == "440"
         ]
+
         if illustrator_fields:
             field = illustrator_fields[0]
+            firstname, lastname = self._extract_author_from_field(field)
+
             return {
-                "firstname": self.sanitize_string(
-                    self._extract_firstname_from_field(field)
-                ),
-                "lastname": self.sanitize_string(
-                    self._extract_lastname_from_field(field)
-                ),
+                "firstname": self.sanitize_string(firstname),
+                "lastname": self.sanitize_string(lastname),
                 "type": {"label": "illustrator"},
             }
         return None
@@ -301,15 +311,14 @@ class UnimarcBookParser:
             for f in self._get_datafields("028C")
             if self._get_subfield_from_field(f, "B") == "730"
         ]
+
         if translator_fields:
             field = translator_fields[0]
+            firstname, lastname = self._extract_author_from_field(field)
+
             return {
-                "firstname": self.sanitize_string(
-                    self._extract_firstname_from_field(field)
-                ),
-                "lastname": self.sanitize_string(
-                    self._extract_lastname_from_field(field)
-                ),
+                "firstname": self.sanitize_string(firstname),
+                "lastname": self.sanitize_string(lastname),
                 "type": {"label": "translator"},
             }
         return None
@@ -459,3 +468,28 @@ class UnimarcBookParser:
         random_id = str(uuid.uuid4())[:8]  # 8 premiers caractères d'un UUID
 
         return f"{ppn}_generic_{random_id}"
+
+    def _extract_author_from_field(self, field):
+        """Extrait le prénom et le nom d'un champ d'auteur"""
+        # Essayer d'abord les sous-champs standards
+        firstname = self._get_subfield_from_field(field, "d")
+        lastname = self._get_subfield_from_field(field, "a")
+
+        # Si pas trouvé, essayer le sous-champ 8 qui contient souvent le nom complet
+        if not firstname and not lastname:
+            full_name = self._get_subfield_from_field(field, "8")
+            if full_name:
+                # Format typique: "Nom, Prénom (dates)" ou "Nom, Prénom"
+                # Supprimer les dates entre parenthèses si présentes
+                name_without_dates = re.sub(r"\s*\([^)]*\)", "", full_name)
+
+                # Séparer le nom et le prénom
+                parts = name_without_dates.split(",", 1)
+                if len(parts) > 1:
+                    lastname = parts[0].strip()
+                    firstname = parts[1].strip()
+                else:
+                    # Si pas de virgule, considérer comme nom de famille
+                    lastname = name_without_dates.strip()
+
+        return firstname, lastname
