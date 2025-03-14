@@ -25,6 +25,7 @@ class UnimarcBookParser:
         for i, record in enumerate(self.records, 1):
             self.record = record.find(".//{*}record")  # Mise à jour du record courant
             self.datafields = self.record.findall(".//{*}datafield")
+            self.controlfields = self.record.findall(".//{*}controlfield")
             books.append(self.parse_book())
 
         total_time = datetime.datetime.now() - parse_start_time
@@ -51,6 +52,10 @@ class UnimarcBookParser:
     def _get_datafields(self, tag: str) -> List:
         """Récupère tous les datafields avec le tag spécifié"""
         return [f for f in self.datafields if f.get("tag") == tag]
+
+    def _get_controlfields(self, tag: str) -> List:
+        """Récupère tous les datafields avec le tag spécifié"""
+        return [f for f in self.controlfields if f.get("tag") == tag]
 
     def _get_subfield_value(self, tag: str, code: str) -> Optional[str]:
         """Récupère la valeur d'un subfield spécifique"""
@@ -116,155 +121,180 @@ class UnimarcBookParser:
         return string.strip().lower()
 
     def get_ppn(self) -> str:
-        """Extrait le PPN (003@)"""
-        return self.sanitize_string(self._get_subfield_value("003@", "0"))
+        """Extrait le PPN (001)"""
+        return self.sanitize_string(self._get_controlfields("001")[0].text)
 
     def get_title(self) -> str:
         """Extrait le titre (021A)"""
-        return self.sanitize_string(self._get_subfield_value("021A", "a"))
+        return self.sanitize_string(self._get_subfield_value("200", "a"))
 
     def get_language(self) -> Dict:
         """Extrait la langue (010@)"""
         return {
-            "iso_code": self.sanitize_string(self._get_subfield_value("010@", "a")),
-            "label": self.sanitize_string(self._get_subfield_value("010@", "8")),
+            "iso_code": self.sanitize_string(self._get_subfield_value("101", "a")),
+            "label": self.sanitize_string(self._get_subfield_value("101", "a")),
         }
 
     def get_book_type(self) -> str:
-        """Détermine le type de document pour le modèle BookType"""
-        general_type = self._get_subfield_value("002@", "0")
-        content_type = self._get_subfield_value("012T", "c")
-        carrier_type = self._get_subfield_value("012V", "c")
+        """Détermine le type de document pour le modèle BookType selon la documentation SUDOC"""
+        # Le type de document est défini dans la zone 008 $a positions 1-2
+        document_type_code = self._get_subfield_value("008", "a")
 
-        if general_type:
-            # Mapping complet des codes UNIMARC vers les types de BookType
-
-            # Monographies
-            if general_type.startswith("Aa"):
-                return "printed-monograph"
-            elif general_type.startswith("Ab"):
-                return "manuscript"
-            elif general_type.startswith("Ac"):
-                return "printed-music"
-            elif general_type.startswith("Ad"):
-                return "periodical"
-            elif general_type.startswith("Ae"):
-                return "electronic-resource"
-            elif general_type.startswith("Af"):
-                return "cartographic-material"
-            elif general_type.startswith("Ag"):
-                return "projected-medium"
-            elif general_type.startswith("Ah"):
-                return "sound-recording"
-            elif general_type.startswith("Ai"):
-                return "graphic-material"
-            elif general_type.startswith("Aj"):
-                return "three-dimensional-object"
-            elif general_type.startswith("Ak"):
-                return "kit"
-            elif general_type.startswith("Al"):
-                return "microform"
-            elif general_type.startswith("Am"):
-                return "mixed-material"
-            elif general_type.startswith("An"):
-                return "tactile-material"
-            elif general_type.startswith("Ao"):
-                return "computer-file"
-            elif general_type.startswith("Ap"):
-                return "braille"
-            elif general_type.startswith("Ar"):
-                return "remote-sensing-image"
-            elif general_type.startswith("As"):
-                return "unmediated-text"
-            elif general_type.startswith("At"):
-                return "manuscript-music"
-            elif general_type.startswith("Au"):
-                return "legal-deposit"
-            elif general_type.startswith("Av"):
-                return "audiovisual"
-            elif general_type.startswith("Ax") or carrier_type == "cz":
-                return "electronic-monograph"
-
-            # Ressources continues
-            elif general_type.startswith("Ba"):
-                return "serial"
-            elif general_type.startswith("Bb"):
-                return "musical-score"
-            elif general_type.startswith("Bc"):
-                return "newspaper"
-            elif general_type.startswith("Bd"):
-                return "website"
-            elif general_type.startswith("Be"):
-                return "database"
-            elif general_type.startswith("Bf"):
-                return "blog"
-
-            # Enregistrements sonores
-            elif general_type.startswith("Oa"):
-                return "sound-disc"
-            elif general_type.startswith("Ob"):
-                return "still-image"
-            elif general_type.startswith("Oc"):
-                return "map"
-            elif general_type.startswith("Od"):
-                return "sound-cassette"
-            elif general_type.startswith("Oe"):
-                return "sound-tape"
-            elif general_type.startswith("Of"):
-                return "non-musical-recording"
-            elif general_type.startswith("Og"):
-                return "musical-recording"
-            elif general_type.startswith("Oh"):
-                return "multimedia"
-            elif general_type.startswith("Oi"):
-                return "online-resource"
-
-            # Ressources électroniques
-            elif general_type.startswith("La"):
-                return "electronic-legal-deposit"
-            elif general_type.startswith("Lb"):
-                return "electronic-book"
-            elif general_type.startswith("Lc"):
-                return "electronic-periodical"
-            elif general_type.startswith("Ld"):
-                return "electronic-thesis"
-
-            # Thèses et documents académiques
-            elif general_type.startswith("Ta"):
-                return "thesis"
-            elif general_type.startswith("Tb"):
-                return "dissertation"
-            elif general_type.startswith("Tc"):
-                return "research-report"
-
-            # Par défaut
+        if document_type_code and len(document_type_code) >= 2:
+            # Extraction des deux premiers caractères qui définissent le type de document
+            type_code = document_type_code[:2]
+            # Mapping selon la documentation SUDOC
+            if type_code == "Aa":
+                return "printed-monograph"  # Monographie imprimée
+            elif type_code == "Ab":
+                return "periodical"  # Périodique imprimé
+            elif type_code == "Ad":
+                return "collection"  # Collection imprimée
+            elif type_code == "Ar":
+                return "printed-collection"  # Recueil factice d'imprimés
+            elif type_code == "As":
+                return "printed-component"  # Partie composante d'imprimé
+            elif type_code == "Ba":
+                return "audiovisual"  # Document audiovisuel
+            elif type_code == "Bb":
+                return "audiovisual-periodical"  # Périodique sous forme de documents audiovisuels
+            elif type_code == "Bd":
+                return "audiovisual-collection"  # Collection de documents audiovisuels
+            elif type_code == "Br":
+                return "audiovisual-collection"  # Recueil factice de documents audiovisuels
+            elif type_code == "Bs":
+                return "audiovisual-extract"  # Extrait de document audiovisuel
+            elif type_code == "Fa":
+                return "manuscript"  # Manuscrit
+            elif type_code == "Ga":
+                return "musical-recording"  # Enregistrement sonore musical
+            elif type_code == "Gd":
+                return "musical-recording-collection"  # Collection d'enregistrements sonores musicaux
+            elif type_code == "Ia":
+                return "still-image"  # Image fixe
+            elif type_code == "Ir":
+                return "still-image-collection"  # Recueil factice d'images fixes
+            elif type_code == "Ka":
+                return "printed-map"  # Carte imprimée
+            elif type_code == "Kd":
+                return "printed-map-collection"  # Collection de cartes imprimées
+            elif type_code == "Ke":
+                return "cartographic-series"  # Série cartographique
+            elif type_code == "La":
+                return "manuscript-music"  # Partition manuscrite
+            elif type_code == "Ma":
+                return "printed-music"  # Partition imprimée
+            elif type_code == "Md":
+                return "printed-music-collection"  # Collection de partitions imprimées
+            elif type_code == "Mr":
+                return "printed-music-collection"  # Recueil factice de partitions imprimées
+            elif type_code == "Na":
+                return "non-musical-recording"  # Enregistrement sonore non musical
+            elif type_code == "Nb":
+                return "non-musical-recording-periodical"  # Périodique sous forme d'enregistrements sonores non musicaux
+            elif type_code == "Nd":
+                return "non-musical-recording-collection"  # Collection d'enregistrements sonores non musicaux
+            elif type_code == "Oa":
+                return "electronic-monograph"  # Monographie électronique
+            elif type_code == "Ob":
+                return "electronic-periodical"  # Périodique électronique
+            elif type_code == "Od":
+                return "electronic-collection"  # Collection de documents électroniques
+            elif type_code == "Or":
+                return "electronic-collection"  # Recueil factice de documents électroniques
+            elif type_code == "Os":
+                return "electronic-component"  # Partie de document électronique
+            elif type_code == "Pa":
+                return "manuscript-map"  # Carte manuscrite
+            elif type_code == "Qp":
+                return "commercial-bundle"  # Bouquet commercial
+            elif type_code == "Va":
+                return "object"  # Objet
+            elif type_code == "Za":
+                return "multimedia"  # Document mutimédia multisupport
+            elif type_code == "Zb":
+                return "multimedia-periodical"  # Périodique multimédia multisupport
+            elif type_code == "Zd":
+                return "multimedia-collection"  # Collection de documents multimédias multisupports
+            elif type_code == "Zr":
+                return "multimedia-collection"  # Recueil factice de documents multimédias multisupports
             else:
-                return "printed-monograph"
-        elif content_type:
-            if content_type == "txt" and "thesis" in self.get_title().lower():
-                return "thesis"
-            elif content_type == "txt" and self._is_article():
-                return "article"
-            else:
-                return content_type
-        else:
-            return "unknown"
+                return "unknown"  # Type non reconnu
+
+        # Fallback : déterminer le type en fonction des zones présentes
+
+        # Vérifier la présence de zones spécifiques pour déterminer le type
+        if self._get_datafields("110"):
+            return "periodical"  # Périodique imprimé (Ab)
+
+        if self._get_datafields("115"):
+            return "audiovisual"  # Document audiovisuel (Ba)
+
+        if self._get_datafields("116"):
+            return "still-image"  # Image fixe (Ia)
+
+        if self._get_datafields("117"):
+            return "object"  # Objet (Va)
+
+        if any(self._get_datafields(tag) for tag in ["120", "121", "123", "124"]):
+            return "printed-map"  # Carte imprimée (Ka)
+
+        if any(self._get_datafields(tag) for tag in ["125", "126", "127"]):
+            return "non-musical-recording"  # Enregistrement sonore non musical (Na)
+
+        if self._get_datafields("128"):
+            return "musical-recording"  # Enregistrement sonore musical (Ga)
+
+        if self._get_datafields("130"):
+            return "printed-monograph"  # Microforme (considérée comme monographie)
+
+        if self._get_datafields("135") or self._get_datafields("139"):
+            return "electronic-monograph"  # Monographie électronique (Oa)
+
+        if self._get_datafields("140"):
+            return "printed-monograph"  # Livre ancien (considéré comme monographie)
+
+        # Vérifier la zone 105 pour les monographies textuelles
+        if self._get_datafields("105"):
+            return "printed-monograph"  # Monographie imprimée (Aa)
+
+        # Vérifier la zone 106 pour la forme de la ressource
+        form_code = self._get_subfield_value("106", "a")
+        if form_code:
+            if form_code == "s":
+                return "electronic-monograph"  # Monographie électronique (Oa)
+            elif form_code == "r":
+                return "printed-monograph"  # Monographie imprimée (Aa)
+
+        # Vérifier la zone 101 pour les langues
+        language_code = self._get_subfield_value("101", "a")
+        if language_code:
+            # Si une langue est spécifiée, c'est probablement un document textuel
+            return "printed-monograph"  # Monographie imprimée (Aa)
+
+        # Par défaut, si aucune information spécifique n'est trouvée
+        return "unknown"
 
     def get_editor(self) -> Dict:
         """Extrait l'éditeur (033A)"""
-        return {"title": self.sanitize_string(self._get_subfield_value("033A", "n"))}
+        return {"title": self.sanitize_string(self._get_subfield_value("210", "c"))}
 
     def get_publication_date(self) -> Optional[str]:
-        """Extrait la date de publication (011@)"""
-        return self.sanitize_string(self._get_subfield_value("011@", "a"))
+        """Extrait la date de publication (210)"""
+        publication_date = self.sanitize_string(self._get_subfield_value("210", "d"))
+        if not publication_date:
+            publication_date = self.sanitize_string(
+                self._get_subfield_value("214", "d")
+            )
+        return publication_date
 
     def is_reedition(self) -> bool:
         """Vérifie s'il s'agit d'une réédition"""
-        return bool(self._get_subfield_value("011@", "b"))
+        return bool(self._get_subfield_value("205", ""))
 
     def get_reedition_date(self) -> Optional[str]:
         """Extrait la date de réédition"""
-        return self.sanitize_string(self._get_subfield_value("011@", "b"))
+        return self.sanitize_string(self._get_subfield_value("205", ""))
 
     def get_main_author(self) -> Dict:
         """Extrait l'auteur principal (028A)"""
@@ -272,7 +302,7 @@ class UnimarcBookParser:
         lastname = None
 
         # Chercher le champ 028A
-        author_fields = self._get_datafields("028A")
+        author_fields = self._get_datafields("700")
         if author_fields:
             for field in author_fields:
                 firstname, lastname = self._extract_author_from_field(field)
@@ -286,11 +316,11 @@ class UnimarcBookParser:
         return None
 
     def get_illustrator(self) -> Optional[Dict]:
-        """Extrait l'illustrateur (028C avec code spécifique)"""
+        """Extrait l'illustrateur (702 avec code spécifique)"""
         illustrator_fields = [
             f
-            for f in self._get_datafields("028C")
-            if self._get_subfield_from_field(f, "B") == "440"
+            for f in self._get_datafields("702")
+            if self._get_subfield_from_field(f, "4") == "440"
         ]
 
         if illustrator_fields:
@@ -305,10 +335,10 @@ class UnimarcBookParser:
         return None
 
     def get_translator(self) -> Optional[Dict]:
-        """Extrait le traducteur (028C avec code spécifique)"""
+        """Extrait le traducteur (702 avec code spécifique)"""
         translator_fields = [
             f
-            for f in self._get_datafields("028C")
+            for f in self._get_datafields("702")
             if self._get_subfield_from_field(f, "B") == "730"
         ]
 
@@ -324,48 +354,43 @@ class UnimarcBookParser:
         return None
 
     def get_publication_city(self) -> Dict:
-        """Extrait la ville de publication (033A)"""
-        return {"label": self.sanitize_string(self._get_subfield_value("033A", "p"))}
+        """Extrait la ville de publication (210)"""
+        publication_city = self.sanitize_string(self._get_subfield_value("210", "a"))
+        if not publication_city:
+            publication_city = self.sanitize_string(
+                self._get_subfield_value("214", "a")
+            )
+        return {"label": publication_city}
 
     def get_publication_address(self) -> Optional[str]:
         """Extrait l'adresse de publication"""
-        return self.sanitize_string(self._get_subfield_value("033A", "n"))
+        publication_address = self.sanitize_string(self._get_subfield_value("210", "b"))
+        if not publication_address:
+            publication_address = self.sanitize_string(
+                self._get_subfield_value("214", "b")
+            )
+        return publication_address
 
     def get_country_type(self) -> Dict:
-        """Détermine le type de pays (019@)"""
-        country_code = self.sanitize_string(self._get_subfield_value("019@", "a"))
+        """Détermine le type de pays (102)"""
+        country_code = self.sanitize_string(self._get_subfield_value("102", "a"))
         return {"label": self._map_country_code(country_code)}
 
     def get_misc_data(self) -> Dict:
         """Collecte toutes les autres informations pertinentes"""
         return {
-            "physical_description": self._get_subfield_value("034R", "a"),
+            "physical_description": self._get_subfield_value("215", "a"),
             "notes": self._get_subfield_value("300", "a"),
             "references": self._get_subfield_value("310", "a"),
         }
 
-    def _map_type_code(self, code: str) -> str:
-        """Mappe les codes de type vers des labels"""
-        type_mapping = {
-            "Aa": "book",
-            "Ab": "manuscript",
-            "Ad": "periodical",
-        }
-        return type_mapping.get(code, "unknown")
-
     def _map_country_code(self, code: str) -> str:
         """Mappe les codes pays vers des types"""
         country_mapping = {
-            "FR": "metropolitan",
-            "GP": "drom",
+            "fr": "metropolitan",
+            "gp": "drom",
         }
         return country_mapping.get(code, "foreign")
-
-    def _is_article(self) -> bool:
-        # Implementation of _is_article method
-        # This method should return True if the book is an article, False otherwise
-        # This is a placeholder and should be implemented based on your specific requirements
-        return False
 
     def get_translated_of(self) -> Optional[Dict]:
         """Extrait les informations sur l'œuvre originale (454)"""
@@ -387,23 +412,22 @@ class UnimarcBookParser:
         return ",".join(translations) if translations else None
 
     def get_tags(self) -> List[str]:
-        """Extrait les tags/sujets du livre (zones 600-619)"""
+        """Extrait les tags/sujets du livre (principalement zone 610)"""
         tags = []
 
-        # Liste des zones contenant des sujets
-        subject_fields = []
-        for tag in range(600, 620):
-            subject_fields.extend(self._get_datafields(str(tag)))
+        # En UNIMARC, la zone 610 contient les mots-clés non contrôlés
+        subject_fields = self._get_datafields("610")
 
         for field in subject_fields:
-            # Récupération des différents sous-champs contenant des sujets
-            for code in ["a", "x", "y", "z"]:  # codes UNIMARC pour les sujets
-                value = self._get_subfield_from_field(field, code)
-                if value:
-                    tag = self.sanitize_string(value)
+            # La sous-zone 'a' contient les termes sujets
+            value = self._get_subfield_from_field(field, "a")
+            if value:
+                # Les termes peuvent être séparés par des points-virgules
+                terms = value.split(";")
+                for term in terms:
+                    tag = self.sanitize_string(term)
                     if tag and tag not in tags:  # Évite les doublons
                         tags.append(tag)
-
         return tags if tags else []
 
     def get_physical_copy_id(self) -> str:
@@ -414,34 +438,21 @@ class UnimarcBookParser:
         # Collecte des données d'exemplaire
         exemplaire_data = {}
 
-        # Recherche des champs d'exemplaires (E01-E99)
-        holding_fields = []
-        for i in range(1, 100):
-            tag = f"E{i:02d}"
-            holding_fields.extend(self._get_datafields(tag))
+        # En UNIMARC, les informations d'exemplaires sont dans les zones 9XX
+        # Principalement 930 (données d'exemplaire), 995 (exemplaire), 915 (localisation)
 
-        if holding_fields:
-            # On a trouvé des informations d'exemplaire
-            field = holding_fields[0]  # Premier exemplaire
+        # 1. Recherche dans la zone 995 (données d'exemplaire complètes)
+        exemplaire_fields = self._get_datafields("995")
+        if exemplaire_fields:
+            field = exemplaire_fields[0]  # Premier exemplaire
 
-            # Récupération de toutes les données d'exemplaire disponibles
-            for code in ["5", "f", "j", "c", "e", "k", "d", "o", "x", "z"]:
+            # Codes importants en 995 selon la documentation SUDOC
+            for code in ["f", "k", "r", "u", "a", "b", "c", "e", "j", "n", "s"]:
                 value = self._get_subfield_from_field(field, code) or ""
                 if value:
-                    exemplaire_data[f"e_{code}"] = value
+                    exemplaire_data[f"995_{code}"] = value
 
-        # Si aucune donnée d'exemplaire n'est trouvée, on cherche d'autres identifiants locaux
-        if not exemplaire_data:
-            # Champs A98 (informations locales)
-            local_fields = self._get_datafields("A98")
-            if local_fields:
-                for field in local_fields:
-                    for code in ["a", "b", "c", "d", "e"]:
-                        value = self._get_subfield_from_field(field, code) or ""
-                        if value:
-                            exemplaire_data[f"a98_{code}"] = value
-
-        # Si toujours rien, on utilise les champs 930 (données locales françaises)
+        # 2. Si pas d'information en 995, chercher dans 930 (données locales)
         if not exemplaire_data:
             local_fields = self._get_datafields("930")
             if local_fields:
@@ -450,6 +461,26 @@ class UnimarcBookParser:
                         value = self._get_subfield_from_field(field, code) or ""
                         if value:
                             exemplaire_data[f"930_{code}"] = value
+
+        # 3. Chercher dans 915 (localisation)
+        if not exemplaire_data:
+            location_fields = self._get_datafields("915")
+            if location_fields:
+                for field in location_fields:
+                    for code in ["a", "b", "5"]:
+                        value = self._get_subfield_from_field(field, code) or ""
+                        if value:
+                            exemplaire_data[f"915_{code}"] = value
+
+        # 4. Chercher dans 856 (accès électronique)
+        if not exemplaire_data:
+            electronic_fields = self._get_datafields("856")
+            if electronic_fields:
+                for field in electronic_fields:
+                    for code in ["u", "z", "x"]:
+                        value = self._get_subfield_from_field(field, code) or ""
+                        if value:
+                            exemplaire_data[f"856_{code}"] = value
 
         # Si on a des données d'exemplaire, on génère un hash
         if exemplaire_data:
@@ -472,12 +503,12 @@ class UnimarcBookParser:
     def _extract_author_from_field(self, field):
         """Extrait le prénom et le nom d'un champ d'auteur"""
         # Essayer d'abord les sous-champs standards
-        firstname = self._get_subfield_from_field(field, "d")
+        firstname = self._get_subfield_from_field(field, "b")
         lastname = self._get_subfield_from_field(field, "a")
 
         # Si pas trouvé, essayer le sous-champ 8 qui contient souvent le nom complet
         if not firstname and not lastname:
-            full_name = self._get_subfield_from_field(field, "8")
+            full_name = self._get_subfield_from_field(field, "f")
             if full_name:
                 # Format typique: "Nom, Prénom (dates)" ou "Nom, Prénom"
                 # Supprimer les dates entre parenthèses si présentes

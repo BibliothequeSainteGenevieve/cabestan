@@ -74,7 +74,7 @@ class Command(BaseCommand):
 
     def parse_one_rcr(self, rcr: Rcr, start_record: int = 1):
         start_time = datetime.datetime.now()
-        url = f"{self.url}?operation=searchRetrieve&version=1.1&query=rbc%3D{rcr.rcr_number}&maximumRecords=1&startRecord=1"
+        url = f"{self.url}?operation=searchRetrieve&recordSchema=unimarc&version=1.1&query=rbc%3D{rcr.rcr_number}&maximumRecords=1&startRecord=1"
         rcr_csv: str = rq.get(url)
         reader = csv.DictReader(
             codecs.iterdecode(rcr_csv.iter_lines(), "utf-8"),
@@ -104,7 +104,7 @@ class Command(BaseCommand):
 
     def parse_one_record(self, index: str, rcr: Rcr):
         url = (
-            f"{self.url}?operation=searchRetrieve&version=1.1"
+            f"{self.url}?operation=searchRetrieve&recordSchema=unimarc&version=1.1"
             f"&query=rbc%3D{rcr.rcr_number}&maximumRecords={self.NUMBER_OF_RECORDS_PER_CALL}"
             f"&startRecord={index}"
         )
@@ -260,12 +260,12 @@ class Command(BaseCommand):
 
         print(f"Created {len(created_books)} books")
 
-        for book in created_books:
-            for to_create_book in books_data:
-                if to_create_book["physical_copy_id"] == book.unique_identifier:
-                    for tag in to_create_book["tags"]:
-                        tag_obj, created = BookTags.objects.update_or_create(tag=tag)
-                        book.tags.add(tag_obj)
+        # for book in created_books:
+        #     for to_create_book in books_data:
+        #         if to_create_book["physical_copy_id"] == book.unique_identifier:
+        #             for tag in to_create_book["tags"]:
+        #                 tag_obj, created = BookTags.objects.update_or_create(tag=tag)
+        #                 book.tags.add(tag_obj)
 
         db_time = datetime.datetime.now() - db_start_time
         print(f"Database insertion time: {db_time} for {len(books_to_create)} books")

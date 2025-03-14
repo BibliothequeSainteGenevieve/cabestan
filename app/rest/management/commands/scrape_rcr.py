@@ -192,7 +192,10 @@ class Command(BaseCommand):
 
     def find_books_count(self, rcr_number: str):
         try:
-            url = f"{self.sudoc_url}/?operation=searchRetrieve&version=1.1&query=rbc%3D{rcr_number}&maximumRecords=1&startRecord=1"
+            url = (
+                f"{self.sudoc_url}/?operation=searchRetrieve&recordSchema=unimarc"
+                f"&version=1.1&query=rbc%3D{rcr_number}&maximumRecords=1&startRecord=1"
+            )
             rcr_csv: str = rq.get(url)
             reader = csv.DictReader(
                 codecs.iterdecode(rcr_csv.iter_lines(), "utf-8"),
