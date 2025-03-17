@@ -36,6 +36,7 @@ class BookSearchFilters(Schema):
     subtitle: Optional[str] = None
     string: Optional[str] = None
     nullValues: Optional[bool] = True
+    allBooks: Optional[bool] = False
 
 
 @router.get("/rcr/{rcr_number}/books/search")
@@ -129,10 +130,13 @@ def get_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(.
     queryset = Book.objects.filter(conditions)
 
     # Pagination
-    total = queryset.count()
-    start = (filters.page - 1) * filters.itemsPerPage
-    end = start + filters.itemsPerPage
-    queryset = queryset[start:end]
+    if not filters.allBooks:
+        total = queryset.count()
+        start = (filters.page - 1) * filters.itemsPerPage
+        end = start + filters.itemsPerPage
+        queryset = queryset[start:end]
+    else:
+        total = 0
 
     response = {
         "pagination": {
@@ -148,6 +152,7 @@ def get_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(.
 
 @router.get("/rcr/{rcr_number}/books/export", auth=None)
 def export_rcr_books(request, rcr_number: str, filters: BookSearchFilters = Query(...)):
+    filters.allBooks = True
     data = get_rcr_books(request, rcr_number=rcr_number, filters=filters)
 
     response = HttpResponse(
