@@ -63,7 +63,7 @@ class Command(BaseCommand):
                     city=city,
                     address=row["ADPHYSIQUE"],
                     country_type=self.find_country_type(
-                        row["CDPOSTAL"] if city else None
+                        city.zipcode if city else None, row["CDPOSTAL"]
                     ),
                     latitude=row["LATITUDE"],
                     longitude=row["LONGITUDE"],
@@ -209,9 +209,11 @@ class Command(BaseCommand):
             department = None
         return department
 
-    def find_country_type(self, zipcode):
+    def find_country_type(self, zipcode, zipcode_from_csv):
         if not zipcode:
-            return CountryType.objects.get(label="foreign")
+            zipcode = zipcode_from_csv
+            if not zipcode:
+                return CountryType.objects.get(label="foreign")
         zipcode = "".join(i for i in zipcode if i.isdigit())
         if int(zipcode) < 96999:
             return CountryType.objects.get(label="metropolitan")
