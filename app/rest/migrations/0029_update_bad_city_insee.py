@@ -3,7 +3,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("rest", "nom_de_la_migration_precedente"),
+        ("rest", "0028_book_unique_identifier"),
     ]
 
     operations = [
