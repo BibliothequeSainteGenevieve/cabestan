@@ -214,7 +214,7 @@ class Command(BaseCommand):
             zipcode = zipcode_from_csv
             if not zipcode:
                 return CountryType.objects.get(label="foreign")
-        zipcode = "".join(i for i in zipcode if i.isdigit())
+            zipcode = "".join(i for i in zipcode if i.isdigit())
         if int(zipcode) < 96999:
             return CountryType.objects.get(label="metropolitan")
         elif int(zipcode) > 96999:

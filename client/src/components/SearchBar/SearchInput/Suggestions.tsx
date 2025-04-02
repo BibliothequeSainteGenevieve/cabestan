@@ -88,7 +88,7 @@ function Suggestions({ suggestions, isLoading, error, setInputValue, setIsOpen, 
 								.map((suggestion, index) => (
 									<CommandItem
 										key={suggestion.subtitle + index}
-										value={suggestion.title}
+										value={suggestion.title ? suggestion.title : ""}
 										onSelect={() =>
 											handleSelect({
 												searchString: suggestion.title,
