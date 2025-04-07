@@ -27,10 +27,12 @@ class Command(BaseCommand):
         )
         for row in reader:
             city = None
-            if row["PAYS"] == "FR":
-                city = self.find_city(row["VILLE"], row["CDPOSTAL"], row["CDPOSTAL"])
             rcr = row["\ufeffRCR"].replace('"', "")
             rcr = rcr.replace("\x00=", "")
+            if row["PAYS"] == "FR":
+                city = self.find_city(
+                    row["VILLE"], row["CDPOSTAL"], row["CDPOSTAL"], rcr
+                )
 
             rcr_type = self.find_rcr_type(rcr)
 
@@ -61,7 +63,7 @@ class Command(BaseCommand):
                     city=city,
                     address=row["ADPHYSIQUE"],
                     country_type=self.find_country_type(
-                        row["CDPOSTAL"] if city else None
+                        city.zipcode if city else None, row["CDPOSTAL"]
                     ),
                     latitude=row["LATITUDE"],
                     longitude=row["LONGITUDE"],
@@ -77,12 +79,24 @@ class Command(BaseCommand):
 
         print("Number of rcr: " + str(reader.line_num))
 
-    def find_city(self, label: str, zipcode: int, insee: int):
+    def find_city(self, label: str, zipcode: int, insee: int, rcr_number: str):
         try:
             zipcode = "".join(i for i in zipcode if i.isdigit())
             label = label.lower()
+            print(
+                "rcr_number: "
+                + rcr_number
+                + " label: "
+                + label
+                + " zipcode: "
+                + zipcode
+                + " insee: "
+                + insee
+            )
             # use OR with one request
-            city = self.find_city_by_code(zipcode, insee)
+            city = self.fin_city_by_rcr_number(rcr_number)
+            if not city:
+                city = self.find_city_by_code(zipcode, insee)
             if not city:
                 city = self.find_city_by_name_exactly(label)
             if not city:
@@ -97,6 +111,24 @@ class Command(BaseCommand):
         except Exception as e:
             print(e)
             return None
+
+    def fin_city_by_rcr_number(self, rcr_number: str):
+        try:
+            city = City.objects.filter(
+                department__id=rcr_number[0:2], insee=rcr_number[0:5]
+            ).first()
+            if not city:
+                print(
+                    "not found by rcr_number for "
+                    + rcr_number
+                    + " "
+                    + rcr_number[0:2]
+                    + " "
+                    + rcr_number[0:5]
+                )
+            return city
+        except Exception as e:
+            print(e)
 
     def find_city_by_code(self, zipcode: int, insee: int):
         try:
@@ -177,10 +209,12 @@ class Command(BaseCommand):
             department = None
         return department
 
-    def find_country_type(self, zipcode):
+    def find_country_type(self, zipcode, zipcode_from_csv):
         if not zipcode:
-            return CountryType.objects.get(label="foreign")
-        zipcode = "".join(i for i in zipcode if i.isdigit())
+            zipcode = zipcode_from_csv
+            if not zipcode:
+                return CountryType.objects.get(label="foreign")
+            zipcode = "".join(i for i in zipcode if i.isdigit())
         if int(zipcode) < 96999:
             return CountryType.objects.get(label="metropolitan")
         elif int(zipcode) > 96999:
