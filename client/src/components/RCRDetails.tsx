@@ -1,0 +1,97 @@
+import { useParams } from "react-router";
+import { Button } from "./ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
+import { Earth, ExternalLink, Phone } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getRCRDetails } from "@/api";
+import { useTranslation } from "react-i18next";
+import { LoadingSpinner } from "./LoadingSpinner";
+
+export default function RCRDetails() {
+	const { rcr } = useParams();
+	const { t } = useTranslation();
+
+	const {
+		data: rcrDetails,
+		isLoading,
+		error,
+	} = useQuery({
+		queryKey: ["rcr-details", rcr],
+		queryFn: () => getRCRDetails(rcr),
+	});
+
+	if (isLoading || !rcrDetails)
+		return (
+			<div>
+				<LoadingSpinner />
+			</div>
+		);
+
+	if (error) return <div>{t("RCRDetails.error", { error: error })}</div>;
+
+	return (
+		<div>
+			<h1 className="pb-4">{rcrDetails.name}</h1>
+			<div className="flex flex-wrap gap-4">
+				{rcrDetails.contact.website && (
+					<a href={rcrDetails.contact.website} target="_blank" className="underline underline-offset-1">
+						<Button variant="action">
+							<ExternalLink /> {rcrDetails.contact.website}
+						</Button>
+					</a>
+				)}
+				{rcrDetails.contact.phone && (
+					<a href={`tel:${rcrDetails.contact.phone}`}>
+						<Button variant="action">
+							<Phone /> {rcrDetails.contact.phone}
+						</Button>
+					</a>
+				)}
+				{rcrDetails.languages.length > 0 && (
+					<Popover>
+						<PopoverTrigger asChild>
+							<Button variant="action">
+								<Earth /> {t("RCRDetails.language_other", { count: rcrDetails.languages.length })}
+							</Button>
+						</PopoverTrigger>
+						<PopoverContent className="w-100 bg-white border-1 shadow-sm rounded-lg p-4 z-200 relative">
+							<div className="flex flex-wrap gap-2">
+								{rcrDetails.languages.map((language, index) => (
+									<p key={language} className="text-sm">
+										{t(`filters.languages.options.${language}`)}
+										{index < rcrDetails.languages.length - 1 && ", "}
+									</p>
+								))}
+							</div>
+						</PopoverContent>
+					</Popover>
+				)}
+			</div>
+			<div className="flex flex-wrap gap-x-10 gap-y-4 pt-4">
+				<div className="md:flex-1">
+					<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.address")}</p>
+					<p className="font-light">
+						<a
+							className="underline underline-offset-1"
+							href={`https://maps.google.com/?q=${rcrDetails.name} ${rcrDetails.contact.address?.street} ${rcrDetails.contact.address?.postalCode} ${rcrDetails.contact.address?.city}, ${rcrDetails.contact.address?.country}`}
+							target="_blank">
+							{rcrDetails.contact.address?.street}, <br />
+							{rcrDetails.contact.address?.postalCode} {rcrDetails.contact.address?.city},{" "}
+							{rcrDetails.contact.address?.country}
+						</a>
+					</p>
+				</div>
+				{rcrDetails.contact.email && (
+					<div className="md:flex-1">
+						<p className="uppercase text-sm text-grey mb-2">{t("RCRDetails.contact")}</p>
+						<p className="font-light">
+							<a className="underline underline-offset-1" href={`mailto:${rcrDetails.contact.email}`}>
+								{rcrDetails.contact.email}
+							</a>
+						</p>
+					</div>
+				)}
+			</div>
+		</div>
+	);
+}

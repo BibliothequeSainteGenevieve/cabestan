@@ -1,0 +1,35 @@
+{
+	"request": {
+		"method": "GET",
+		"urlPathPattern": "/api/publishers/([a-z-]*)",
+		"headers": {}
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "application/json;charset=UTF-8"
+		},
+		"jsonBody": [
+			{
+				"slug": "gallimard",
+				"label": "Gallimard"
+			},
+			{
+				"slug": "editions-de-minuit",
+				"label": "Éditions de Minuit"
+			},
+			{
+				"slug": "editions-de-paris",
+				"label": "Éditions de Paris"
+			},
+			{
+				"slug": "editions-de-lyon",
+				"label": "Éditions de Lyon"
+			},
+			{
+				"slug": "editions-de-toulouse",
+				"label": "Éditions de Toulouse"
+			}
+		]
+	}
+}

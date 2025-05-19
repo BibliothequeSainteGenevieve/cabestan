@@ -1,0 +1,11 @@
+FROM python:3.11-bookworm
+ARG CABESTAN_ENV
+ARG USER_ID
+ARG GROUP_ID
+ARG DJANGO_HTTP_PORT
+ARG SCRIPT
+ENV PYTHONUNBUFFERED=1
+COPY requirements.txt /requirements.txt
+RUN python -m pip install -r /requirements.txt
+WORKDIR /home/cabestan/app
+CMD ["sh", "-c", "/bin/bash $SCRIPT"]

@@ -1,0 +1,351 @@
+{
+	"request": {
+		"method": "GET",
+		"urlPath": "/api/rcr/search"
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "application/json;charset=UTF-8"
+		},
+		"jsonBody": {
+			"pagination": {
+				"totalResults": 150,
+				"currentPage": 1,
+				"itemsPerPage": 20
+			},
+			"items": [
+				{
+					"rcr": "751052103",
+					"name": "Bibliothèque Nationale de France",
+					"translatedName": "National Library of France",
+					"numberOfDocuments": 1500000,
+					"contact": {
+						"website": "www.bnf.fr",
+						"phone": "+33 1 53 79 59 59",
+						"email": "contact@bnf.fr",
+						"address": {
+							"street": "Quai François Mauriac",
+							"postalCode": "75013",
+							"city": "Paris",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": 2.375933,
+						"latitude": 48.833637
+					},
+					"languages": {
+						"count": 5,
+						"supported": ["fr", "en", "de", "es", "it"]
+					},
+					"metadata": {
+						"author": "Bibliothèque nationale de France",
+						"publicationPlace": "Paris",
+						"publisher": "BnF Éditions",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["bibliothèque nationale", "patrimoine", "recherche", "conservation"]
+					}
+				},
+				{
+					"rcr": "690125201",
+					"name": "Bibliothèque Municipale de Lyon Part-Dieu",
+					"translatedName": "Lyon Public Library - Part-Dieu",
+					"numberOfDocuments": 750000,
+					"contact": {
+						"website": "www.bm-lyon.fr",
+						"phone": "+33 4 78 62 18 00",
+						"email": "contact@bm-lyon.fr",
+						"address": {
+							"street": "30 boulevard Vivier-Merle",
+							"postalCode": "69003",
+							"city": "Lyon",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": 4.852543,
+						"latitude": 45.760397
+					},
+					"languages": {
+						"count": 3,
+						"supported": ["fr", "en", "de"]
+					},
+					"metadata": {
+						"author": "Bibliothèque municipale de Lyon",
+						"publicationPlace": "Lyon",
+						"publisher": "BM Lyon",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["bibliothèque municipale", "médiathèque", "culture"]
+					}
+				},
+				{
+					"rcr": "670832301",
+					"name": "Bibliothèque Nationale Universitaire de Strasbourg",
+					"translatedName": "National University Library of Strasbourg",
+					"numberOfDocuments": 420000,
+					"contact": {
+						"website": "www.bnu.fr",
+						"phone": "+33 3 88 25 28 00",
+						"email": "contact@bnu.fr",
+						"address": {
+							"street": "5 rue du Maréchal Joffre",
+							"postalCode": "67000",
+							"city": "Strasbourg",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": 7.746835,
+						"latitude": 48.587614
+					},
+					"languages": {
+						"count": 4,
+						"supported": ["fr", "en", "de", "it"]
+					},
+					"metadata": {
+						"author": "BNU Strasbourg",
+						"publicationPlace": "Strasbourg",
+						"publisher": "BNU Éditions",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["bibliothèque universitaire", "recherche", "alsace"]
+					}
+				},
+				{
+					"rcr": "350822102",
+					"name": "Bibliothèque Rennes Métropole",
+					"translatedName": "Rennes Metropolitan Library",
+					"numberOfDocuments": 320000,
+					"contact": {
+						"website": "www.bibliotheques.rennes.fr",
+						"phone": "+33 2 23 40 67 00",
+						"email": "contact@bibliotheques.rennes.fr",
+						"address": {
+							"street": "10 cours des Alliés",
+							"postalCode": "35000",
+							"city": "Rennes",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": -1.674803,
+						"latitude": 48.105139
+					},
+					"languages": {
+						"count": 2,
+						"supported": ["fr", "en"]
+					},
+					"metadata": {
+						"author": "Bibliothèque de Rennes Métropole",
+						"publicationPlace": "Rennes",
+						"publisher": "Rennes Métropole",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["bibliothèque métropolitaine", "culture", "bretagne"]
+					}
+				},
+				{
+					"rcr": "590825501",
+					"name": "Bibliothèque Municipale de Lille",
+					"translatedName": "Lille Public Library",
+					"numberOfDocuments": 290000,
+					"contact": {
+						"website": "www.bm-lille.fr",
+						"phone": "+33 3 20 15 97 20",
+						"email": "contact@bm-lille.fr",
+						"address": {
+							"street": "32-34 rue Edouard Delesalle",
+							"postalCode": "59000",
+							"city": "Lille",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": 3.057256,
+						"latitude": 50.637222
+					},
+					"languages": {
+						"count": 3,
+						"supported": ["fr", "en", "nl"]
+					},
+					"metadata": {
+						"author": "Bibliothèque municipale de Lille",
+						"publicationPlace": "Lille",
+						"publisher": "BM Lille",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["bibliothèque municipale", "hauts-de-france", "culture"]
+					}
+				},
+				{
+					"rcr": "310555201",
+					"name": "Médiathèque José Cabanis",
+					"translatedName": "José Cabanis Media Library",
+					"numberOfDocuments": 280000,
+					"contact": {
+						"website": "www.bibliotheque.toulouse.fr",
+						"phone": "+33 5 62 27 40 00",
+						"email": "contact@bibliotheque.toulouse.fr",
+						"address": {
+							"street": "1 allée Jacques Chaban-Delmas",
+							"postalCode": "31500",
+							"city": "Toulouse",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": 1.455398,
+						"latitude": 43.610769
+					},
+					"languages": {
+						"count": 3,
+						"supported": ["fr", "en", "es"]
+					},
+					"metadata": {
+						"author": "Bibliothèque de Toulouse",
+						"publicationPlace": "Toulouse",
+						"publisher": "Toulouse Métropole",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["médiathèque", "culture", "occitanie"]
+					}
+				},
+				{
+					"rcr": "130555201",
+					"name": "Bibliothèque Universitaire de Marseille",
+					"translatedName": "Marseille University Library",
+					"numberOfDocuments": 250000,
+					"contact": {
+						"website": "www.bu.univ-amu.fr",
+						"phone": "+33 4 91 55 90 90",
+						"email": "contact@bu.univ-amu.fr",
+						"address": {
+							"street": "3 place Victor Hugo",
+							"postalCode": "13003",
+							"city": "Marseille",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": 5.37159,
+						"latitude": 43.302498
+					},
+					"languages": {
+						"count": 3,
+						"supported": ["fr", "en", "it"]
+					},
+					"metadata": {
+						"author": "Aix-Marseille Université",
+						"publicationPlace": "Marseille",
+						"publisher": "AMU Éditions",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["bibliothèque universitaire", "recherche", "paca"]
+					}
+				},
+				{
+					"rcr": "440132201",
+					"name": "Médiathèque Jacques Demy",
+					"translatedName": "Jacques Demy Media Library",
+					"numberOfDocuments": 195000,
+					"contact": {
+						"website": "www.bm.nantes.fr",
+						"phone": "+33 2 40 41 95 95",
+						"email": "contact@bm.nantes.fr",
+						"address": {
+							"street": "24 quai de la Fosse",
+							"postalCode": "44000",
+							"city": "Nantes",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": -1.562663,
+						"latitude": 47.213889
+					},
+					"languages": {
+						"count": 2,
+						"supported": ["fr", "en"]
+					},
+					"metadata": {
+						"author": "Bibliothèque municipale de Nantes",
+						"publicationPlace": "Nantes",
+						"publisher": "Nantes Métropole",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["médiathèque", "culture", "pays de la loire"]
+					}
+				},
+				{
+					"rcr": "330632101",
+					"name": "Bibliothèque Universitaire de Bordeaux",
+					"translatedName": "Bordeaux University Library",
+					"numberOfDocuments": 180000,
+					"contact": {
+						"website": "www.u-bordeaux.fr/bibliotheques",
+						"phone": "+33 5 56 84 85 86",
+						"email": "contact@bu.u-bordeaux.fr",
+						"address": {
+							"street": "3 place de la Victoire",
+							"postalCode": "33000",
+							"city": "Bordeaux",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": -0.578107,
+						"latitude": 44.835679
+					},
+					"languages": {
+						"count": 3,
+						"supported": ["fr", "en", "es"]
+					},
+					"metadata": {
+						"author": "Université de Bordeaux",
+						"publicationPlace": "Bordeaux",
+						"publisher": "Université de Bordeaux",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["bibliothèque universitaire", "recherche", "nouvelle-aquitaine"]
+					}
+				},
+				{
+					"rcr": "060882101",
+					"name": "Bibliothèque Louis Nucéra",
+					"translatedName": "Louis Nucéra Library",
+					"numberOfDocuments": 168000,
+					"contact": {
+						"website": "www.bmvr.nice.fr",
+						"phone": "+33 4 97 13 48 00",
+						"email": "contact@bmvr.nice.fr",
+						"address": {
+							"street": "2 place Yves Klein",
+							"postalCode": "06000",
+							"city": "Nice",
+							"country": "France"
+						}
+					},
+					"location": {
+						"longitude": 7.275877,
+						"latitude": 43.695949
+					},
+					"languages": {
+						"count": 3,
+						"supported": ["fr", "en", "it"]
+					},
+					"metadata": {
+						"author": "Bibliothèque municipale de Nice",
+						"publicationPlace": "Nice",
+						"publisher": "Ville de Nice",
+						"publicationDate": "2024",
+						"documentLanguage": "fr",
+						"tags": ["bibliothèque municipale", "culture", "paca"]
+					}
+				}
+			]
+		}
+	}
+}

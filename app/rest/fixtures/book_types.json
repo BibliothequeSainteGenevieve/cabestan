@@ -1,0 +1,240 @@
+[
+  {
+    "model": "rest.booktype",
+    "pk": 2,
+    "fields": {
+      "label": "printed-monograph"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 3,
+    "fields": {
+      "label": "manuscript"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 5,
+    "fields": {
+      "label": "still-image"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 7,
+    "fields": {
+      "label": "printed-music"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 8,
+    "fields": {
+      "label": "non-musical-recording"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 9,
+    "fields": {
+      "label": "electronic-monograph"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 10,
+    "fields": {
+      "label": "periodical"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 11,
+    "fields": {
+      "label": "audiovisual"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 12,
+    "fields": {
+      "label": "multimedia"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 29,
+    "fields": {
+      "label": "manuscript-music"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 46,
+    "fields": {
+      "label": "unknown"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 47,
+    "fields": {
+      "label": "collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 48,
+    "fields": {
+      "label": "printed-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 49,
+    "fields": {
+      "label": "printed-component"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 50,
+    "fields": {
+      "label": "audiovisual-periodical"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 51,
+    "fields": {
+      "label": "audiovisual-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 52,
+    "fields": {
+      "label": "audiovisual-extract"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 53,
+    "fields": {
+      "label": "musical-recording-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 54,
+    "fields": {
+      "label": "still-image-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 55,
+    "fields": {
+      "label": "printed-map"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 56,
+    "fields": {
+      "label": "printed-map-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 57,
+    "fields": {
+      "label": "cartographic-series"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 58,
+    "fields": {
+      "label": "printed-music-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 59,
+    "fields": {
+      "label": "non-musical-recording-periodical"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 60,
+    "fields": {
+      "label": "non-musical-recording-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 61,
+    "fields": {
+      "label": "electronic-periodical"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 62,
+    "fields": {
+      "label": "electronic-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 63,
+    "fields": {
+      "label": "electronic-component"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 64,
+    "fields": {
+      "label": "manuscript-map"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 65,
+    "fields": {
+      "label": "commercial-bundle"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 66,
+    "fields": {
+      "label": "object"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 67,
+    "fields": {
+      "label": "multimedia-periodical"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 68,
+    "fields": {
+      "label": "multimedia-collection"
+    }
+  },
+  {
+    "model": "rest.booktype",
+    "pk": 4,
+    "fields": {
+      "label": "musical-recording"
+    }
+  }
+]

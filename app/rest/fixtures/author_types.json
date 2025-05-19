@@ -1,0 +1,23 @@
+[
+  {
+    "model": "rest.authortype",
+    "pk": 1,
+    "fields": {
+      "label": "author"
+    }
+  },
+  {
+    "model": "rest.authortype",
+    "pk": 2,
+    "fields": {
+      "label": "illustrator"
+    }
+  },
+  {
+    "model": "rest.authortype",
+    "pk": 3,
+    "fields": {
+      "label": "translator"
+    }
+  }
+]

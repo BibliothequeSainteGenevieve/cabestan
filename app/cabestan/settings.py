@@ -16,7 +16,7 @@ import logging
 import matplotlib
 
 # Turn off matplot debug
-matplotlib.set_loglevel(level='warning')
+matplotlib.set_loglevel(level="warning")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,114 +26,125 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.environ["SECRET_KEY"]
 
-ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split() if 'ALLOWED_HOSTS' in os.environ else []
-CSRF_TRUSTED_ORIGINS = [f"https://{i}" for i in ALLOWED_HOSTS]
+ALLOWED_HOSTS = (
+    os.environ["ALLOWED_HOSTS"].split(",") if "ALLOWED_HOSTS" in os.environ else []
+)
+CSRF_TRUSTED_ORIGINS = [f"https://{i}" for i in ALLOWED_HOSTS] + [
+    f"http://{i}" for i in ALLOWED_HOSTS
+]
 
-CABESTAN_ENV_LIST = ["PROD", "DEV"]
+CORS_ALLOWED_ORIGINS = (
+    [f"https://{i}" for i in ALLOWED_HOSTS]
+    + [f"http://{i}" for i in ALLOWED_HOSTS]
+    + ["http://servogne.com:5173", "http://localhost:5173"]
+)
+
+CABESTAN_ENV_LIST = ["PROD", "STAGING", "DEV"]
 CABESTAN_ENV = "PROD"
 
-if 'CABESTAN_ENV' in os.environ:
-    if os.environ['CABESTAN_ENV'] in CABESTAN_ENV_LIST:
-        CABESTAN_ENV = os.environ['CABESTAN_ENV']
+if "CABESTAN_ENV" in os.environ:
+    if os.environ["CABESTAN_ENV"] in CABESTAN_ENV_LIST:
+        CABESTAN_ENV = os.environ["CABESTAN_ENV"]
     else:
         print("Please choose CABESTAN_ENV in : {}".format(", ".join(CABESTAN_ENV_LIST)))
         exit(1)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (CABESTAN_ENV == 'DEV')
+DEBUG = CABESTAN_ENV == "DEV" or CABESTAN_ENV == "STAGING"
 
 # Application definition
 
-CABESTAN_APPS = ['scraper', 'process', 'display']
+CABESTAN_APPS = ["scraper", "process", "display", "rest"]
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'constance',
-    'constance.backends.database',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "constance",
+    "constance.backends.database",
+    "rest_framework",
+    "corsheaders",
 ] + [a + ".apps." + a.title() + "Config" for a in CABESTAN_APPS]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'cabestan.urls'
+ROOT_URLCONF = "cabestan.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['.'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["."],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'cabestan.wsgi.application'
+WSGI_APPLICATION = "cabestan.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': 'cabestan_db',   # Or an IP Address that your DB is hosted on
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ["DB_NAME"],
+        "USER": os.environ["DB_USER"],
+        "PASSWORD": os.environ["DB_PASSWORD"],
+        "HOST": os.environ["DB_HOST"],  # Or an IP Address that your DB is hosted on
+        "PORT": "5432",
     }
 }
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": f"redis://cabestan_redis:6379",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
-        },
-        "KEY_PREFIX": "config"
+        "LOCATION": "redis://" + os.environ["REDIS_HOST"] + ":6379",
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+        "KEY_PREFIX": "config",
     }
 }
 
 
-CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
-CONSTANCE_DATABASE_CACHE_BACKEND = 'default'
+CONSTANCE_BACKEND = "constance.backends.database.DatabaseBackend"
+CONSTANCE_DATABASE_CACHE_BACKEND = "default"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
@@ -141,9 +152,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = "fr-fr"
 
-TIME_ZONE = 'Europe/Paris'
+TIME_ZONE = "Europe/Paris"
 
 USE_I18N = True
 
@@ -152,86 +163,111 @@ USE_TZ = True
 logging.basicConfig(level=logging.DEBUG)
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'simple': {
-            'format': '%(asctime)s - %(name)s (l%(lineno)d %(funcName)s) - %(levelname)s - %(message)s'
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "simple": {
+            "format": "%(asctime)s - %(name)s (l%(lineno)d %(funcName)s) - %(levelname)s - %(message)s"
         },
     },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
         },
-        'file_scraper': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'formatter': 'simple',
-            'filename': './log/scraper.log',
+        "file_scraper": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "formatter": "simple",
+            "filename": "./log/scraper.log",
         },
-        'file_process': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'formatter': 'simple',
-            'filename': './log/process.log',
+        "file_process": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "formatter": "simple",
+            "filename": "./log/process.log",
         },
-        'file_display': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'formatter': 'simple',
-            'filename': './log/display.log',
+        "file_display": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "formatter": "simple",
+            "filename": "./log/display.log",
         },
     },
-    'loggers': {
-        'asyncio': {
-            'level': 'WARNING',
+    "loggers": {
+        "asyncio": {
+            "level": "WARNING",
         },
-        'aioredis': {
-            'level': 'WARNING',
+        "aioredis": {
+            "level": "WARNING",
         },
-        'git.cmd': {
-            'level': 'WARNING',
+        "git.cmd": {
+            "level": "WARNING",
         },
-        'scraper': {
-            'handlers': ['file_scraper'],
-            'propagate': False,
+        "scraper": {
+            "handlers": ["file_scraper"],
+            "propagate": False,
         },
-        'process': {
-            'handlers': ['file_process'],
-            'propagate': False,
+        "process": {
+            "handlers": ["file_process"],
+            "propagate": False,
         },
-        'display': {
-            'handlers': ['file_display'],
-            'propagate': False,
+        "display": {
+            "handlers": ["file_display"],
+            "propagate": False,
         },
-    }
+    },
 }
 
 CONSTANCE_CONFIG = {
-    'API_SCRAPER_TOKEN': ('', "Token pour utiliser l'API du scraper", str),
-    'API_PROCESS_TOKEN': ('', "Token pour utiliser l'API du processeur", str),
-    'URL_RCR': ('https://www.idref.fr/services/listrcr', "URL de récupération des RCR", str),
-    'URL_LANG': ('https://www.loc.gov/standards/iso639-2/ISO-639-2_utf-8.txt', "URL de récupération des languages", str),
-    'URL_SUDOC': ("https://www.sudoc.abes.fr/cbs/sru/?operation=searchRetrieve&version=1.1&recordSchema=unimarc&query={query}", "URL de récupération œuvres Sudoc", str),
+    "API_SCRAPER_TOKEN": ("", "Token pour utiliser l'API du scraper", str),
+    "API_PROCESS_TOKEN": ("", "Token pour utiliser l'API du processeur", str),
+    "URL_RCR": (
+        "https://www.idref.fr/services/listrcr",
+        "URL de récupération des RCR",
+        str,
+    ),
+    "URL_LANG": (
+        "https://www.loc.gov/standards/iso639-2/ISO-639-2_utf-8.txt",
+        "URL de récupération des languages",
+        str,
+    ),
+    "URL_SUDOC": (
+        "https://www.sudoc.abes.fr/cbs/sru",
+        "URL de récupération œuvres Sudoc",
+        str,
+    ),
 }
 
 CONSTANCE_CONFIG_FIELDSETS = {
-    'API': tuple(filter(lambda keyword: keyword.startswith('API_'), CONSTANCE_CONFIG.keys())),
-    'URL': tuple(filter(lambda keyword: keyword.startswith('URL_'), CONSTANCE_CONFIG.keys())),
+    "API": tuple(
+        filter(lambda keyword: keyword.startswith("API_"), CONSTANCE_CONFIG.keys())
+    ),
+    "URL": tuple(
+        filter(lambda keyword: keyword.startswith("URL_"), CONSTANCE_CONFIG.keys())
+    ),
 }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
+# Ajoutez la configuration de base pour DRF
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}

@@ -17,8 +17,10 @@ class SudocQuerySpecificSchema(ModelSchema):
     class Meta:
         model = SudocQuery
         all_attributes = [field.name for field in SudocQuery._meta.fields]
-        fields = [element for element in all_attributes if element not in IGNORE_ATTRIBUTES]
-        fields_optional = '__all__'
+        fields = [
+            element for element in all_attributes if element not in IGNORE_ATTRIBUTES
+        ]
+        fields_optional = "__all__"
 
 
 class SudocQueryProcessSchema(SudocQueryCommonSchema, SudocQuerySpecificSchema):

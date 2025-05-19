@@ -1,0 +1,858 @@
+[
+  {
+    "model": "rest.department",
+    "pk": 1,
+    "fields": {
+      "label": "Ain",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 2,
+    "fields": {
+      "label": "Aisne",
+      "region": 7
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 3,
+    "fields": {
+      "label": "Allier",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 4,
+    "fields": {
+      "label": "Alpes-de-Haute-Provence",
+      "region": 13
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 5,
+    "fields": {
+      "label": "Hautes-Alpes",
+      "region": 13
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 6,
+    "fields": {
+      "label": "Alpes-Maritimes",
+      "region": 13
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 7,
+    "fields": {
+      "label": "Ardèche",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 8,
+    "fields": {
+      "label": "Ardennes",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 9,
+    "fields": {
+      "label": "Ariège",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 10,
+    "fields": {
+      "label": "Aube",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 11,
+    "fields": {
+      "label": "Aude",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 12,
+    "fields": {
+      "label": "Aveyron",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 13,
+    "fields": {
+      "label": "Bouches-du-Rhône",
+      "region": 13
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 14,
+    "fields": {
+      "label": "Calvados",
+      "region": 9
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 15,
+    "fields": {
+      "label": "Cantal",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 16,
+    "fields": {
+      "label": "Charente",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 17,
+    "fields": {
+      "label": "Charente-Maritime",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 18,
+    "fields": {
+      "label": "Cher",
+      "region": 4
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 19,
+    "fields": {
+      "label": "Corrèze",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 20,
+    "fields": {
+      "label": "Corse",
+      "region": 5
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 21,
+    "fields": {
+      "label": "Côte-d'Or",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 22,
+    "fields": {
+      "label": "Côtes-d'Armor",
+      "region": 3
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 23,
+    "fields": {
+      "label": "Creuse",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 24,
+    "fields": {
+      "label": "Dordogne",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 25,
+    "fields": {
+      "label": "Doubs",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 26,
+    "fields": {
+      "label": "Drôme",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 27,
+    "fields": {
+      "label": "Eure",
+      "region": 9
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 28,
+    "fields": {
+      "label": "Eure-et-Loir",
+      "region": 4
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 29,
+    "fields": {
+      "label": "Finistère",
+      "region": 3
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 30,
+    "fields": {
+      "label": "Gard",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 31,
+    "fields": {
+      "label": "Haute-Garonne",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 32,
+    "fields": {
+      "label": "Gers",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 33,
+    "fields": {
+      "label": "Gironde",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 34,
+    "fields": {
+      "label": "Hérault",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 35,
+    "fields": {
+      "label": "Ille-et-Vilaine",
+      "region": 3
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 36,
+    "fields": {
+      "label": "Indre",
+      "region": 4
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 37,
+    "fields": {
+      "label": "Indre-et-Loire",
+      "region": 4
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 38,
+    "fields": {
+      "label": "Isère",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 39,
+    "fields": {
+      "label": "Jura",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 40,
+    "fields": {
+      "label": "Landes",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 41,
+    "fields": {
+      "label": "Loir-et-Cher",
+      "region": 4
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 42,
+    "fields": {
+      "label": "Loire",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 43,
+    "fields": {
+      "label": "Haute-Loire",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 44,
+    "fields": {
+      "label": "Loire-Atlantique",
+      "region": 12
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 45,
+    "fields": {
+      "label": "Loiret",
+      "region": 4
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 46,
+    "fields": {
+      "label": "Lot",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 47,
+    "fields": {
+      "label": "Lot-et-Garonne",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 48,
+    "fields": {
+      "label": "Lozère",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 49,
+    "fields": {
+      "label": "Maine-et-Loire",
+      "region": 12
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 50,
+    "fields": {
+      "label": "Manche",
+      "region": 9
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 51,
+    "fields": {
+      "label": "Marne",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 52,
+    "fields": {
+      "label": "Haute-Marne",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 53,
+    "fields": {
+      "label": "Mayenne",
+      "region": 12
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 54,
+    "fields": {
+      "label": "Meurthe-et-Moselle",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 55,
+    "fields": {
+      "label": "Meuse",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 56,
+    "fields": {
+      "label": "Morbihan",
+      "region": 3
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 57,
+    "fields": {
+      "label": "Moselle",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 58,
+    "fields": {
+      "label": "Nièvre",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 59,
+    "fields": {
+      "label": "Nord",
+      "region": 7
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 60,
+    "fields": {
+      "label": "Oise",
+      "region": 7
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 61,
+    "fields": {
+      "label": "Orne",
+      "region": 9
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 62,
+    "fields": {
+      "label": "Pas-de-Calais",
+      "region": 7
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 63,
+    "fields": {
+      "label": "Puy-de-Dôme",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 64,
+    "fields": {
+      "label": "Pyrénées-Atlantiques",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 65,
+    "fields": {
+      "label": "Hautes-Pyrénées",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 66,
+    "fields": {
+      "label": "Pyrénées-Orientales",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 67,
+    "fields": {
+      "label": "Bas-Rhin",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 68,
+    "fields": {
+      "label": "Haut-Rhin",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 69,
+    "fields": {
+      "label": "Rhône",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 70,
+    "fields": {
+      "label": "Haute-Saône",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 71,
+    "fields": {
+      "label": "Saône-et-Loire",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 72,
+    "fields": {
+      "label": "Sarthe",
+      "region": 12
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 73,
+    "fields": {
+      "label": "Savoie",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 74,
+    "fields": {
+      "label": "Haute-Savoie",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 75,
+    "fields": {
+      "label": "Paris",
+      "region": 8
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 76,
+    "fields": {
+      "label": "Seine-Maritime",
+      "region": 9
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 77,
+    "fields": {
+      "label": "Seine-et-Marne",
+      "region": 8
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 78,
+    "fields": {
+      "label": "Yvelines",
+      "region": 8
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 79,
+    "fields": {
+      "label": "Deux-Sèvres",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 80,
+    "fields": {
+      "label": "Somme",
+      "region": 7
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 81,
+    "fields": {
+      "label": "Tarn",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 82,
+    "fields": {
+      "label": "Tarn-et-Garonne",
+      "region": 11
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 83,
+    "fields": {
+      "label": "Var",
+      "region": 13
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 84,
+    "fields": {
+      "label": "Vaucluse",
+      "region": 13
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 85,
+    "fields": {
+      "label": "Vendée",
+      "region": 12
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 86,
+    "fields": {
+      "label": "Vienne",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 87,
+    "fields": {
+      "label": "Haute-Vienne",
+      "region": 10
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 88,
+    "fields": {
+      "label": "Vosges",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 89,
+    "fields": {
+      "label": "Yonne",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 90,
+    "fields": {
+      "label": "Territoire de Belfort",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 91,
+    "fields": {
+      "label": "Essonne",
+      "region": 8
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 92,
+    "fields": {
+      "label": "Hauts-de-Seine",
+      "region": 8
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 93,
+    "fields": {
+      "label": "Seine-Saint-Denis",
+      "region": 8
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 94,
+    "fields": {
+      "label": "Val-de-Marne",
+      "region": 8
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 95,
+    "fields": {
+      "label": "Val-d'Oise",
+      "region": 8
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 971,
+    "fields": {
+      "label": "Guadeloupe",
+      "region": 1
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 972,
+    "fields": {
+      "label": "Martinique",
+      "region": 2
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 973,
+    "fields": {
+      "label": "Guyane",
+      "region": 3
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 974,
+    "fields": {
+      "label": "La Réunion",
+      "region": 4
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 976,
+    "fields": {
+      "label": "Mayotte",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 977,
+    "fields": {
+      "label": "Saint-Barthélemy",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 978,
+    "fields": {
+      "label": "Saint-Martin",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 984,
+    "fields": {
+      "label": "Terres australes et antarctiques françaises",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 986,
+    "fields": {
+      "label": "Wallis-et-Futuna",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 987,
+    "fields": {
+      "label": "Polynésie française",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 988,
+    "fields": {
+      "label": "Nouvelle-Calédonie",
+      "region": 6
+    }
+  },
+  {
+    "model": "rest.department",
+    "pk": 989,
+    "fields": {
+      "label": "Île de Clipperton",
+      "region": 6
+    }
+  }
+]

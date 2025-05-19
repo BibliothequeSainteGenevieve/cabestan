@@ -1,0 +1,59 @@
+
+server {
+    listen 80;
+    server_name  '${HOST}';
+    root         /var/www/html/;
+    index        index.html;
+
+    # Tout le reste géré par Django
+    location /api {
+        proxy_read_timeout 600;
+        proxy_redirect off; 
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;        
+        proxy_pass http://cabestan:${DJANGO_HTTP_PORT};
+    }
+
+     # Tout le reste géré par Django
+    location /admin {
+        proxy_read_timeout 600;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;        
+        proxy_pass http://cabestan:${DJANGO_HTTP_PORT};
+    }
+
+    location /static {
+        proxy_read_timeout 600;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;        
+        proxy_pass http://cabestan:${DJANGO_HTTP_PORT};
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    error_page 404 /404.html;
+        location = /static/404.html {
+    }
+
+    error_page 503 /503.html;
+      location = /static/503.html {
+    }
+
+    error_page 502 /502.html;
+      location = /static/502.html {
+    }
+
+    error_page 500 502 504 /50x.html;
+        location = /50x.html {
+    }
+}

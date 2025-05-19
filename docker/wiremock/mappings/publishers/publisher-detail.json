@@ -1,0 +1,18 @@
+{
+	"request": {
+		"method": "GET",
+		"urlPattern": "/api/publishers/details/([a-z-]*)",
+		"urlPathPattern": "/api/publishers/details/{id}",
+		"headers": {}
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "application/json;charset=UTF-8"
+		},
+		"jsonBody": {
+			"id": "{{request.path.[3]}}",
+			"label": "Label {{request.path.[3]}}"
+		}
+	}
+}

@@ -1,0 +1,136 @@
+services:
+  cabestan:
+    image: cabestan
+    restart: always
+    build:
+      context: ../app
+      dockerfile: ../docker/cabestan/cabestan_dockerfile
+      args:
+        - CABESTAN_ENV=${CABESTAN_ENV}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+        - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
+    environment:
+      - CABESTAN_ENV=${CABESTAN_ENV}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WORK_DIR=/home/cabestan/
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - SECRET_KEY=${SECRET_KEY}
+      - DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME}
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
+    volumes:
+      - ../app:/home/cabestan/app/
+    ports:
+      - ${DJANGO_HTTP_PORT}:8080
+      - ${DJANGO_HTTPS_PORT}:8443
+    depends_on:
+      db_pg:
+        condition: service_healthy
+    container_name: ${COMPOSE_PROJECT_NAME}_web
+
+  redis:
+    image: redis
+    restart: always
+    container_name: ${COMPOSE_PROJECT_NAME}_redis
+
+  db_pg:
+    build:
+      context: .
+      dockerfile: postgres/pg_dockerfile
+    restart: always
+    container_name: ${COMPOSE_PROJECT_NAME}_db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    shm_size: 1g
+    volumes:
+      - ${VOLUME_PGDATA}:/var/lib/postgresql/data/ # persist data even if container shuts down
+    ports:
+      - ${DB_PORT}:5432
+    healthcheck:
+      test: pg_isready -U ${DB_USER} -d ${DB_NAME}
+      interval: 10s
+      timeout: 3s
+      start_period: 3s
+      retries: 3
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/nginx_dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - cabestan
+    restart: always
+    environment:
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
+      - HOST=${HOST}
+    volumes:
+      - ${CERTIFICATES_PATH}:/etc/nginx/ssl/:ro
+      - ./nginx/cabestan.conf.staging.model:/cabestan.conf.template
+      - ./nginx/client-dist:/var/www/html
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+
+  cabestan-scraper-rcr:
+    restart: always
+    build:
+      context: ../app
+      dockerfile: ../docker/cron/cabestan_scraper_dockerfile
+      args:
+        - CABESTAN_ENV=${CABESTAN_ENV}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+        - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
+    environment:
+      - CABESTAN_ENV=${CABESTAN_ENV}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
+      - WORK_DIR=/home/cabestan/
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - SECRET_KEY=${SECRET_KEY}
+      - SCRIPT=scraper_cron_rcr
+    volumes:
+      - ../app:/home/cabestan/app/
+    depends_on:
+      db_pg:
+        condition: service_healthy
+    container_name: ${COMPOSE_PROJECT_NAME}_scraper_rcr_web
+
+  cabestan-scraper-book:
+    restart: always
+    build:
+      context: ../app
+      dockerfile: ../docker/cron/cabestan_scraper_dockerfile
+      args:
+        - CABESTAN_ENV=${CABESTAN_ENV}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+        - DJANGO_HTTP_PORT=${DJANGO_HTTP_PORT}
+    environment:
+      - CABESTAN_ENV=${CABESTAN_ENV}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - REDIS_HOST=${REDIS_HOST}
+      - WORK_DIR=/home/cabestan/
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
+      - SECRET_KEY=${SECRET_KEY}
+      - SCRIPT=scraper_cron_book
+    volumes:
+      - ../app:/home/cabestan/app/
+    depends_on:
+      db_pg:
+        condition: service_healthy
+    container_name: ${COMPOSE_PROJECT_NAME}_scraper_book_web
