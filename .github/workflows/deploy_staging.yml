@@ -3,7 +3,7 @@ run-name: Deploy Cabestan staging
 on:
   push:
     branches:
-      - develop
+      - main
 env:
   COMPOSE_PROJECT_NAME: ${{vars.COMPOSE_PROJECT_NAME}}
   DJANGO_SUPERUSER_USERNAME: ${{vars.DJANGO_SUPERUSER_USERNAME}}
@@ -33,15 +33,11 @@ env:
 
 jobs:
   deploy_staging:
-    environment: staging
-    runs-on: [self-hosted, staging, cabestan]
+    environment: prod
+    runs-on: [self-hosted, prod]
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v4
-      - name: list env
-        run: env
-        continue-on-error: true
-        working-directory: ./docker
+        uses: actions/checkout@v4      
       - name: stop docker
         run: docker compose -f docker-compose.staging.yml down
         continue-on-error: true
