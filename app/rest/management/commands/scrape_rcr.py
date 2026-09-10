@@ -9,6 +9,23 @@ from rest.management.commands.book_parser import UnimarcBookParser
 from django.db.models import Q
 import unicodedata
 from datetime import datetime
+import logging
+import os
+from django.conf import settings
+
+# Logger dédié aux erreurs de détermination du type de pays
+_log_dir = os.path.join(settings.BASE_DIR, "logs")
+os.makedirs(_log_dir, exist_ok=True)
+_country_type_handler = logging.FileHandler(
+    os.path.join(_log_dir, "scrape_rcr_country_type.log")
+)
+_country_type_handler.setFormatter(
+    logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+)
+country_type_logger = logging.getLogger("scrape_rcr.country_type")
+country_type_logger.setLevel(logging.WARNING)
+if not country_type_logger.handlers:
+    country_type_logger.addHandler(_country_type_handler)
 
 
 class Command(BaseCommand):
@@ -210,19 +227,37 @@ class Command(BaseCommand):
         return department
 
     def find_country_type(self, zipcode, zipcode_from_csv):
-        if not zipcode:
-            zipcode = zipcode_from_csv
-            if not zipcode:
-                return CountryType.objects.get(label="foreign")
-            zipcode = "".join(i for i in zipcode if i.isdigit())
-        if int(zipcode) < 96999:
+        raw = zipcode if zipcode else zipcode_from_csv
+        if not raw:
             return CountryType.objects.get(label="metropolitan")
-        elif int(zipcode) > 96999:
-            return CountryType.objects.get(label="drom")
-        elif len(zipcode) == 3:
-            return CountryType.objects.get(label="com")
-        else:
+
+        # Normalisation : on ne garde que les chiffres (couvre city.zipcode et zipcode_from_csv)
+        zipcode_str = "".join(i for i in str(raw) if i.isdigit())
+
+        if not zipcode_str:
+            # Code postal sans chiffres (ex. code étranger purement alphabétique)
+            country_type_logger.warning(
+                "Zipcode sans chiffres exploitables : %r — valeur par défaut 'foreign'", raw
+            )
             return CountryType.objects.get(label="foreign")
+
+        try:
+            z = int(zipcode_str)
+            if z < 96999:
+                return CountryType.objects.get(label="metropolitan")
+            elif z > 96999:
+                return CountryType.objects.get(label="drom")
+            elif len(zipcode_str) == 5:
+                return CountryType.objects.get(label="com")
+            else:
+                return CountryType.objects.get(label="foreign")
+        except (ValueError, TypeError) as e:
+            country_type_logger.error(
+                "Impossible de parser le code postal %r (chiffres extraits : %r) : %s"
+                " — valeur par défaut 'metropolitan'",
+                raw, zipcode_str, e,
+            )
+            return CountryType.objects.get(label="metropolitan")
 
     def find_books_count(self, rcr_number: str):
         try:

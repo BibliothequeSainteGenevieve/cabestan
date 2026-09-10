@@ -9,13 +9,18 @@ import uuid
 class UnimarcBookParser:
     def __init__(self, xml_data: List[Dict]):
         xml_string = self._reconstruct_xml(xml_data)
+        if not xml_string.strip():
+            self.root = None
+            self.number_of_records = 0
+            self.records = []
+            return
         self.root = ET.fromstring(xml_string)
         self.number_of_records = self.root.find(
             ".//{http://www.loc.gov/zing/srw/}numberOfRecords"
         ).text
         self.records = self.root.findall(".//{http://www.loc.gov/zing/srw/}record")
         if not self.records:
-            print(xml_data)
+            # print(xml_data)
             print("Aucun record trouvé dans les données XML")
 
     def parse_books(self) -> List[Dict]:
@@ -29,7 +34,7 @@ class UnimarcBookParser:
             books.append(self.parse_book())
 
         total_time = datetime.datetime.now() - parse_start_time
-        print(f"Total parsing time: {total_time} for {len(self.records)} records")
+        # print(f"Total parsing time: {total_time} for {len(self.records)} records")
         return books
 
     def get_number_of_records(self):
@@ -120,9 +125,12 @@ class UnimarcBookParser:
             return None
         return string.strip().lower()
 
-    def get_ppn(self) -> str:
+    def get_ppn(self) -> Optional[str]:
         """Extrait le PPN (001)"""
-        return self.sanitize_string(self._get_controlfields("001")[0].text)
+        fields = self._get_controlfields("001")
+        if not fields:
+            return None
+        return self.sanitize_string(fields[0].text)
 
     def get_title(self) -> str:
         """Extrait le titre (021A)"""
@@ -398,9 +406,7 @@ class UnimarcBookParser:
         if not field:
             return None
         else:
-            print("found translated of")
-
-        return self.sanitize_string(self._get_subfield_value("454", "t"))
+            return self.sanitize_string(self._get_subfield_value("454", "t"))
 
     def get_translated_as(self) -> List[Dict]:
         """Extrait les informations sur les traductions (453)"""

@@ -23,11 +23,33 @@ from cabestan.config import get_config
 import pytz
 from typing import Dict
 import traceback
+import logging
+import os
+import time
+from django.conf import settings
+
+# Logger dédié aux erreurs de scraping des livres
+_log_dir = os.path.join(settings.BASE_DIR, "logs")
+os.makedirs(_log_dir, exist_ok=True)
+_scrape_book_handler = logging.FileHandler(
+    os.path.join(_log_dir, "scrape_book.log")
+)
+_scrape_book_handler.setFormatter(
+    logging.Formatter("%(asctime)s %(levelname)s %(message)s")
+)
+scrape_book_logger = logging.getLogger("scrape_book")
+scrape_book_logger.setLevel(logging.WARNING)
+if not scrape_book_logger.handlers:
+    scrape_book_logger.addHandler(_scrape_book_handler)
+
+_HTTP_TIMEOUT = 60          # secondes
+_HTTP_MAX_RETRIES = 3
+_HTTP_BACKOFF = 10          # secondes entre tentatives (multiplié par le numéro de tentative)
 
 
 class Command(BaseCommand):
     help = "Import book data"
-    NUMBER_OF_RECORDS_PER_CALL = 500  # I think it's a good value without api error
+    NUMBER_OF_RECORDS_PER_CALL = 200  # Réduit pour éviter les erreurs serveur ABES
 
     langs: List[Lang] = []
     bookTypes: List[BookType] = []
@@ -62,20 +84,65 @@ class Command(BaseCommand):
                 )
                 | Q(last_scraped_date__isnull=True)
             )
-        for rcr in rcrs:
+        rcrs = list(rcrs)
+        total_rcrs = len(rcrs)
+        for rcr_index, rcr in enumerate(rcrs, 1):
+            print(f"[RCR {rcr_index}/{total_rcrs}] {rcr.rcr_number}")
             try:
                 self.parse_one_rcr(rcr)
                 rcr.last_scraped_date = datetime.datetime.now(tz=pytz.UTC)
                 rcr.save()
             except Exception as e:
-                print(traceback.format_exc())
-                print(f"Error parsing rcr {rcr.rcr_number}: {e}")
-            print(" ")
+                scrape_book_logger.error(
+                    "Erreur irrécupérable sur le RCR %s : %s\n%s",
+                    rcr.rcr_number, e, traceback.format_exc(),
+                )
+                # print(traceback.format_exc())
+                # print(f"Error parsing rcr {rcr.rcr_number}: {e}")
+            # print(" ")
+
+    def _get_with_retry(self, url: str) -> rq.Response:
+        """Exécute un GET HTTP avec retry et backoff. Lève l'exception au dernier échec."""
+        last_exc = None
+        for attempt in range(1, _HTTP_MAX_RETRIES + 1):
+            try:
+                response = rq.get(url, timeout=_HTTP_TIMEOUT)
+                return response
+            except (
+                rq.exceptions.ChunkedEncodingError,
+                rq.exceptions.ConnectionError,
+                rq.exceptions.Timeout,
+            ) as e:
+                last_exc = e
+                if attempt < _HTTP_MAX_RETRIES:
+                    wait = _HTTP_BACKOFF * attempt
+                    scrape_book_logger.warning(
+                        "Tentative %d/%d échouée pour %s : %s. Nouvel essai dans %ds.",
+                        attempt, _HTTP_MAX_RETRIES, url, e, wait,
+                    )
+                    time.sleep(wait)
+                else:
+                    scrape_book_logger.error(
+                        "Toutes les tentatives (%d) ont échoué pour %s : %s",
+                        _HTTP_MAX_RETRIES, url, e,
+                    )
+        raise last_exc
 
     def parse_one_rcr(self, rcr: Rcr, start_record: int = 1):
         start_time = datetime.datetime.now()
-        url = f"{self.url}?operation=searchRetrieve&recordSchema=unimarc&version=1.1&query=rbc%3D{rcr.rcr_number}&maximumRecords=1&startRecord=1"
-        rcr_csv: str = rq.get(url)
+        url = (
+            f"{self.url}?operation=searchRetrieve&recordSchema=unimarc&version=1.1"
+            f"&query=rbc%3D{rcr.rcr_number}&maximumRecords=1&startRecord=1"
+        )
+        try:
+            rcr_csv = self._get_with_retry(url)
+        except Exception as e:
+            scrape_book_logger.error(
+                "Impossible de récupérer le nombre de notices pour le RCR %s : %s",
+                rcr.rcr_number, e,
+            )
+            return
+
         reader = csv.DictReader(
             codecs.iterdecode(rcr_csv.iter_lines(), "utf-8"),
             delimiter="\t",
@@ -87,19 +154,26 @@ class Command(BaseCommand):
         if number_of_records == 0 or not number_of_records:
             return
 
-        for i in range(
-            1,
-            int(number_of_records),
-            (
-                int(self.NUMBER_OF_RECORDS_PER_CALL)
-                if int(self.NUMBER_OF_RECORDS_PER_CALL) < int(number_of_records)
-                else number_of_records
-            ),
-        ):
-            self.parse_one_record(i, rcr)
+        step = (
+            int(self.NUMBER_OF_RECORDS_PER_CALL)
+            if int(self.NUMBER_OF_RECORDS_PER_CALL) < int(number_of_records)
+            else int(number_of_records)
+        )
+        for i in range(1, int(number_of_records) + 1, step):
+            try:
+                self.parse_one_record(i, rcr)
+            except Exception as e:
+                scrape_book_logger.error(
+                    "Erreur sur le batch startRecord=%d pour le RCR %s : %s\n%s",
+                    i, rcr.rcr_number, e, traceback.format_exc(),
+                )
+                print(f"Batch startRecord={i} ignoré pour RCR {rcr.rcr_number} : {e}")
+                continue
+            elapsed = datetime.datetime.now() - start_time
+            remaining = elapsed / i * (int(number_of_records) - i)
             print(
                 f"scrape {i}/{number_of_records} for rcr:{rcr.rcr_number} - "
-                f"in: {datetime.datetime.now() - start_time}"
+                f"in: {elapsed} (finish in {remaining})"
             )
 
     def parse_one_record(self, index: str, rcr: Rcr):
@@ -109,9 +183,9 @@ class Command(BaseCommand):
             f"&startRecord={index}"
         )
         request_start_time = datetime.datetime.now()
-        rcr_csv: str = rq.get(url)
+        rcr_csv = self._get_with_retry(url)
         request_time = datetime.datetime.now() - request_start_time
-        print(f"Request time: {request_time}")
+        # print(f"Request time: {request_time}")
 
         reader = csv.DictReader(
             codecs.iterdecode(rcr_csv.iter_lines(), "utf-8"),
@@ -173,9 +247,16 @@ class Command(BaseCommand):
                 else None
             )
 
+            if not book_data["ppn"]:
+                scrape_book_logger.warning(
+                    "Enregistrement ignoré (PPN absent) pour le RCR %s — unique_identifier : %s",
+                    rcr.rcr_number, book_data["physical_copy_id"],
+                )
+                continue
+
             books_to_create.append(
                 Book(
-                    unique_identifier=book_data["physical_copy_id"],
+                    unique_identifier=f"{book_data['physical_copy_id']}_{rcr.rcr_number}",
                     ppn=book_data["ppn"],
                     title=book_data["title"],
                     lang_id=next(
@@ -258,7 +339,7 @@ class Command(BaseCommand):
             ],
         )
 
-        print(f"Created {len(created_books)} books")
+        # print(f"Created {len(created_books)} books")
 
         # for book in created_books:
         #     for to_create_book in books_data:
@@ -268,7 +349,7 @@ class Command(BaseCommand):
         #                 book.tags.add(tag_obj)
 
         db_time = datetime.datetime.now() - db_start_time
-        print(f"Database insertion time: {db_time} for {len(books_to_create)} books")
+        # print(f"Database insertion time: {db_time} for {len(books_to_create)} books")
 
     def remove_duplicates_editors(self, editors_data: list[Dict]):
         # remove editors with same title
