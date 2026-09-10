@@ -58,7 +58,7 @@ class RcrSearchFilters(Schema):
     publicationDatesEnd: Optional[int] = None
     reeditionDatesStart: Optional[int] = None
     reeditionDatesEnd: Optional[int] = None
-    nullValues: Optional[bool] = True
+    nullValues: Optional[bool] = False
 
 
 # Cache des tables de référence

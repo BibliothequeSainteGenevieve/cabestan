@@ -35,7 +35,7 @@ class BookSearchFilters(Schema):
     type: Optional[str] = None
     subtitle: Optional[str] = None
     string: Optional[str] = None
-    nullValues: Optional[bool] = True
+    nullValues: Optional[bool] = False
     allBooks: Optional[bool] = False
 
 

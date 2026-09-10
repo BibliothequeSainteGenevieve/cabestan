@@ -11,6 +11,13 @@ import { getMapData } from "@/api";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { useTranslation } from "react-i18next";
 
+// CARTO Basemaps now require an API key (https://carto.com/basemaps/apikey/).
+// Without it, tiles are served with an "API KEY REQUIRED" watermark.
+const CARTO_API_KEY = import.meta.env.VITE_CARTO_API_KEY;
+const TILE_URL =
+	"https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" +
+	(CARTO_API_KEY ? `?key=${CARTO_API_KEY}` : "");
+
 export default function Map() {
 	const { t } = useTranslation();
 	const [bounds, setBounds] = useState<LatLngBoundsExpression | undefined>();
@@ -75,7 +82,7 @@ export default function Map() {
 					attributionControl={false}>
 					<TileLayer
 						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-						url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+						url={TILE_URL}
 						subdomains="abcd"
 						noWrap={true}
 					/>

@@ -1,5 +1,10 @@
 from typing import Dict, List, Optional
 from rest.models import Author, AuthorType
+import logging
+
+author_utils_logger = logging.getLogger("scrape_book")
+
+_AUTHOR_FIELD_MAX_LENGTH = 100
 
 
 class AuthorUtils:
@@ -49,14 +54,22 @@ class AuthorUtils:
 
     def _create_authors_in_bulk(self):
         """Crée les auteurs en masse dans la base de données"""
-        authors_to_create = [
-            Author(
-                firstname=firstname or "",
-                lastname=lastname or "",
-                type_id=self.author_type_ids.get(role),
+        authors_to_create = []
+        for (firstname, lastname, role) in self.author_mapping.keys():
+            fn = (firstname or "")[:_AUTHOR_FIELD_MAX_LENGTH]
+            ln = (lastname or "")[:_AUTHOR_FIELD_MAX_LENGTH]
+            if len(firstname or "") > _AUTHOR_FIELD_MAX_LENGTH or len(lastname or "") > _AUTHOR_FIELD_MAX_LENGTH:
+                author_utils_logger.warning(
+                    "Valeur auteur tronquée à %d caractères — prénom : %r, nom : %r",
+                    _AUTHOR_FIELD_MAX_LENGTH, firstname, lastname,
+                )
+            authors_to_create.append(
+                Author(
+                    firstname=fn,
+                    lastname=ln,
+                    type_id=self.author_type_ids.get(role),
+                )
             )
-            for (firstname, lastname, role) in self.author_mapping.keys()
-        ]
 
         # Suppression des doublons
         authors_to_create = self._remove_duplicates_authors(authors_to_create)

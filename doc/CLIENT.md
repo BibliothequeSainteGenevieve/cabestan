@@ -130,6 +130,16 @@ Utilisation de i18next pour :
 
 ## Déploiement
 
+### Variables d'environnement
+
+Les variables `VITE_*` sont **inlinées au moment du build** (`npm run build`).
+Copier `client/.env.example` vers `client/.env` et renseigner les valeurs, en
+particulier :
+
+- `VITE_CARTO_API_KEY` : clé API CARTO Basemaps
+  (https://carto.com/basemaps/apikey/). Sans elle, les tuiles de la carte sont
+  servies avec le filigrane « API KEY REQUIRED ».
+
 ### Production Build
 ```bash
 npm run build

@@ -11,7 +11,7 @@ export default function SwitchNullValues() {
 	const setFilterSearchParams = useSetFilterSearchParams();
 	const [searchParams] = useSearchParams();
 	const [nullValues, setNullValues] = useState(
-		searchParams.get(FilterTypes.NULL_VALUES) ? searchParams.get(FilterTypes.NULL_VALUES) === "true" : true
+		searchParams.get(FilterTypes.NULL_VALUES) ? searchParams.get(FilterTypes.NULL_VALUES) === "true" : false
 	);
 
 	const handleChange = (value: boolean) => {
