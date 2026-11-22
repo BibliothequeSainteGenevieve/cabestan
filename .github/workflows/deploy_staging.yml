@@ -1,6 +1,6 @@
 name: Deploy Cabestan staging
 run-name: Deploy Cabestan staging
-on:
+on: 
   push:
     branches:
       - develop
