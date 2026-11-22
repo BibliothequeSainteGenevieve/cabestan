@@ -28,6 +28,7 @@ env:
   VITE_API_HOST: ${{vars.HOST}}
   VITE_API_PATH: /api/rest
   VITE_CACHE_TTL: 1000
+  VITE_CARTO_API_KEY: ${{secrets.VITE_CARTO_API_KEY}}
   REDIS_HOST: ${{vars.REDIS_HOST}}
   DB_HOST: ${{vars.DB_HOST}}
 
